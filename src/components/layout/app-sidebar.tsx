@@ -44,7 +44,7 @@ const LogoIcon = (props: React.SVGProps<SVGSVGElement>) => (
 const CollapseIcon = (props: React.SVGProps<SVGSVGElement>) => (
     <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
         <rect x="0.5" y="0.5" width="13" height="13" rx="3.5" stroke="currentColor"/>
-        <rect x="4" y="4" width="6" height="6" rx="1" fill="currentColor"/>
+        <path d="M9 4L5 7L9 10" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"/>
     </svg>
 )
 
@@ -57,7 +57,10 @@ export function AppSidebar() {
   return (
     <Sidebar>
       <SidebarHeader className="p-4 border-b flex justify-between items-center">
-        <LogoIcon className="h-4 w-4" />
+        <div className="flex items-center gap-2">
+            <LogoIcon className="h-4 w-4" />
+            <span className="font-semibold text-sm">Untitled</span>
+        </div>
         <Button 
           variant="ghost" 
           size="icon" 
