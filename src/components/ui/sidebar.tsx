@@ -535,7 +535,7 @@ const sidebarMenuButtonVariants = cva(
 )
 
 const SidebarMenuButton = React.forwardRef<
-  HTMLButtonElement,
+  HTMLButtonElement | HTMLAnchorElement,
   React.ComponentProps<"button"> & {
     asChild?: boolean
     isActive?: boolean
@@ -558,44 +558,20 @@ const SidebarMenuButton = React.forwardRef<
     ref
   ) => {
     const { isMobile, state } = useSidebar()
-
-    const buttonContent = (
-      <Slot
-        ref={ref as React.Ref<HTMLButtonElement>}
+    const Comp = asChild ? Slot : href ? Link : "button"
+    
+    const button = (
+      <Comp
+        ref={ref}
+        href={href!}
         data-sidebar="menu-button"
         data-size={size}
         data-active={isActive}
-        className={cn(sidebarMenuButtonVariants({ variant, size }), className)}
+        className={cn(sidebarMenuButtonVariants({ variant, size, className }))}
         {...props}
       >
         {children}
-      </Slot>
-    )
-
-    const button = href ? (
-      <Link href={href} passHref legacyBehavior>
-        <a
-          ref={ref as React.Ref<HTMLAnchorElement>}
-          data-sidebar="menu-button"
-          data-size={size}
-          data-active={isActive}
-          className={cn(sidebarMenuButtonVariants({ variant, size }), className)}
-          {...(props as React.AnchorHTMLAttributes<HTMLAnchorElement>)}
-        >
-          {children}
-        </a>
-      </Link>
-    ) : (
-      <button
-        ref={ref as React.Ref<HTMLButtonElement>}
-        data-sidebar="menu-button"
-        data-size={size}
-        data-active={isActive}
-        className={cn(sidebarMenuButtonVariants({ variant, size }), className)}
-        {...props}
-      >
-        {children}
-      </button>
+      </Comp>
     );
 
     if (!tooltip) {
