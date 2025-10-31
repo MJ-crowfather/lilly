@@ -6,7 +6,6 @@ import { AppSidebar } from '@/components/layout/app-sidebar';
 import { SidebarProvider, SidebarInset } from '@/components/ui/sidebar';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Gem } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 
 export default function DataPage() {
   return (
@@ -26,14 +25,14 @@ export default function DataPage() {
                     </TableHeader>
                     <TableBody>
                       <TableRow>
-                        <TableCell colSpan={2} className="p-0">
-                          <Link href="/data/final-merged-sheet" className="block hover:bg-muted/50">
-                            <div className="grid grid-cols-2">
+                        <TableCell className="p-0" colSpan={2}>
+                          <Link href="/data/final-merged-sheet" className="block hover:bg-muted/50 focus:outline-none focus:ring-2 focus:ring-ring rounded-lg">
+                            <div className="grid grid-cols-1 md:grid-cols-2">
                                 <div className="font-medium p-4 flex items-center gap-2">
                                     <Gem className="h-4 w-4 text-muted-foreground" />
                                     <span>Final Merged Sheet</span>
                                 </div>
-                                <div className="p-4">
+                                <div className="p-4 text-muted-foreground md:text-foreground">
                                     Final Merged Sheet Dataset
                                 </div>
                             </div>
