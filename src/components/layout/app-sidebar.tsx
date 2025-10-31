@@ -11,7 +11,8 @@ import {
   SidebarMenuButton,
   SidebarGroup,
   SidebarGroupLabel,
-  SidebarGroupAction
+  SidebarGroupAction,
+  SidebarSeparator
 } from "@/components/ui/sidebar"
 import {
   DropdownMenu,
@@ -29,22 +30,13 @@ const ProcessIcon = (props: React.SVGProps<SVGSVGElement>) => (
   </svg>
 )
 
-
 export function AppSidebar() {
   const pathname = usePathname()
   
   return (
     <Sidebar collapsible="none">
       <SidebarHeader className="p-4 border-b">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Avatar className="h-8 w-8 rounded-sm bg-yellow-300">
-              <AvatarFallback className="bg-yellow-300 rounded-sm font-bold text-yellow-900">L</AvatarFallback>
-            </Avatar>
-            <h2 className="text-sm font-semibold tracking-tight">Lyft</h2>
-          </div>
-          <ChevronDown className="h-4 w-4 text-muted-foreground" />
-        </div>
+        <h2 className="text-lg font-semibold tracking-tight">Reconciliation</h2>
       </SidebarHeader>
       <SidebarContent className="p-2">
         <SidebarMenu>
@@ -84,6 +76,42 @@ export function AppSidebar() {
         </SidebarMenu>
 
       </SidebarContent>
+      <SidebarSeparator />
+      <SidebarFooter>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton href="#" tooltip="Settings">
+              <Settings />
+              Settings
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+          <SidebarMenuItem>
+            <SidebarMenuButton href="#" tooltip="Support">
+              <LifeBuoy />
+              Support
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+          <SidebarMenuItem>
+            <SidebarMenuButton href="#" tooltip="Logout">
+              <LogOut />
+              Logout
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
+        <SidebarSeparator />
+        <div className="flex items-center justify-between p-2">
+            <div className="flex items-center gap-2">
+              <Avatar className="h-8 w-8 rounded-sm bg-yellow-300">
+                <AvatarFallback className="bg-yellow-300 rounded-sm font-bold text-yellow-900">L</AvatarFallback>
+              </Avatar>
+              <div className="flex flex-col">
+                <span className="text-sm font-semibold tracking-tight">Lyft</span>
+                <span className="text-xs text-muted-foreground">hello@lyft.com</span>
+              </div>
+            </div>
+            <MoreVertical className="h-5 w-5 text-muted-foreground" />
+          </div>
+      </SidebarFooter>
     </Sidebar>
   )
 }
