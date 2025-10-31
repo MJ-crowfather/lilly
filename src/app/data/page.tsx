@@ -25,19 +25,15 @@ export default function DataPage() {
                     </TableHeader>
                     <TableBody>
                       <TableRow>
-                        <TableCell className="p-0" colSpan={2}>
-                          <Link href="/data/final-merged-sheet" className="block hover:bg-muted/50 focus:outline-none focus:ring-2 focus:ring-ring rounded-lg">
-                            <div className="grid grid-cols-1 md:grid-cols-2">
-                                <div className="font-medium p-4 flex items-center gap-2">
-                                    <Gem className="h-4 w-4 text-muted-foreground" />
-                                    <span>Final Merged Sheet</span>
-                                </div>
-                                <div className="p-4 text-muted-foreground md:text-foreground">
-                                    Final Merged Sheet Dataset
-                                </div>
-                            </div>
-                          </Link>
-                        </TableCell>
+                          <TableCell className="font-medium">
+                            <Link href="/data/final-merged-sheet" className="flex items-center gap-2 hover:underline">
+                              <Gem className="h-4 w-4 text-muted-foreground" />
+                              Final Merged Sheet
+                            </Link>
+                          </TableCell>
+                          <TableCell>
+                            Final Merged Sheet Dataset
+                          </TableCell>
                       </TableRow>
                     </TableBody>
                 </Table>
