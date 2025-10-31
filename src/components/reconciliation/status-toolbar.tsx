@@ -3,25 +3,29 @@
 import type { StatusCard as StatusCardType } from "@/lib/data"
 import { cn } from "@/lib/utils"
 
+type StatusToolbarProps = {
+    statuses: StatusCardType[]
+}
+
 const iconMap: { [key: string]: React.FC<any> } = {
   "Needs Attention": (props) => (
     <svg viewBox="0 0 8 8" fill="currentColor" {...props}>
-      <circle cx="4" cy="4" r="4" />
+      <rect width="8" height="8" rx="1.5" />
     </svg>
   ),
   "Void": (props) => (
     <svg viewBox="0 0 8 8" fill="currentColor" {...props}>
-      <rect width="8" height="8" rx="2" />
+      <rect width="8" height="8" rx="1.5" />
     </svg>
   ),
   "In Progress": (props) => (
     <svg viewBox="0 0 8 8" fill="currentColor" {...props}>
-      <rect width="8" height="8" rx="2" />
+      <rect width="8" height="8" rx="1.5" />
     </svg>
   ),
   "Done": (props) => (
      <svg viewBox="0 0 8 8" fill="currentColor" {...props}>
-      <rect width="8" height="8" rx="2" />
+      <rect width="8" height="8" rx="1.5" />
     </svg>
   ),
 }
@@ -35,19 +39,19 @@ const colorMap = {
 
 export function StatusToolbar({ statuses }: StatusToolbarProps) {
   return (
-    <div className="flex items-center gap-4 text-sm text-muted-foreground">
+    <div className="flex items-center gap-4 text-xs text-muted-foreground">
       {statuses.map((status) => {
         const Icon = iconMap[status.title]
         return (
           <div
             key={status.title}
             className={cn(
-              "flex items-center gap-2 p-1 rounded-md",
-              status.title === "Needs Attention" && "border px-2" ,
+              "flex items-center gap-1.5 p-1 rounded",
+              status.title === "Needs Attention" && "border px-1.5" ,
               colorMap[status.title]
             )}
           >
-            <Icon className="h-2 w-2" />
+            <Icon className="h-1.5 w-1.5" />
             <span>{status.title}</span>
             <span className="font-semibold text-foreground">{status.value}</span>
           </div>
