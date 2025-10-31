@@ -15,7 +15,6 @@ export function AppHeader() {
     <header className="flex items-center justify-between gap-4 p-4 md:px-6 md:pt-6 border-b">
       <div className="flex items-center gap-2">
         <SidebarTrigger className="md:hidden" />
-        <ReconciliationIcon className="hidden md:block" />
         <h1 className="text-base font-semibold tracking-tight">ACH + Checks Reconciliation</h1>
       </div>
       <div className="flex items-center gap-2 md:gap-4">
