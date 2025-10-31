@@ -558,24 +558,35 @@ const SidebarMenuButton = React.forwardRef<
     ref
   ) => {
     const { isMobile, state } = useSidebar()
-    const Comp = asChild ? Slot : href ? Link : "button"
-    
-    const button = (
-      <Comp
-        ref={ref}
-        href={href!}
-        data-sidebar="menu-button"
-        data-size={size}
-        data-active={isActive}
-        className={cn(sidebarMenuButtonVariants({ variant, size, className }))}
-        {...props}
-      >
+    const Comp = asChild ? Slot : 'button';
+
+    const buttonContent = (
+      <div className={cn(sidebarMenuButtonVariants({ variant, size, className }))}>
         {children}
-      </Comp>
+      </div>
     );
 
+    const button =
+      href ? (
+        <Link href={href} ref={ref as React.Ref<HTMLAnchorElement>} {...props} className="ring-0 outline-none">
+          {buttonContent}
+        </Link>
+      ) : (
+        <Comp ref={ref as React.Ref<HTMLButtonElement>} {...props}>
+          {buttonContent}
+        </Comp>
+      );
+
     if (!tooltip) {
-      return button
+      return href ? (
+         <Link href={href} ref={ref as React.Ref<HTMLAnchorElement>} {...props} className={cn(sidebarMenuButtonVariants({ variant, size, className }))}>
+            {children}
+          </Link>
+      ) : (
+        <button ref={ref as React.Ref<HTMLButtonElement>} {...props} className={cn(sidebarMenuButtonVariants({ variant, size, className }))}>
+          {children}
+        </button>
+      )
     }
 
     if (typeof tooltip === "string") {
@@ -586,7 +597,17 @@ const SidebarMenuButton = React.forwardRef<
 
     return (
       <Tooltip>
-        <TooltipTrigger asChild>{button}</TooltipTrigger>
+        <TooltipTrigger asChild>
+          {href ? (
+            <Link href={href} ref={ref as React.Ref<HTMLAnchorElement>} {...props} className={cn(sidebarMenuButtonVariants({ variant, size, className }))}>
+              {children}
+            </Link>
+          ) : (
+             <button ref={ref as React.Ref<HTMLButtonElement>} {...props} className={cn(sidebarMenuButtonVariants({ variant, size, className }))}>
+              {children}
+            </button>
+          )}
+        </TooltipTrigger>
         <TooltipContent
           side="right"
           align="center"
