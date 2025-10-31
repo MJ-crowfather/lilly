@@ -1,0 +1,92 @@
+'use client';
+
+import { AppHeader } from '@/components/layout/app-header';
+import { AppSidebar } from '@/components/layout/app-sidebar';
+import { SidebarProvider, SidebarInset } from '@/components/ui/sidebar';
+import { Button } from '@/components/ui/button';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { finalMergedSheetData, type MergedSheetEntry } from '@/lib/data';
+import { Filter, ArrowDownToLine, History, PanelTopOpen, ArrowUpDown } from 'lucide-react';
+
+const tableHeaders = [
+  "Statement Id",
+  "Reconciliation Reference",
+  "Amount",
+  "Additional Entry Information",
+  "Investigation And Assignment",
+  "Vin",
+  "Period"
+];
+
+function SortableHeader({ children }: { children: React.ReactNode }) {
+    return (
+        <div className="flex items-center gap-2">
+            {children}
+            <ArrowUpDown className="h-3 w-3 text-muted-foreground" />
+        </div>
+    )
+}
+
+
+export default function SheetDetailsPage({ params }: { params: { sheetId: string } }) {
+  // In a real app, you would fetch data based on params.sheetId
+  const data: MergedSheetEntry[] = finalMergedSheetData;
+
+  return (
+    <SidebarProvider>
+      <AppSidebar />
+      <SidebarInset>
+        <div className="flex flex-col h-screen">
+          <AppHeader />
+          <main className="flex-1 flex flex-col">
+            <div className="p-4 md:px-6 flex items-center justify-between border-b">
+                <Button variant="outline" size="sm" className="flex items-center gap-2">
+                    <Filter className="h-4 w-4" />
+                    <span>Filter</span>
+                </Button>
+                <div className="flex items-center gap-2">
+                    <Button variant="ghost" size="icon">
+                        <ArrowDownToLine className="h-4 w-4" />
+                    </Button>
+                    <Button variant="ghost" size="icon">
+                        <History className="h-4 w-4" />
+                    </Button>
+                    <Button variant="ghost" size="icon">
+                        <PanelTopOpen className="h-4 w-4" />
+                    </Button>
+                </div>
+            </div>
+            <div className="flex-1 overflow-auto">
+              <div className="rounded-lg bg-card text-card-foreground">
+                  <Table>
+                      <TableHeader>
+                          <TableRow>
+                            {tableHeaders.map(header => (
+                                <TableHead key={header}>
+                                    <SortableHeader>{header}</SortableHeader>
+                                </TableHead>
+                            ))}
+                          </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                          {data.map((row, index) => (
+                              <TableRow key={index}>
+                                  <TableCell>{row.statementId}</TableCell>
+                                  <TableCell>{row.reconciliationReference}</TableCell>
+                                  <TableCell>{row.amount}</TableCell>
+                                  <TableCell>{row.additionalEntryInfo}</TableCell>
+                                  <TableCell>{row.investigationAndAssignment}</TableCell>
+                                  <TableCell>{row.vin}</TableCell>
+                                  <TableCell>{row.period}</TableCell>
+                              </TableRow>
+                          ))}
+                      </TableBody>
+                  </Table>
+              </div>
+            </div>
+          </main>
+        </div>
+      </SidebarInset>
+    </SidebarProvider>
+  );
+}

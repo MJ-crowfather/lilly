@@ -1,10 +1,12 @@
 'use client';
 
+import Link from 'next/link';
 import { AppHeader } from '@/components/layout/app-header';
 import { AppSidebar } from '@/components/layout/app-sidebar';
 import { SidebarProvider, SidebarInset } from '@/components/ui/sidebar';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Gem } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 export default function DataPage() {
   return (
@@ -23,14 +25,18 @@ export default function DataPage() {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        <TableRow>
+                        <TableRow className="cursor-pointer hover:bg-muted/50">
                             <TableCell className="font-medium">
-                                <div className="flex items-center gap-2">
+                                <Link href="/data/final-merged-sheet" className="flex items-center gap-2">
                                     <Gem className="h-4 w-4 text-muted-foreground" />
                                     <span>Final Merged Sheet</span>
-                                </div>
+                                </Link>
                             </TableCell>
-                            <TableCell>Final Merged Sheet Dataset</TableCell>
+                            <TableCell>
+                                <Link href="/data/final-merged-sheet" className="block w-full h-full">
+                                    Final Merged Sheet Dataset
+                                </Link>
+                            </TableCell>
                         </TableRow>
                     </TableBody>
                 </Table>
