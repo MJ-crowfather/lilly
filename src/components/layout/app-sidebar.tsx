@@ -55,7 +55,9 @@ export function AppSidebar() {
   return (
     <Sidebar>
       <SidebarHeader className="p-4 border-b">
-        <Image src="/logo.svg" alt="Logo" width={92} height={24} />
+        <Image src="/logo.svg" alt="Logo" width={35} height={30
+          
+        } />
       </SidebarHeader>
       <SidebarContent className="p-2">
         <SidebarMenu>
@@ -91,7 +93,7 @@ export function AppSidebar() {
                 href="/"
                 isActive={pathname === '/'}
                 tooltip="ACH + Checks Reconciliation"
-                className="font-normal data-[active=true]:font-normal"
+                className="font-normal data-[active=true]:font-normal text-xs"
               >
                 <ProcessIcon />
                 ACH + Checks Reconciliation
