@@ -48,45 +48,32 @@ const ProcessIcon = (props: React.SVGProps<SVGSVGElement>) => (
 
 const LogoIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
-    width="18"
-    height="18"
-    viewBox="0 0 18 18"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
+    {/* You can replace this path with your own SVG logo path */}
     <path
-      d="M9 18V9.25C9 9.11193 9.11193 9 9.25 9H18V18H9Z"
-      fill="#D0F0C0"
-    />
-    <path
-      d="M0 18V9.25C0 9.11193 0.111928 9 0.25 9H8.75C8.88807 9 9 9.11193 9 9.25V18H0Z"
-      fill="currentColor"
-    />
-    <path
-      d="M9 0V8.75C9 8.88807 8.88807 9 8.75 9H0V0H9Z"
-      fill="currentColor"
-    />
-    <path
-      d="M18 0V8.75C18 8.88807 17.8881 9 17.75 9H9.25C9.11193 9 9 8.88807 9 8.75V0H18Z"
-      fill="#EAF3FF"
-    />
-  </svg>
-);
-
-const CollapseIcon = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg
-    width="14"
-    height="14"
-    viewBox="0 0 14 14"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    {...props}
-  >
-    <rect x="0.5" y="0.5" width="13" height="13" rx="3.5" stroke="currentColor" />
-    <path
-      d="M9 4L5 7L9 10"
+      d="M12 2L2 7L12 12L22 7L12 2Z"
       stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M2 17L12 22L22 17"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M2 12L12 17L22 12"
+      stroke="currentColor"
+      strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
     />
@@ -101,8 +88,8 @@ export function AppSidebar() {
   return (
     <Sidebar>
       <SidebarHeader className="p-4 border-b">
-        <div className="flex items-center gap-2">
-          <LogoIcon className="h-4 w-auto" />
+        <div className="flex items-center justify-between">
+            <LogoIcon className="h-6 w-auto" />
         </div>
       </SidebarHeader>
       <SidebarContent className="p-2">
