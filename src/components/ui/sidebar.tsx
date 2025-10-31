@@ -536,10 +536,9 @@ const sidebarMenuButtonVariants = cva(
 
 const SidebarMenuButton = React.forwardRef<
   HTMLButtonElement | HTMLAnchorElement,
-  (React.ComponentProps<"button"> | React.ComponentProps<typeof Link>) & {
+  (React.ComponentProps<"button"> | (React.ComponentProps<typeof Link> & { href: string })) & {
     isActive?: boolean
     tooltip?: string | React.ComponentProps<typeof TooltipContent>
-    href?: string
   } & VariantProps<typeof sidebarMenuButtonVariants>
 >(
   (
@@ -548,7 +547,6 @@ const SidebarMenuButton = React.forwardRef<
       variant = "default",
       size = "default",
       tooltip,
-      href,
       className,
       children,
       ...props
@@ -557,24 +555,27 @@ const SidebarMenuButton = React.forwardRef<
   ) => {
     const { isMobile, state } = useSidebar()
 
-    const button = (
+    const content = (
       <div
         data-active={isActive}
         className={cn(sidebarMenuButtonVariants({ variant, size, className }))}
       >
         {children}
       </div>
-    )
+    );
 
-    const trigger = href ? (
-      <Link href={href} ref={ref as React.Ref<HTMLAnchorElement>} {...props}>
-        {button}
+    const isLink = 'href' in props;
+
+    const trigger = isLink ? (
+      <Link {...props} ref={ref as React.Ref<HTMLAnchorElement>}>
+        {content}
       </Link>
     ) : (
-      <button ref={ref as React.Ref<HTMLButtonElement>} {...props}>
-        {button}
+      <button {...props} ref={ref as React.Ref<HTMLButtonElement>}>
+        {content}
       </button>
-    )
+    );
+    
 
     if (!tooltip) {
       return trigger
