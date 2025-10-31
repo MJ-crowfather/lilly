@@ -55,15 +55,13 @@ export function AppSidebar() {
   return (
     <Sidebar>
       <SidebarHeader className="p-4 border-b">
-        <Image src="/logo.svg" alt="Logo" width={35} height={30
-          
-        } />
+         <Image src="/logo.svg" alt="Logo" width={100} height={24} />
       </SidebarHeader>
       <SidebarContent className="p-2">
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton
-              href="#"
+              href="/data"
               isActive={pathname.startsWith('/data')}
               tooltip="Data"
             >
@@ -96,7 +94,7 @@ export function AppSidebar() {
                 className="font-normal data-[active=true]:font-normal text-xs"
               >
                 <ProcessIcon />
-                ACH + Checks Reconciliation
+                <span style={{ fontSize: '0.7rem' }}>ACH + Checks Reconciliation</span>
               </SidebarMenuButton>
             </SidebarMenuItem>
           </SidebarGroup>
