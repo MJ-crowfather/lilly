@@ -55,7 +55,7 @@ export function AppSidebar() {
   return (
     <Sidebar>
       <SidebarHeader className="p-4 border-b">
-         <Image src="/logo.svg" alt="Logo" width={100} height={24} />
+         <Image src="/logo.svg" alt="Logo" width={35} height={30} />
       </SidebarHeader>
       <SidebarContent className="p-2">
         <SidebarMenu>
