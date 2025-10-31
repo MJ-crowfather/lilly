@@ -63,13 +63,15 @@ export function AppSidebar() {
       </SidebarHeader>
       <SidebarContent className="p-2">
         <SidebarMenu>
-           <Link href="/data" className={cn(
-              "peer/menu-button flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left text-sm outline-none ring-sidebar-ring transition-[width,height,padding] hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 group-has-[[data-sidebar=menu-action]]/menu-item:pr-8 aria-disabled:pointer-events-none aria-disabled:opacity-50 h-8 text-sm",
-              isDataActive ? 'bg-sidebar-accent font-semibold text-sidebar-accent-foreground' : ''
-            )}>
-              <Database />
-              <span>Data</span>
-          </Link>
+          <SidebarMenuItem>
+             <Link href="/data" className={cn(
+                "peer/menu-button flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left text-sm outline-none ring-sidebar-ring transition-[width,height,padding] hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 group-has-[[data-sidebar=menu-action]]/menu-item:pr-8 aria-disabled:pointer-events-none aria-disabled:opacity-50 h-8 text-sm",
+                isDataActive && 'bg-sidebar-accent font-semibold text-sidebar-accent-foreground'
+              )}>
+                <Database />
+                <span>Data</span>
+            </Link>
+          </SidebarMenuItem>
           <SidebarMenuItem>
             <SidebarMenuButton
               href="#"
