@@ -1,11 +1,11 @@
-'use client'
+'use client';
 
-import * as React from "react"
-import { usePathname } from "next/navigation"
-import { 
-  Sidebar, 
-  SidebarHeader, 
-  SidebarContent, 
+import * as React from 'react';
+import { usePathname } from 'next/navigation';
+import {
+  Sidebar,
+  SidebarHeader,
+  SidebarContent,
   SidebarFooter,
   SidebarMenu,
   SidebarMenuItem,
@@ -15,129 +15,194 @@ import {
   SidebarGroupAction,
   SidebarSeparator,
   useSidebar,
-  SidebarTrigger
-} from "@/components/ui/sidebar"
+} from '@/components/ui/sidebar';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
   DropdownMenuSeparator,
-} from "@/components/ui/dropdown-menu"
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
-import { Button } from "@/components/ui/button"
-import { ChevronUp, Check, Database, FilePlus, Users, LogOut } from "lucide-react"
+} from '@/components/ui/dropdown-menu';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { Button } from '@/components/ui/button';
+import { ChevronUp, Check, Database, FilePlus, Users, LogOut } from 'lucide-react';
 
 const ProcessIcon = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
-    <path d="M1 8H3L5 3L8 13L11 1L13 8H15" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+  <svg
+    width="16"
+    height="16"
+    viewBox="0 0 16 16"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
+    <path
+      d="M1 8H3L5 3L8 13L11 1L13 8H15"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
   </svg>
-)
+);
 
 const LogoIcon = (props: React.SVGProps<SVGSVGElement>) => (
-    <svg width="18" height="12" viewBox="0 0 18 12" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
-        <path d="M0 5L8 5V7L0 7V5Z" fill="currentColor"/>
-        <path d="M10 0L18 0V2L10 2V0Z" fill="currentColor"/>
-    </svg>
-)
+  <svg
+    width="18"
+    height="18"
+    viewBox="0 0 18 18"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
+    <path
+      d="M9 18V9.25C9 9.11193 9.11193 9 9.25 9H18V18H9Z"
+      fill="#D0F0C0"
+    />
+    <path
+      d="M0 18V9.25C0 9.11193 0.111928 9 0.25 9H8.75C8.88807 9 9 9.11193 9 9.25V18H0Z"
+      fill="currentColor"
+    />
+    <path
+      d="M9 0V8.75C9 8.88807 8.88807 9 8.75 9H0V0H9Z"
+      fill="currentColor"
+    />
+    <path
+      d="M18 0V8.75C18 8.88807 17.8881 9 17.75 9H9.25C9.11193 9 9 8.88807 9 8.75V0H18Z"
+      fill="#EAF3FF"
+    />
+  </svg>
+);
 
 const CollapseIcon = (props: React.SVGProps<SVGSVGElement>) => (
-    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
-        <rect x="0.5" y="0.5" width="13" height="13" rx="3.5" stroke="currentColor"/>
-        <path d="M9 4L5 7L9 10" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"/>
-    </svg>
-)
+  <svg
+    width="14"
+    height="14"
+    viewBox="0 0 14 14"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
+    <rect x="0.5" y="0.5" width="13" height="13" rx="3.5" stroke="currentColor" />
+    <path
+      d="M9 4L5 7L9 10"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
 
 export function AppSidebar() {
-  const pathname = usePathname()
-  const { toggleSidebar, state } = useSidebar()
-  const [isCompanyDropdownOpen, setCompanyDropdownOpen] = React.useState(false)
-  const currentCompany = "Lyft"
-  
+  const pathname = usePathname();
+  const { state } = useSidebar();
+  const [isCompanyDropdownOpen, setCompanyDropdownOpen] = React.useState(false);
+
   return (
     <Sidebar>
-      <SidebarHeader className="p-4 border-b flex justify-between items-center">
+      <SidebarHeader className="p-4 border-b">
         <div className="flex items-center gap-2">
-            <LogoIcon className="h-4 w-4" />
-            <span className="font-semibold text-sm">Untitled</span>
+          <LogoIcon className="h-4 w-auto" />
         </div>
-        <Button 
-          variant="ghost" 
-          size="icon" 
-          className="w-7 h-7 text-muted-foreground"
-          onClick={toggleSidebar}
-        >
-          <CollapseIcon />
-        </Button>
       </SidebarHeader>
       <SidebarContent className="p-2">
         <SidebarMenu>
-            <SidebarMenuItem>
-              <SidebarMenuButton href="#" isActive={pathname.startsWith('/data')} tooltip="Data">
-                <Database />
-                Data
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-            <SidebarMenuItem>
-              <SidebarMenuButton href="#" isActive={pathname.startsWith('/people')} tooltip="People">
-                <Users />
-                People
-              </SidebarMenuButton>
-            </SidebarMenuItem>
+          <SidebarMenuItem>
+            <SidebarMenuButton
+              href="#"
+              isActive={pathname.startsWith('/data')}
+              tooltip="Data"
+            >
+              <Database />
+              Data
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+          <SidebarMenuItem>
+            <SidebarMenuButton
+              href="#"
+              isActive={pathname.startsWith('/people')}
+              tooltip="People"
+            >
+              <Users />
+              People
+            </SidebarMenuButton>
+          </SidebarMenuItem>
         </SidebarMenu>
-        
+
         <SidebarSeparator />
 
         <SidebarMenu>
           <SidebarGroup>
             <SidebarGroupLabel>Processes</SidebarGroupLabel>
             <SidebarMenuItem>
-              <SidebarMenuButton href="/" isActive={pathname === '/'} tooltip="ACH + Checks Reconciliation" className="font-normal data-[active=true]:font-normal">
+              <SidebarMenuButton
+                href="/"
+                isActive={pathname === '/'}
+                tooltip="ACH + Checks Reconciliation"
+                className="font-normal data-[active=true]:font-normal"
+              >
                 <ProcessIcon />
                 ACH + Checks Reconciliation
               </SidebarMenuButton>
             </SidebarMenuItem>
           </SidebarGroup>
         </SidebarMenu>
-        
-        <SidebarMenu>
-            <SidebarGroup>
-              <SidebarGroupLabel>Pages</SidebarGroupLabel>
-              <SidebarGroupAction asChild>
-                <Button variant="ghost" size="icon" className="w-6 h-6"><FilePlus /></Button>
-              </SidebarGroupAction>
-            </SidebarGroup>
-        </SidebarMenu>
 
+        <SidebarMenu>
+          <SidebarGroup>
+            <SidebarGroupLabel>Pages</SidebarGroupLabel>
+            <SidebarGroupAction asChild>
+              <Button variant="ghost" size="icon" className="w-6 h-6">
+                <FilePlus />
+              </Button>
+            </SidebarGroupAction>
+          </SidebarGroup>
+        </SidebarMenu>
       </SidebarContent>
       <SidebarFooter className="p-0">
-        <DropdownMenu open={isCompanyDropdownOpen} onOpenChange={setCompanyDropdownOpen}>
+        <DropdownMenu
+          open={isCompanyDropdownOpen}
+          onOpenChange={setCompanyDropdownOpen}
+        >
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="w-full justify-between items-center px-4 py-2 h-auto rounded-none border-t">
+            <Button
+              variant="ghost"
+              className="w-full justify-between items-center px-4 py-2 h-auto rounded-none border-t"
+            >
               <div className="flex items-center gap-2">
                 <Avatar className="h-6 w-6 rounded-sm bg-yellow-300">
-                  <AvatarFallback className="bg-yellow-300 rounded-sm font-bold text-yellow-900 text-xs">L</AvatarFallback>
+                  <AvatarFallback className="bg-yellow-300 rounded-sm font-bold text-yellow-900 text-xs">
+                    L
+                  </AvatarFallback>
                 </Avatar>
                 <span className="text-sm font-medium">Lyft</span>
               </div>
-              <ChevronUp className={`h-4 w-4 transition-transform ${isCompanyDropdownOpen ? 'rotate-0' : 'rotate-180'}`} />
+              <ChevronUp
+                className={`h-4 w-4 transition-transform ${
+                  isCompanyDropdownOpen ? 'rotate-0' : 'rotate-180'
+                }`}
+              />
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent 
-              side="top" 
-              align="start" 
-              className="w-[var(--sidebar-width)] md:w-[calc(var(--sidebar-width)_-_1rem)] mb-1"
-              style={ state === 'collapsed' ? { width: '15rem'} : {} }
+          <DropdownMenuContent
+            side="top"
+            align="start"
+            className="w-[var(--sidebar-width)] md:w-[calc(var(--sidebar-width)_-_1rem)] mb-1"
+            style={state === 'collapsed' ? { width: '15rem' } : {}}
           >
             <DropdownMenuItem className="gap-2">
               <Avatar className="h-6 w-6 rounded-sm bg-pink-200">
-                <AvatarFallback className="bg-pink-200 rounded-sm font-bold text-pink-800 text-xs">C</AvatarFallback>
+                <AvatarFallback className="bg-pink-200 rounded-sm font-bold text-pink-800 text-xs">
+                  C
+                </AvatarFallback>
               </Avatar>
               <span>Clutch</span>
             </DropdownMenuItem>
             <DropdownMenuItem className="gap-2">
-               <Avatar className="h-6 w-6 rounded-sm bg-yellow-300">
-                <AvatarFallback className="bg-yellow-300 rounded-sm font-bold text-yellow-900 text-xs">L</AvatarFallback>
+              <Avatar className="h-6 w-6 rounded-sm bg-yellow-300">
+                <AvatarFallback className="bg-yellow-300 rounded-sm font-bold text-yellow-900 text-xs">
+                  L
+                </AvatarFallback>
               </Avatar>
               <div className="flex-1 flex justify-between items-center">
                 <span>Lyft</span>
@@ -146,7 +211,9 @@ export function AppSidebar() {
             </DropdownMenuItem>
             <DropdownMenuItem className="gap-2">
               <Avatar className="h-6 w-6 rounded-sm bg-green-200">
-                <AvatarFallback className="bg-green-200 rounded-sm font-bold text-green-800 text-xs">S</AvatarFallback>
+                <AvatarFallback className="bg-green-200 rounded-sm font-bold text-green-800 text-xs">
+                  S
+                </AvatarFallback>
               </Avatar>
               <span>skunk works</span>
             </DropdownMenuItem>
@@ -159,5 +226,5 @@ export function AppSidebar() {
         </DropdownMenu>
       </SidebarFooter>
     </Sidebar>
-  )
+  );
 }
