@@ -10,37 +10,44 @@ import {
   SidebarMenuItem,
   SidebarMenuButton,
   SidebarGroup,
-  SidebarGroupLabel
+  SidebarGroupLabel,
+  SidebarGroupAction
 } from "@/components/ui/sidebar"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
-import { Blend, ClipboardList, Database, FileText, LogOut, MoreHorizontal, Replace, Users, Settings, LifeBuoy } from "lucide-react"
+import { ChevronDown, Database, FilePlus, Users, Settings, LifeBuoy, LogOut, MoreVertical } from "lucide-react"
+
+const ProcessIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <path d="M1 8H3L5 3L8 13L11 1L13 8H15" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+)
+
 
 export function AppSidebar() {
   const pathname = usePathname()
   
   return (
-    <Sidebar>
-      <SidebarHeader className="p-4">
-        <div className="flex items-center gap-3">
-          <div className="p-2 rounded-lg bg-primary/10">
-            <Blend className="h-6 w-6 text-primary" />
+    <Sidebar collapsible="none">
+      <SidebarHeader className="p-4 border-b">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Avatar className="h-8 w-8 rounded-sm bg-yellow-300">
+              <AvatarFallback className="bg-yellow-300 rounded-sm font-bold text-yellow-900">L</AvatarFallback>
+            </Avatar>
+            <h2 className="text-sm font-semibold tracking-tight">Lyft</h2>
           </div>
-          <h2 className="text-lg font-semibold tracking-tight">Reconciliation</h2>
+          <ChevronDown className="h-4 w-4 text-muted-foreground" />
         </div>
       </SidebarHeader>
-      <SidebarContent className="p-4">
+      <SidebarContent className="p-2">
         <SidebarMenu>
-          <SidebarGroup>
-            <SidebarGroupLabel>Navigation</SidebarGroupLabel>
             <SidebarMenuItem>
               <SidebarMenuButton href="#" isActive={pathname.startsWith('/data')} tooltip="Data">
                 <Database />
@@ -53,63 +60,30 @@ export function AppSidebar() {
                 People
               </SidebarMenuButton>
             </SidebarMenuItem>
-          </SidebarGroup>
+        </SidebarMenu>
 
+        <SidebarMenu>
           <SidebarGroup>
             <SidebarGroupLabel>Processes</SidebarGroupLabel>
             <SidebarMenuItem>
-              <SidebarMenuButton href="/" isActive={pathname === '/'} tooltip="ACH Reconciliation">
-                <Replace />
-                ACH Reconciliation
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-            <SidebarMenuItem>
-              <SidebarMenuButton href="#" isActive={pathname.startsWith('/checks')} tooltip="Checks Reconciliation">
-                <FileText />
-                Checks Reconciliation
+              <SidebarMenuButton href="/" isActive={pathname === '/'} tooltip="ACH + Checks Reconciliation">
+                <ProcessIcon />
+                ACH + Checks Reconciliation
               </SidebarMenuButton>
             </SidebarMenuItem>
           </SidebarGroup>
         </SidebarMenu>
+        
+        <SidebarMenu>
+            <SidebarGroup>
+              <SidebarGroupLabel>Pages</SidebarGroupLabel>
+              <SidebarGroupAction asChild>
+                <Button variant="ghost" size="icon" className="w-6 h-6"><FilePlus /></Button>
+              </SidebarGroupAction>
+            </SidebarGroup>
+        </SidebarMenu>
+
       </SidebarContent>
-      <SidebarFooter className="p-4 border-t">
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="w-full justify-start items-center gap-3 h-auto p-2">
-              <Avatar className="h-9 w-9">
-                <AvatarImage src="https://i.pravatar.cc/150?u=a042581f4e29026024d" alt="Jane Doe" />
-                <AvatarFallback>JD</AvatarFallback>
-              </Avatar>
-              <div className="text-left hidden group-data-[collapsible=icon]:hidden">
-                <p className="font-medium text-sm">Jane Doe</p>
-                <p className="text-xs text-muted-foreground">jane.doe@example.com</p>
-              </div>
-              <MoreHorizontal className="ml-auto hidden group-data-[collapsible=icon]:hidden"/>
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent side="top" align="start" className="w-56">
-            <DropdownMenuLabel>My Account</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              <Users className="mr-2 h-4 w-4" />
-              <span>Profile</span>
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <Settings className="mr-2 h-4 w-4" />
-              <span>Settings</span>
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <LifeBuoy className="mr-2 h-4 w-4" />
-              <span>Support</span>
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              <LogOut className="mr-2 h-4 w-4" />
-              <span>Log out</span>
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </SidebarFooter>
     </Sidebar>
   )
 }

@@ -15,10 +15,10 @@ export type Transaction = {
 };
 
 export const statusCards: StatusCard[] = [
-  { title: "Needs Attention", value: 5, change: "+2" },
-  { title: "Void", value: 12, change: "-3" },
-  { title: "In Progress", value: 34, change: "+5" },
-  { title: "Done", value: 1249, change: "+150" },
+  { title: "Needs Attention", value: 0, change: "+2" },
+  { title: "Void", value: 2, change: "-3" },
+  { title: "In Progress", value: 98, change: "+5" },
+  { title: "Done", value: 0, change: "+150" },
 ];
 
 export const transactions: Transaction[] = [

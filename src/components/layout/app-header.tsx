@@ -1,30 +1,25 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
 import { SidebarTrigger } from "@/components/ui/sidebar"
-import { Download, Filter, Search } from "lucide-react"
+
+const ReconciliationIcon = (props: React.SVGProps<SVGSVGElement>) => (
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+        <rect x="0.5" y="0.5" width="13" height="13" rx="3.5" fill="white" stroke="#D1D5DB"/>
+    </svg>
+)
+
 
 export function AppHeader() {
   return (
-    <header className="flex items-center justify-between gap-4">
-      <div className="flex items-center gap-4">
+    <header className="flex items-center justify-between gap-4 p-4 md:px-6 md:pt-6 border-b">
+      <div className="flex items-center gap-2">
         <SidebarTrigger className="md:hidden" />
-        <h1 className="text-2xl font-semibold tracking-tight">ACH Reconciliation</h1>
+        <ReconciliationIcon className="hidden md:block" />
+        <h1 className="text-base font-semibold tracking-tight">ACH + Checks Reconciliation</h1>
       </div>
       <div className="flex items-center gap-2 md:gap-4">
-        <div className="relative hidden md:block">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-          <Input placeholder="Search..." className="pl-9" />
-        </div>
-        <Button variant="outline" className="gap-2">
-          <Filter className="h-4 w-4" />
-          <span className="hidden sm:inline">Filters</span>
-        </Button>
-        <Button variant="outline" className="gap-2">
-          <Download className="h-4 w-4" />
-          <span className="hidden sm:inline">Export</span>
-        </Button>
+        <Button variant="outline" size="sm">Share</Button>
       </div>
     </header>
   )
