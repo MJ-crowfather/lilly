@@ -16,10 +16,10 @@ export default function VoidPage() {
       <SidebarInset>
         <div className="flex flex-col h-screen">
           <AppHeader />
-          <div className="p-4 md:px-6 md:pt-6">
+          <div className="p-4 pb-2 md:px-6 md:pt-6">
             <StatusToolbar statuses={statusCards} />
           </div>
-          <div className="border-b p-4 md:px-6">
+          <div className="border-b p-4 pt-2 md:px-6">
             <Button variant="outline" size="sm" className="flex items-center gap-2">
                 <Filter className="h-4 w-4" />
                 <span>Filter</span>
