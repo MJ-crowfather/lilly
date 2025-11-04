@@ -119,26 +119,34 @@ export const transactions: Transaction[] = [
 ];
 
 export type MergedSheetEntry = {
-  statementId: string;
-  reconciliationReference: string;
-  amount: string;
-  additionalEntryInfo: string;
-  investigationAndAssignment: string;
-  vin: string;
-  period: number;
+  AEPC_Report_Form: string;
+  channel: string;
+  reporter_information: string;
+  reporter_location: string;
+  lilly_products: string;
+  respondent_type: string;
+  hcp_type: string;
+  patient_gender: string;
+  patient_age_category: string;
+  ae_pc_details: string;
+  report_type: string;
+  contacted_poster: string;
+  poster_consent: string;
+  poster_contact_info: string;
+  lot_control_number: string;
 };
 
 export const finalMergedSheetData: MergedSheetEntry[] = [
-  {"statementId":"8/1/2025","reconciliationReference":"600038554","amount":"30465.53","additionalEntryInfo":"ORIG CO NAME=Mobilitas,ORIG ID=5...","investigationAndAssignment":"Total Loss","vin":"JTDACAAU5S3057413","period":1},
-  {"statementId":"8/1/2025","reconciliationReference":"600038554","amount":"30465.53","additionalEntryInfo":"ORIG CO NAME=Mobilitas,ORIG ID=5...","investigationAndAssignment":"Total Loss","vin":"JTDACAAU5S3057413","period":1},
-  {"statementId":"8/1/2025","reconciliationReference":"600038534","amount":"18432.51","additionalEntryInfo":"ORIG CO NAME=Mobilitas,ORIG ID=5...","investigationAndAssignment":"Total Loss","vin":"3N1AB8BV3RY290522","period":3},
-  {"statementId":"8/1/2025","reconciliationReference":"600038546","amount":"16215.31","additionalEntryInfo":"ORIG CO NAME=Mobilitas,ORIG ID=5...","investigationAndAssignment":"Total Loss","vin":"1G1ZC5ST6RF225285","period":0},
-  {"statementId":"8/1/2025","reconciliationReference":"600038485","amount":"3377.29","additionalEntryInfo":"ORIG CO NAME=Mobilitas,ORIG ID=5...","investigationAndAssignment":"RVS Estimate","vin":"KM8K22AB6PU028088","period":0},
-  {"statementId":"8/1/2025","reconciliationReference":"600038554","amount":"30465.53","additionalEntryInfo":"ORIG CO NAME=Mobilitas,ORIG ID=5...","investigationAndAssignment":"Total Loss","vin":"JTDACAAU5S3057413","period":1},
-  {"statementId":"8/1/2025","reconciliationReference":"600038534","amount":"18432.51","additionalEntryInfo":"ORIG CO NAME=Mobilitas,ORIG ID=5...","investigationAndAssignment":"Total Loss","vin":"3N1AB8BV3RY290522","period":3},
-  {"statementId":"8/1/2025","reconciliationReference":"600038546","amount":"16215.31","additionalEntryInfo":"ORIG CO NAME=Mobilitas,ORIG ID=5...","investigationAndAssignment":"Total Loss","vin":"1G1ZC5ST6RF225285","period":0},
-  {"statementId":"8/1/2025","reconciliationReference":"600038485","amount":"3377.29","additionalEntryInfo":"ORIG CO NAME=Mobilitas,ORIG ID=5...","investigationAndAssignment":"RVS Estimate","vin":"KM8K22AB6PU028088","period":0},
-  {"statementId":"8/1/2025","reconciliationReference":"600038554","amount":"30465.53","additionalEntryInfo":"ORIG CO NAME=Mobilitas,ORIG ID=5...","investigationAndAssignment":"Total Loss","vin":"JTDACAAU5S3057413","period":1}
+  { "AEPC_Report_Form": "Form-001", "channel": "Social Media", "reporter_information": "John Doe", "reporter_location": "USA", "lilly_products": "Trulicity", "respondent_type": "Patient", "hcp_type": "N/A", "patient_gender": "Male", "patient_age_category": "40-49", "ae_pc_details": "Patient reported mild nausea.", "report_type": "Adverse Event", "contacted_poster": "Yes", "poster_consent": "Yes", "poster_contact_info": "john.doe@email.com", "lot_control_number": "A123B456" },
+  { "AEPC_Report_Form": "Form-002", "channel": "Email", "reporter_information": "Jane Smith", "reporter_location": "Canada", "lilly_products": "Jardiance", "respondent_type": "Physician", "hcp_type": "Endocrinologist", "patient_gender": "Female", "patient_age_category": "60-69", "ae_pc_details": "Question about dosage.", "report_type": "Inquiry", "contacted_poster": "No", "poster_consent": "N/A", "poster_contact_info": "N/A", "lot_control_number": "C789D012" },
+  { "AEPC_Report_Form": "Form-003", "channel": "Phone", "reporter_information": "Anonymous", "reporter_location": "UK", "lilly_products": "Taltz", "respondent_type": "Pharmacist", "hcp_type": "N/A", "patient_gender": "N/A", "patient_age_category": "N/A", "ae_pc_details": "Complaint about packaging.", "report_type": "Product Complaint", "contacted_poster": "Yes", "poster_consent": "No", "poster_contact_info": "N/A", "lot_control_number": "E345F678" },
+  { "AEPC_Report_Form": "Form-004", "channel": "Web Form", "reporter_information": "Peter Jones", "reporter_location": "Australia", "lilly_products": "Emgality", "respondent_type": "Patient", "hcp_type": "N/A", "patient_gender": "Male", "patient_age_category": "30-39", "ae_pc_details": "Severe headache after use.", "report_type": "Adverse Event", "contacted_poster": "Yes", "poster_consent": "Yes", "poster_contact_info": "peter.j@email.com", "lot_control_number": "G901H234" },
+  { "AEPC_Report_Form": "Form-005", "channel": "Social Media", "reporter_information": "Mary Williams", "reporter_location": "USA", "lilly_products": "Olumiant", "respondent_type": "Patient", "hcp_type": "N/A", "patient_gender": "Female", "patient_age_category": "50-59", "ae_pc_details": "Itching and rash.", "report_type": "Adverse Event", "contacted_poster": "No", "poster_consent": "N/A", "poster_contact_info": "N/A", "lot_control_number": "I567J890" },
+  { "AEPC_Report_Form": "Form-006", "channel": "Email", "reporter_information": "David Brown", "reporter_location": "Germany", "lilly_products": "Trulicity", "respondent_type": "Nurse", "hcp_type": "Diabetes Educator", "patient_gender": "Male", "patient_age_category": "70-79", "ae_pc_details": "Patient fainted.", "report_type": "Adverse Event", "contacted_poster": "Yes", "poster_consent": "Yes", "poster_contact_info": "d.brown@clinic.de", "lot_control_number": "K123L456" },
+  { "AEPC_Report_Form": "Form-007", "channel": "Phone", "reporter_information": "Susan Miller", "reporter_location": "USA", "lilly_products": "Jardiance", "respondent_type": "Patient", "hcp_type": "N/A", "patient_gender": "Female", "patient_age_category": "50-59", "ae_pc_details": "Product was discolored.", "report_type": "Product Complaint", "contacted_poster": "No", "poster_consent": "N/A", "poster_contact_info": "N/A", "lot_control_number": "M789N012" },
+  { "AEPC_Report_Form": "Form-008", "channel": "Web Form", "reporter_information": "Robert Garcia", "reporter_location": "Mexico", "lilly_products": "Taltz", "respondent_type": "Physician", "hcp_type": "Dermatologist", "patient_gender": "Male", "patient_age_category": "20-29", "ae_pc_details": "Off-label use inquiry.", "report_type": "Inquiry", "contacted_poster": "Yes", "poster_consent": "Yes", "poster_contact_info": "robert.g@hospital.mx", "lot_control_number": "O345P678" },
+  { "AEPC_Report_Form": "Form-009", "channel": "Social Media", "reporter_information": "Linda Martinez", "reporter_location": "USA", "lilly_products": "Emgality", "respondent_type": "Patient", "hcp_type": "N/A", "patient_gender": "Female", "patient_age_category": "40-49", "ae_pc_details": "No effect on migraines.", "report_type": "Lack of Efficacy", "contacted_poster": "No", "poster_consent": "N/A", "poster_contact_info": "N/A", "lot_control_number": "Q901R234" },
+  { "AEPC_Report_Form": "Form-010", "channel": "Email", "reporter_information": "Michael Rodriguez", "reporter_location": "Spain", "lilly_products": "Olumiant", "respondent_type": "Patient", "hcp_type": "N/A", "patient_gender": "Male", "patient_age_category": "60-69", "ae_pc_details": "Joint pain relief is amazing.", "report_type": "Positive Feedback", "contacted_poster": "Yes", "poster_consent": "Yes", "poster_contact_info": "m.rod@email.es", "lot_control_number": "S567T890" }
 ];
 
 export const doneCases: DoneCase[] = [
