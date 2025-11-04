@@ -1,3 +1,4 @@
+
 export type StatusCard = {
   title: "Needs Attention" | "Void" | "In Progress" | "Done";
   value: number;
@@ -23,15 +24,14 @@ export type DoneCase = {
   report_type: string;
   respondent_type: string;
   case_summary: string;
-  case_status: string;
   assigned_agent: string;
 };
 
 export const statusCards: StatusCard[] = [
   { title: "Needs Attention", value: 0, change: "+2" },
-  { title: "Void", value: 2, change: "-3" },
-  { title: "In Progress", value: 98, change: "+5" },
-  { title: "Done", value: 3, change: "+150" },
+  { title: "Void", value: 0, change: "-3" },
+  { title: "In Progress", value: 0, change: "+5" },
+  { title: "Done", value: 5, change: "+150" },
 ];
 
 export const transactions: Transaction[] = [
@@ -151,7 +151,6 @@ export const doneCases: DoneCase[] = [
     report_type: "Adverse Event",
     respondent_type: "Patient",
     case_summary: "Patient reported nausea after taking the product.",
-    case_status: "Closed",
     assigned_agent: "Agent A",
   },
   {
@@ -163,7 +162,6 @@ export const doneCases: DoneCase[] = [
     report_type: "Product Complaint",
     respondent_type: "Pharmacist",
     case_summary: "Pharmacist reported a packaging issue.",
-    case_status: "Closed",
     assigned_agent: "Agent B",
   },
   {
@@ -175,7 +173,6 @@ export const doneCases: DoneCase[] = [
     report_type: "Adverse Event",
     respondent_type: "Patient",
     case_summary: "Patient experienced a skin reaction.",
-    case_status: "Closed",
     assigned_agent: "Agent A",
   },
   {
@@ -187,7 +184,6 @@ export const doneCases: DoneCase[] = [
     report_type: "Off-label Use",
     respondent_type: "Physician",
     case_summary: "Inquiry about using the product for a non-approved indication.",
-    case_status: "Closed",
     assigned_agent: "Agent C",
   },
   {
@@ -199,7 +195,6 @@ export const doneCases: DoneCase[] = [
     report_type: "Adverse Event",
     respondent_type: "Patient",
     case_summary: "Patient reported severe migraines after first dose.",
-    case_status: "Closed",
     assigned_agent: "Agent B",
   },
 ];
