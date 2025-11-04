@@ -103,4 +103,9 @@ body {
         background-size: 80px 80px;
         background-position: 40px 0;
     }
+    .kb-grid-bg {
+      background-color: #fafafa;
+      background-image: radial-gradient(#e0e0e0 0.5px, transparent 0.5px);
+      background-size: 10px 10px;
+    }
 }
