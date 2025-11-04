@@ -20,7 +20,7 @@ export default function KnowledgeBasePage() {
           <AppHeader />
           <main className="flex-1 flex flex-col items-center justify-center kb-grid-bg relative">
             <div className="flex flex-col items-center text-center">
-              <Button variant="outline" className="rounded-full bg-secondary text-primary-foreground hover:bg-secondary/90 mb-6">
+              <Button variant="outline" className="rounded-full bg-secondary border-primary/50 text-primary hover:bg-secondary/90 mb-6">
                 <KnowledgeBaseIcon className="mr-2" />
                 Knowledge Base
               </Button>
