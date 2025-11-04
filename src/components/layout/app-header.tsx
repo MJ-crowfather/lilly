@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Button } from "@/components/ui/button";
 import { SidebarTrigger } from "@/components/ui/sidebar";
-import { ArrowLeft, ChevronsRight } from 'lucide-react';
+import { ArrowLeft, ChevronsRight, Book, Share2 } from 'lucide-react';
 
 const formatPath = (path: string) => {
   if (path.startsWith('/data/')) {
@@ -29,7 +29,7 @@ const formatPath = (path: string) => {
     title = "People";
   }
 
-  return <h1 className="text-sm font-normal tracking-tight">{title}</h1>;
+  return <h1 className="text-sm font-medium tracking-tight">{title}</h1>;
 }
 
 export function AppHeader() {
@@ -43,7 +43,14 @@ export function AppHeader() {
         {headerContent}
       </div>
       <div className="flex items-center gap-2 md:gap-4">
-        <Button variant="outline" size="sm">Share</Button>
+        <Button variant="outline" size="sm" className="flex items-center gap-2">
+          <Book className="h-4 w-4" />
+          <span>Knowledge base</span>
+        </Button>
+        <Button variant="outline" size="sm" className="flex items-center gap-2">
+          <Share2 className="h-4 w-4" />
+          <span>Share</span>
+        </Button>
       </div>
     </header>
   )
