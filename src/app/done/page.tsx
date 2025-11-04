@@ -63,22 +63,22 @@ export default function DonePage() {
                         </TableHeader>
                         <TableBody>
                             {doneCases.map((caseItem) => (
-                                <TableRow key={caseItem.case_number}>
-                                    <TableCell>
+                                <TableRow key={caseItem.case_number} className="border-b-0">
+                                    <TableCell className="py-2">
                                       <div className="flex items-center gap-2">
                                         <DoneStatusIcon className="h-2 w-2"/>
                                         <Check className="h-4 w-4 text-green-600" />
                                       </div>
                                     </TableCell>
-                                    <TableCell className="font-medium">{caseItem.case_number}</TableCell>
-                                    <TableCell>{caseItem.receipt_date}</TableCell>
-                                    <TableCell>{caseItem.social_network}</TableCell>
-                                    <TableCell>{caseItem.username}</TableCell>
-                                    <TableCell>{caseItem.lilly_product}</TableCell>
-                                    <TableCell>{caseItem.report_type}</TableCell>
-                                    <TableCell>{caseItem.respondent_type}</TableCell>
-                                    <TableCell className="max-w-[250px] truncate">{caseItem.case_summary}</TableCell>
-                                    <TableCell>{caseItem.assigned_agent}</TableCell>
+                                    <TableCell className="font-medium py-2">{caseItem.case_number}</TableCell>
+                                    <TableCell className="py-2">{caseItem.receipt_date}</TableCell>
+                                    <TableCell className="py-2">{caseItem.social_network}</TableCell>
+                                    <TableCell className="py-2">{caseItem.username}</TableCell>
+                                    <TableCell className="py-2">{caseItem.lilly_product}</TableCell>
+                                    <TableCell className="py-2">{caseItem.report_type}</TableCell>
+                                    <TableCell className="py-2">{caseItem.respondent_type}</TableCell>
+                                    <TableCell className="max-w-[250px] truncate py-2">{caseItem.case_summary}</TableCell>
+                                    <TableCell className="py-2">{caseItem.assigned_agent}</TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>
