@@ -7,11 +7,12 @@ import { SidebarProvider, SidebarInset } from '@/components/ui/sidebar';
 import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { finalMergedSheetData, type MergedSheetEntry } from '@/lib/data';
-import { Filter, ArrowDownToLine, History, PanelTopOpen, ArrowUpDown, Search } from 'lucide-react';
+import { Filter, ArrowDownToLine, History, PanelTopOpen, ArrowUpDown, Search, Database } from 'lucide-react';
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from '@/components/ui/dropdown-menu';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Separator } from '@/components/ui/separator';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
 const tableHeaders = [
   "channel",
@@ -86,15 +87,48 @@ export default function SheetDetailsPage({ params }: { params: { sheetId: string
                     </DropdownMenuContent>
                 </DropdownMenu>
                 <div className="flex items-center gap-2">
-                    <Button variant="ghost" size="icon">
-                        <ArrowDownToLine className="h-4 w-4" />
-                    </Button>
-                    <Button variant="ghost" size="icon">
-                        <History className="h-4 w-4" />
-                    </Button>
-                    <Button variant="ghost" size="icon">
-                        <PanelTopOpen className="h-4 w-4" />
-                    </Button>
+                    <TooltipProvider>
+                      <Tooltip>
+                          <TooltipTrigger asChild>
+                              <Button variant="ghost" size="icon">
+                                  <ArrowDownToLine className="h-4 w-4" />
+                              </Button>
+                          </TooltipTrigger>
+                          <TooltipContent className="bg-black text-white">
+                              <p>Export All</p>
+                          </TooltipContent>
+                      </Tooltip>
+                      <Tooltip>
+                          <TooltipTrigger asChild>
+                              <Button variant="ghost" size="icon">
+                                  <Database className="h-4 w-4" />
+                              </Button>
+                          </TooltipTrigger>
+                          <TooltipContent className="bg-black text-white">
+                              <p>Import Data</p>
+                          </TooltipContent>
+                      </Tooltip>
+                      <Tooltip>
+                          <TooltipTrigger asChild>
+                              <Button variant="ghost" size="icon">
+                                  <History className="h-4 w-4" />
+                              </Button>
+                          </TooltipTrigger>
+                          <TooltipContent className="bg-black text-white">
+                              <p>Activity</p>
+                          </TooltipContent>
+                      </Tooltip>
+                      <Tooltip>
+                          <TooltipTrigger asChild>
+                              <Button variant="ghost" size="icon">
+                                  <PanelTopOpen className="h-4 w-4" />
+                              </Button>
+                          </TooltipTrigger>
+                          <TooltipContent className="bg-black text-white">
+                              <p>Display options</p>
+                          </TooltipContent>
+                      </Tooltip>
+                  </TooltipProvider>
                 </div>
             </div>
             <div className="flex-1 overflow-auto">
