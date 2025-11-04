@@ -72,7 +72,7 @@ export default function SheetDetailsPage({ params }: { params: { sheetId: string
                       <TableHeader>
                           <TableRow>
                             {tableHeaders.map(header => (
-                                <TableHead key={header} className="text-sm">
+                                <TableHead key={header} className="text-xs">
                                     <SortableHeader>{header.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</SortableHeader>
                                 </TableHead>
                             ))}
@@ -82,7 +82,7 @@ export default function SheetDetailsPage({ params }: { params: { sheetId: string
                           {data.map((row, index) => (
                               <TableRow key={index}>
                                   {dataKeys.map(key => (
-                                      <TableCell key={key} className="text-sm">{row[key]}</TableCell>
+                                      <TableCell key={key} className="text-xs">{row[key]}</TableCell>
                                   ))}
                               </TableRow>
                           ))}

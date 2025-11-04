@@ -1,3 +1,4 @@
+
 "use client"
 
 import Link from 'next/link';
@@ -9,7 +10,7 @@ import { ArrowLeft, ChevronsRight, Book, Share2 } from 'lucide-react';
 const formatPath = (path: string) => {
   if (path.startsWith('/data/')) {
     return (
-      <div className="flex items-center gap-2 text-sm">
+      <div className="flex items-center gap-2 text-xs">
         <Link href="/data" className="flex items-center gap-1 text-muted-foreground hover:text-foreground">
             <ArrowLeft className="h-4 w-4" />
             Data
