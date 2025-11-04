@@ -10,7 +10,10 @@ import { useAuth } from '@/components/auth-provider';
 
 function ZampLogo() {
   return (
-    <Image src="/logo.svg" alt="Logo" width={45} height={40} />
+    <div className="flex items-center gap-2">
+      <Image src="/logo.svg" alt="Logo" width={45} height={40} />
+      <span className="text-3xl font-bold tracking-tight">zamp</span>
+    </div>
   );
 }
 
