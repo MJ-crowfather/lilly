@@ -82,7 +82,7 @@ export default function KnowledgeBaseArticlePage() {
           <AppHeader />
           <div className="flex-1 flex flex-col relative">
             <header className="h-[120px] w-full bg-gray-50 flex items-center px-8 login-diagonal-bg">
-                <h1 className="text-3xl font-bold tracking-tight">Eli Lilly AE/PC Social Media Reporting Process</h1>
+                <h1 className="text-3xl font-bold tracking-tight">AE/PC Reporting</h1>
             </header>
             <main className="flex-1 flex justify-center py-8 px-4 md:px-8">
               <div className="w-full max-w-6xl flex">
