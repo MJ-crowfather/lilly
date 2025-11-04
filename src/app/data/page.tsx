@@ -27,11 +27,11 @@ export default function DataPage() {
                         <TableCell className="font-medium text-xs">
                           <Link href="/data/final-merged-sheet" className="flex items-center gap-2 hover:underline">
                             <Gem className="h-4 w-4 text-muted-foreground" />
-                            Final Merged Sheet
+                            AE/PC Report Sheet
                           </Link>
                         </TableCell>
                         <TableCell className="text-xs">
-                          Final Merged Sheet Dataset
+                          AE/PC Report Sheet Dataset
                         </TableCell>
                     </TableRow>
                   </TableBody>
