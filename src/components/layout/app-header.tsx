@@ -37,7 +37,7 @@ export function AppHeader() {
   const headerContent = formatPath(pathname);
 
   return (
-    <header className="flex items-center justify-between gap-4 p-4 border-b">
+    <header className="flex h-[53px] items-center justify-between gap-4 p-4 border-b">
       <div className="flex items-center gap-2">
         <SidebarTrigger />
         {headerContent}
