@@ -8,16 +8,14 @@ import { ArrowLeft, ChevronsRight, Book, Share2 } from 'lucide-react';
 
 const formatPath = (path: string) => {
   if (path.startsWith('/data/')) {
-    const sheetName = path.split('/data/')[1].replace(/-/g, ' ');
-    const capitalizedSheetName = sheetName.charAt(0).toUpperCase() + sheetName.slice(1);
     return (
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2 text-sm">
         <Link href="/data" className="flex items-center gap-1 text-muted-foreground hover:text-foreground">
             <ArrowLeft className="h-4 w-4" />
             Data
         </Link>
         <ChevronsRight className="h-4 w-4 text-muted-foreground" />
-        <span className="font-medium">AE/PC Report Sheet</span>
+        <span className="font-medium text-foreground">AE/PC Report Sheet</span>
       </div>
     );
   }
