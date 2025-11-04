@@ -4,7 +4,7 @@
 import * as React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import {
   Sidebar,
   SidebarHeader,
@@ -30,6 +30,7 @@ import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { ChevronUp, Check, Database, FilePlus, Users, LogOut } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useAuth } from '../auth-provider';
 
 const ProcessIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
@@ -52,10 +53,18 @@ const ProcessIcon = (props: React.SVGProps<SVGSVGElement>) => (
 
 export function AppSidebar() {
   const pathname = usePathname();
+  const { logout } = useAuth();
+  const router = useRouter();
   const { state } = useSidebar();
   const [isCompanyDropdownOpen, setCompanyDropdownOpen] = React.useState(false);
 
   const isDataActive = pathname.startsWith('/data');
+
+  const handleLogout = () => {
+    logout();
+    router.push('/login');
+  };
+
 
   return (
     <Sidebar>
@@ -174,7 +183,7 @@ export function AppSidebar() {
               <span>skunk works</span>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="gap-2">
+            <DropdownMenuItem className="gap-2" onClick={handleLogout}>
               <LogOut className="h-4 w-4" />
               Logout
             </DropdownMenuItem>
