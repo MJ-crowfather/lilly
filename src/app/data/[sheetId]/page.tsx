@@ -7,7 +7,11 @@ import { SidebarProvider, SidebarInset } from '@/components/ui/sidebar';
 import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { finalMergedSheetData, type MergedSheetEntry } from '@/lib/data';
-import { Filter, ArrowDownToLine, History, PanelTopOpen, ArrowUpDown } from 'lucide-react';
+import { Filter, ArrowDownToLine, History, PanelTopOpen, ArrowUpDown, Search } from 'lucide-react';
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from '@/components/ui/dropdown-menu';
+import { Input } from '@/components/ui/input';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { Separator } from '@/components/ui/separator';
 
 const tableHeaders = [
   "channel",
@@ -50,10 +54,30 @@ export default function SheetDetailsPage({ params }: { params: { sheetId: string
           <AppHeader />
           <main className="flex-1 flex flex-col">
             <div className="p-4 md:px-6 flex items-center justify-between border-b">
-                <Button variant="outline" size="sm" className="flex items-center gap-2">
-                    <Filter className="h-4 w-4" />
-                    <span>Filter</span>
-                </Button>
+                <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                        <Button variant="outline" size="sm" className="flex items-center gap-2">
+                            <Filter className="h-4 w-4" />
+                            <span>Filter</span>
+                        </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent className="w-64" align="start">
+                        <div className="p-2">
+                             <div className="relative">
+                                <Search className="absolute left-2 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                                <Input placeholder="Search..." className="pl-8" />
+                            </div>
+                        </div>
+                        <Separator />
+                        <ScrollArea className="h-48">
+                           {tableHeaders.map(header => (
+                                <DropdownMenuItem key={header}>
+                                    {header.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                                </DropdownMenuItem>
+                            ))}
+                        </ScrollArea>
+                    </DropdownMenuContent>
+                </DropdownMenu>
                 <div className="flex items-center gap-2">
                     <Button variant="ghost" size="icon">
                         <ArrowDownToLine className="h-4 w-4" />
@@ -81,8 +105,8 @@ export default function SheetDetailsPage({ params }: { params: { sheetId: string
                       <TableBody>
                           {data.map((row, index) => (
                               <TableRow key={index}>
-                                  {dataKeys.map(key => (
-                                      <TableCell key={key} className="text-xs">{row[key]}</TableCell>
+                                  {tableHeaders.map(key => (
+                                      <TableCell key={key} className="text-xs">{row[key as keyof MergedSheetEntry]}</TableCell>
                                   ))}
                               </TableRow>
                           ))}
