@@ -49,7 +49,7 @@ const activeColorMap = {
 const linkMap: { [key: string]: string } = {
   "Needs Attention": "/",
   "Void": "/void",
-  "In Progress": "#",
+  "In Progress": "/in-progress",
   "Done": "#",
 };
 

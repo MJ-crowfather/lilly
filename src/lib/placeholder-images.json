@@ -11,6 +11,12 @@
       "description": "An illustration of an empty box.",
       "imageUrl": "/image1.png",
       "imageHint": "illustration box"
+    },
+    {
+      "id": "in-progress-flag",
+      "description": "An illustration of a checkered flag.",
+      "imageUrl": "/image3.png",
+      "imageHint": "illustration flag"
     }
   ]
 }
