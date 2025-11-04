@@ -64,7 +64,7 @@ export default function SheetDetailsPage({ params }: { params: { sheetId: string
             <div className="p-4 md:px-6 flex items-center justify-between border-b">
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                        <Button variant="outline" size="sm" className="flex items-center gap-2">
+                        <Button variant="outline" size="sm" className="flex items-center gap-2 text-xs">
                             <Filter className="h-4 w-4" />
                             <span>Filter</span>
                         </Button>
@@ -94,7 +94,7 @@ export default function SheetDetailsPage({ params }: { params: { sheetId: string
                                   <ArrowDownToLine className="h-4 w-4" />
                               </Button>
                           </TooltipTrigger>
-                          <TooltipContent className="bg-black text-white">
+                          <TooltipContent className="bg-black text-white text-xs">
                               <p>Export All</p>
                           </TooltipContent>
                       </Tooltip>
@@ -104,7 +104,7 @@ export default function SheetDetailsPage({ params }: { params: { sheetId: string
                                   <Database className="h-4 w-4" />
                               </Button>
                           </TooltipTrigger>
-                          <TooltipContent className="bg-black text-white">
+                          <TooltipContent className="bg-black text-white text-xs">
                               <p>Import Data</p>
                           </TooltipContent>
                       </Tooltip>
@@ -114,7 +114,7 @@ export default function SheetDetailsPage({ params }: { params: { sheetId: string
                                   <History className="h-4 w-4" />
                               </Button>
                           </TooltipTrigger>
-                          <TooltipContent className="bg-black text-white">
+                          <TooltipContent className="bg-black text-white text-xs">
                               <p>Activity</p>
                           </TooltipContent>
                       </Tooltip>
@@ -124,7 +124,7 @@ export default function SheetDetailsPage({ params }: { params: { sheetId: string
                                   <SlidersHorizontal className="h-4 w-4" />
                               </Button>
                           </TooltipTrigger>
-                          <TooltipContent className="bg-black text-white">
+                          <TooltipContent className="bg-black text-white text-xs">
                               <p>Display options</p>
                           </TooltipContent>
                       </Tooltip>
