@@ -29,6 +29,7 @@ export default function Dashboard() {
                 image="empty-state-birds"
                 title="No blockers right now"
                 description="Sit back and let things flow, we'll nudge you when it's time to step in."
+                size="small"
               />
             )}
           </div>
