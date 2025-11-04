@@ -7,7 +7,7 @@ import { SidebarProvider, SidebarInset } from '@/components/ui/sidebar';
 import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { finalMergedSheetData, type MergedSheetEntry } from '@/lib/data';
-import { Filter, ArrowDownToLine, History, PanelTopOpen, ArrowUpDown, Search, Database } from 'lucide-react';
+import { Filter, ArrowDownToLine, History, SlidersHorizontal, ArrowUpDown, Search, Database } from 'lucide-react';
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from '@/components/ui/dropdown-menu';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -121,7 +121,7 @@ export default function SheetDetailsPage({ params }: { params: { sheetId: string
                       <Tooltip>
                           <TooltipTrigger asChild>
                               <Button variant="ghost" size="icon">
-                                  <PanelTopOpen className="h-4 w-4" />
+                                  <SlidersHorizontal className="h-4 w-4" />
                               </Button>
                           </TooltipTrigger>
                           <TooltipContent className="bg-black text-white">
