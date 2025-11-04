@@ -7,9 +7,10 @@ import { SidebarProvider, SidebarInset } from '@/components/ui/sidebar';
 import { statusCards, doneCases } from '@/lib/data';
 import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Filter, ListFilter } from 'lucide-react';
+import { Filter, ListFilter, Check } from 'lucide-react';
 
 const tableHeaders = [
+  '',
   'Case Number',
   'Receipt Date',
   'Social Network',
@@ -18,9 +19,15 @@ const tableHeaders = [
   'Report Type',
   'Respondent Type',
   'Case Summary',
-  'Case Status',
   'Assigned Agent',
 ];
+
+const DoneStatusIcon = (props: React.SVGProps<SVGSVGElement>) => (
+    <svg viewBox="0 0 8 8" {...props}>
+      <rect width="8" height="8" rx="1.5" className="fill-green-100 dark:fill-green-900/50 stroke-green-500 dark:stroke-green-400" strokeWidth="1"/>
+    </svg>
+);
+
 
 export default function DonePage() {
   return (
@@ -57,6 +64,12 @@ export default function DonePage() {
                         <TableBody>
                             {doneCases.map((caseItem) => (
                                 <TableRow key={caseItem.case_number}>
+                                    <TableCell>
+                                      <div className="flex items-center gap-2">
+                                        <DoneStatusIcon className="h-2 w-2"/>
+                                        <Check className="h-4 w-4 text-green-600" />
+                                      </div>
+                                    </TableCell>
                                     <TableCell className="font-medium">{caseItem.case_number}</TableCell>
                                     <TableCell>{caseItem.receipt_date}</TableCell>
                                     <TableCell>{caseItem.social_network}</TableCell>
@@ -65,7 +78,6 @@ export default function DonePage() {
                                     <TableCell>{caseItem.report_type}</TableCell>
                                     <TableCell>{caseItem.respondent_type}</TableCell>
                                     <TableCell className="max-w-[250px] truncate">{caseItem.case_summary}</TableCell>
-                                    <TableCell>{caseItem.case_status}</TableCell>
                                     <TableCell>{caseItem.assigned_agent}</TableCell>
                                 </TableRow>
                             ))}
