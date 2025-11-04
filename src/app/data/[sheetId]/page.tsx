@@ -40,6 +40,13 @@ function SortableHeader({ children }: { children: React.ReactNode }) {
     )
 }
 
+function formatHeader(header: string): string {
+    if (header === 'ae_pc_details') {
+        return 'AE/PC Details';
+    }
+    return header.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+}
+
 
 export default function SheetDetailsPage({ params }: { params: { sheetId: string } }) {
   // In a real app, you would fetch data based on params.sheetId
@@ -72,7 +79,7 @@ export default function SheetDetailsPage({ params }: { params: { sheetId: string
                         <ScrollArea className="h-48">
                            {tableHeaders.map(header => (
                                 <DropdownMenuItem key={header}>
-                                    {header.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                                    {formatHeader(header)}
                                 </DropdownMenuItem>
                             ))}
                         </ScrollArea>
@@ -97,7 +104,7 @@ export default function SheetDetailsPage({ params }: { params: { sheetId: string
                           <TableRow>
                             {tableHeaders.map(header => (
                                 <TableHead key={header} className="text-xs">
-                                    <SortableHeader>{header.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</SortableHeader>
+                                    <SortableHeader>{formatHeader(header)}</SortableHeader>
                                 </TableHead>
                             ))}
                           </TableRow>
