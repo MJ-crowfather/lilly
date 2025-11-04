@@ -8,6 +8,7 @@ import { statusCards, doneCases } from '@/lib/data';
 import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Filter, ListFilter, Check } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 const tableHeaders = [
   '',
@@ -57,7 +58,7 @@ export default function DonePage() {
                         <TableHeader>
                             <TableRow>
                                 {tableHeaders.map((header) => (
-                                    <TableHead key={header}>{header}</TableHead>
+                                    <TableHead key={header} className="text-xs">{header}</TableHead>
                                 ))}
                             </TableRow>
                         </TableHeader>
@@ -70,15 +71,15 @@ export default function DonePage() {
                                         <Check className="h-4 w-4 text-green-600" />
                                       </div>
                                     </TableCell>
-                                    <TableCell className="font-medium py-2">{caseItem.case_number}</TableCell>
-                                    <TableCell className="py-2">{caseItem.receipt_date}</TableCell>
-                                    <TableCell className="py-2">{caseItem.social_network}</TableCell>
-                                    <TableCell className="py-2">{caseItem.username}</TableCell>
-                                    <TableCell className="py-2">{caseItem.lilly_product}</TableCell>
-                                    <TableCell className="py-2">{caseItem.report_type}</TableCell>
-                                    <TableCell className="py-2">{caseItem.respondent_type}</TableCell>
-                                    <TableCell className="max-w-[250px] truncate py-2">{caseItem.case_summary}</TableCell>
-                                    <TableCell className="py-2">{caseItem.assigned_agent}</TableCell>
+                                    <TableCell className="font-medium py-2 text-xs">{caseItem.case_number}</TableCell>
+                                    <TableCell className="py-2 text-xs">{caseItem.receipt_date}</TableCell>
+                                    <TableCell className="py-2 text-xs">{caseItem.social_network}</TableCell>
+                                    <TableCell className="py-2 text-xs">{caseItem.username}</TableCell>
+                                    <TableCell className="py-2 text-xs">{caseItem.lilly_product}</TableCell>
+                                    <TableCell className="py-2 text-xs">{caseItem.report_type}</TableCell>
+                                    <TableCell className="py-2 text-xs">{caseItem.respondent_type}</TableCell>
+                                    <TableCell className="max-w-[250px] truncate py-2 text-xs">{caseItem.case_summary}</TableCell>
+                                    <TableCell className="py-2 text-xs">{caseItem.assigned_agent}</TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>
