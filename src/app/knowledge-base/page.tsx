@@ -2,6 +2,7 @@
 'use client';
 
 import * as React from 'react';
+import Link from 'next/link';
 import { AppHeader } from '@/components/layout/app-header';
 import { AppSidebar } from '@/components/layout/app-sidebar';
 import { SidebarProvider, SidebarInset } from '@/components/ui/sidebar';
@@ -20,12 +21,12 @@ export default function KnowledgeBasePage() {
           <AppHeader />
           <main className="flex-1 flex flex-col items-center justify-center kb-grid-bg relative">
             <div className="flex flex-col items-center text-center">
-              <Button variant="outline" className="rounded-full bg-secondary border-primary/50 text-primary hover:bg-secondary/90 mb-6">
+              <Button variant="outline" className="rounded-full border-primary/50 text-primary hover:bg-primary/10 mb-6">
                 <KnowledgeBaseIcon className="mr-2" />
                 Knowledge Base
               </Button>
               <h1 className="text-2xl font-bold mb-8 flex items-center gap-2">
-                Ask <PaceIcon /> Pace anything about PR Validation
+                Ask <PaceIcon /> Pace anything about AE/PC Process Reporting
               </h1>
 
               <div className="w-full max-w-2xl relative">
@@ -40,10 +41,10 @@ export default function KnowledgeBasePage() {
             </div>
 
              <div className="absolute bottom-6 text-center">
-                <button className="flex flex-col items-center gap-1 text-muted-foreground hover:text-foreground">
+                <Link href="/knowledge-base/article" className="flex flex-col items-center gap-1 text-muted-foreground hover:text-foreground">
                     <ChevronsUp className="h-5 w-5"/>
                     <span className="text-xs font-medium">Explore Knowledge Base</span>
-                </button>
+                </Link>
             </div>
           </main>
         </div>

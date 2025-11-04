@@ -53,7 +53,7 @@ const formatPath = (path: string) => {
 export function AppHeader() {
   const pathname = usePathname();
   
-  if (pathname === '/knowledge-base') {
+  if (pathname.startsWith('/knowledge-base')) {
     return (
        <header className="flex h-[53px] items-center justify-between gap-4 p-4 border-b">
         <div className="flex items-center gap-2">
