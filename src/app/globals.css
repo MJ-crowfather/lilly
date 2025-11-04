@@ -98,8 +98,8 @@ body {
     }
     .login-diagonal-bg {
         background-image:
-            repeating-linear-gradient(45deg, #e7e5e0 0, #e7e5e0 1px, transparent 1px, transparent 8px),
-            repeating-linear-gradient(-45deg, #e7e5e0 0, #e7e5e0 1px, transparent 1px, transparent 8px);
+            repeating-linear-gradient(45deg, #d1e1fc 0, #d1e1fc 1px, transparent 1px, transparent 8px),
+            repeating-linear-gradient(-45deg, #d1e1fc 0, #d1e1fc 1px, transparent 1px, transparent 8px);
         background-size: 80px 80px;
         background-position: 40px 0;
     }
