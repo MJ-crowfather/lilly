@@ -87,3 +87,20 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+@layer utilities {
+    .login-grid-bg {
+        background-color: #f7f6f2;
+        background-image: 
+            linear-gradient(to right, #e7e5e0 1px, transparent 1px),
+            linear-gradient(to bottom, #e7e5e0 1px, transparent 1px);
+        background-size: 80px 80px;
+    }
+    .login-diagonal-bg {
+        background-image:
+            repeating-linear-gradient(45deg, #e7e5e0 0, #e7e5e0 1px, transparent 1px, transparent 8px),
+            repeating-linear-gradient(-45deg, #e7e5e0 0, #e7e5e0 1px, transparent 1px, transparent 8px);
+        background-size: 80px 80px;
+        background-position: 40px 0;
+    }
+}

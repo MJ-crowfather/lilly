@@ -2,12 +2,23 @@
 
 import * as React from 'react';
 import { useRouter } from 'next/navigation';
-import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/components/auth-provider';
+
+function ZampLogo() {
+  return (
+    <div className="flex items-center gap-1.5 text-2xl font-bold tracking-tight text-gray-800">
+      zamp
+      <div className="flex flex-col gap-1">
+        <div className="h-0.5 w-4 bg-gray-800"></div>
+        <div className="h-0.5 w-4 bg-gray-800"></div>
+      </div>
+    </div>
+  );
+}
+
 
 export default function LoginPage() {
   const [email, setEmail] = React.useState('');
@@ -31,37 +42,37 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="w-full max-w-sm p-8 space-y-8">
-        <div className="flex justify-center">
-          <Image src="/logo.svg" alt="Logo" width={60} height={50} />
+    <div className="flex min-h-screen items-center justify-center login-grid-bg relative">
+      <div className="absolute inset-0 login-diagonal-bg opacity-50" style={{backgroundSize: '160px 160px', backgroundPosition: '0 0'}}></div>
+       <div className="relative w-full max-w-sm rounded-2xl bg-white p-8 shadow-xl">
+        <div className="flex justify-center mb-8">
+            <ZampLogo />
         </div>
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <Label htmlFor="email" className="text-muted-foreground">Email Address</Label>
             <Input
               id="email"
               type="email"
-              placeholder="user@example.com"
+              placeholder="Enter your email address"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="mt-1"
+              className="mt-1 border-gray-300 focus:ring-gray-800"
             />
           </div>
           <div>
-            <Label htmlFor="password">Password</Label>
             <Input
               id="password"
               type="password"
+              placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="mt-1"
+              className="mt-1 border-gray-300 focus:ring-gray-800"
             />
           </div>
-          <Button type="submit" className="w-full">
-            Sign In
+          <Button type="submit" className="w-full bg-gray-800 text-white hover:bg-gray-900 h-11 text-base">
+            Login
           </Button>
         </form>
       </div>
