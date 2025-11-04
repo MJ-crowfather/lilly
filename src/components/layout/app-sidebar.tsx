@@ -128,10 +128,10 @@ export function AppSidebar() {
               <div className="flex items-center gap-2">
                 <Avatar className="h-6 w-6 rounded-sm bg-yellow-300">
                   <AvatarFallback className="bg-yellow-300 rounded-sm font-bold text-yellow-900 text-xs">
-                    L
+                    E
                   </AvatarFallback>
                 </Avatar>
-                <span className="text-sm font-medium">Lyft</span>
+                <span className="text-sm font-medium">Eli Lilly</span>
               </div>
               <ChevronUp
                 className={`h-4 w-4 transition-transform ${
@@ -157,11 +157,11 @@ export function AppSidebar() {
             <DropdownMenuItem className="gap-2">
               <Avatar className="h-6 w-6 rounded-sm bg-yellow-300">
                 <AvatarFallback className="bg-yellow-300 rounded-sm font-bold text-yellow-900 text-xs">
-                  L
+                  E
                 </AvatarFallback>
               </Avatar>
               <div className="flex-1 flex justify-between items-center">
-                <span>Lyft</span>
+                <span>Eli Lilly</span>
                 <Check className="h-4 w-4" />
               </div>
             </DropdownMenuItem>
