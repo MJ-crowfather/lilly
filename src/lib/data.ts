@@ -22,10 +22,8 @@ export type DoneCase = {
   lilly_product: string;
   report_type: string;
   respondent_type: string;
-  country: string;
   case_summary: string;
   case_status: string;
-  processing_time: string;
   assigned_agent: string;
 };
 
@@ -152,10 +150,8 @@ export const doneCases: DoneCase[] = [
     lilly_product: "Trulicity",
     report_type: "Adverse Event",
     respondent_type: "Patient",
-    country: "USA",
     case_summary: "Patient reported nausea after taking the product.",
     case_status: "Closed",
-    processing_time: "2 days",
     assigned_agent: "Agent A",
   },
   {
@@ -166,10 +162,8 @@ export const doneCases: DoneCase[] = [
     lilly_product: "Jardiance",
     report_type: "Product Complaint",
     respondent_type: "Pharmacist",
-    country: "Canada",
     case_summary: "Pharmacist reported a packaging issue.",
     case_status: "Closed",
-    processing_time: "1 day",
     assigned_agent: "Agent B",
   },
   {
@@ -180,10 +174,8 @@ export const doneCases: DoneCase[] = [
     lilly_product: "Taltz",
     report_type: "Adverse Event",
     respondent_type: "Patient",
-    country: "UK",
     case_summary: "Patient experienced a skin reaction.",
     case_status: "Closed",
-    processing_time: "3 days",
     assigned_agent: "Agent A",
   },
   {
@@ -194,10 +186,8 @@ export const doneCases: DoneCase[] = [
     lilly_product: "Olumiant",
     report_type: "Off-label Use",
     respondent_type: "Physician",
-    country: "Germany",
     case_summary: "Inquiry about using the product for a non-approved indication.",
     case_status: "Closed",
-    processing_time: "4 days",
     assigned_agent: "Agent C",
   },
   {
@@ -208,10 +198,8 @@ export const doneCases: DoneCase[] = [
     lilly_product: "Emgality",
     report_type: "Adverse Event",
     respondent_type: "Patient",
-    country: "USA",
     case_summary: "Patient reported severe migraines after first dose.",
     case_status: "Closed",
-    processing_time: "2 days",
     assigned_agent: "Agent B",
   },
 ];

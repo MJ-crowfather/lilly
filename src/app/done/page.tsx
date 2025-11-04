@@ -17,10 +17,8 @@ const tableHeaders = [
   'Lilly Product',
   'Report Type',
   'Respondent Type',
-  'Country',
   'Case Summary',
   'Case Status',
-  'Processing Time',
   'Assigned Agent',
 ];
 
@@ -66,10 +64,8 @@ export default function DonePage() {
                                     <TableCell>{caseItem.lilly_product}</TableCell>
                                     <TableCell>{caseItem.report_type}</TableCell>
                                     <TableCell>{caseItem.respondent_type}</TableCell>
-                                    <TableCell>{caseItem.country}</TableCell>
                                     <TableCell className="max-w-[250px] truncate">{caseItem.case_summary}</TableCell>
                                     <TableCell>{caseItem.case_status}</TableCell>
-                                    <TableCell>{caseItem.processing_time}</TableCell>
                                     <TableCell>{caseItem.assigned_agent}</TableCell>
                                 </TableRow>
                             ))}
