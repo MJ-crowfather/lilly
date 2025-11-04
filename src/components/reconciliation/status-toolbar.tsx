@@ -12,45 +12,45 @@ type StatusToolbarProps = {
 const iconMap: { [key: string]: React.FC<any> } = {
   "Needs Attention": (props) => (
     <svg viewBox="0 0 8 8" {...props}>
-      <rect width="8" height="8" rx="1.5" className="fill-orange-100 stroke-orange-500" strokeWidth="1"/>
+      <rect width="8" height="8" rx="1.5" className="fill-orange-100 dark:fill-orange-900/50 stroke-orange-500 dark:stroke-orange-400" strokeWidth="1"/>
     </svg>
   ),
   "Void": (props) => (
     <svg viewBox="0 0 8 8" {...props}>
-      <rect width="8" height="8" rx="1.5" className="fill-gray-100 stroke-gray-500" strokeWidth="1"/>
+      <rect width="8" height="8" rx="1.5" className="fill-gray-100 dark:fill-gray-800 stroke-gray-500 dark:stroke-gray-400" strokeWidth="1"/>
     </svg>
   ),
   "In Progress": (props) => (
     <svg viewBox="0 0 8 8" {...props}>
-      <rect width="8" height="8" rx="1.5" className="fill-blue-100 stroke-blue-500" strokeWidth="1"/>
+      <rect width="8" height="8" rx="1.5" className="fill-blue-100 dark:fill-blue-900/50 stroke-blue-500 dark:stroke-blue-400" strokeWidth="1"/>
     </svg>
   ),
   "Done": (props) => (
      <svg viewBox="0 0 8 8" {...props}>
-      <rect width="8" height="8" rx="1.5" className="fill-green-100 stroke-green-500" strokeWidth="1"/>
+      <rect width="8" height="8" rx="1.5" className="fill-green-100 dark:fill-green-900/50 stroke-green-500 dark:stroke-green-400" strokeWidth="1"/>
     </svg>
   ),
 }
 
 const colorMap = {
-    "Needs Attention": "text-orange-700",
-    "Void": "text-gray-700",
-    "In Progress": "text-blue-700",
-    "Done": "text-green-700",
+    "Needs Attention": "text-orange-700 dark:text-orange-300",
+    "Void": "text-gray-700 dark:text-gray-300",
+    "In Progress": "text-blue-700 dark:text-blue-300",
+    "Done": "text-green-700 dark:text-green-300",
 }
 
 const activeColorMap = {
-    "Needs Attention": "text-orange-700 border-orange-200 bg-orange-50/50",
-    "Void": "text-gray-700 border-gray-200 bg-gray-50/50",
-    "In Progress": "text-blue-700 border-blue-200 bg-blue-50/50",
-    "Done": "text-green-700 border-green-200 bg-green-50/50",
+    "Needs Attention": "text-orange-700 dark:text-orange-300 border-orange-200 dark:border-orange-500/50 bg-orange-50/50 dark:bg-orange-900/20",
+    "Void": "text-gray-700 dark:text-gray-300 border-gray-200 dark:border-gray-600 bg-gray-50/50 dark:bg-gray-800/50",
+    "In Progress": "text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-500/50 bg-blue-50/50 dark:bg-blue-900/20",
+    "Done": "text-green-700 dark:text-green-300 border-green-200 dark:border-green-500/50 bg-green-50/50 dark:bg-green-900/20",
 }
 
 const linkMap: { [key: string]: string } = {
   "Needs Attention": "/",
   "Void": "/void",
   "In Progress": "/in-progress",
-  "Done": "#",
+  "Done": "/done",
 };
 
 export function StatusToolbar({ statuses }: StatusToolbarProps) {
