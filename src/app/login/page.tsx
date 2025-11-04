@@ -1,6 +1,7 @@
 'use client';
 
 import * as React from 'react';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -9,13 +10,7 @@ import { useAuth } from '@/components/auth-provider';
 
 function ZampLogo() {
   return (
-    <div className="flex items-center gap-1.5 text-2xl font-bold tracking-tight text-gray-800">
-      zamp
-      <div className="flex flex-col gap-1">
-        <div className="h-0.5 w-4 bg-gray-800"></div>
-        <div className="h-0.5 w-4 bg-gray-800"></div>
-      </div>
-    </div>
+    <Image src="/logo.svg" alt="Logo" width={45} height={40} />
   );
 }
 
