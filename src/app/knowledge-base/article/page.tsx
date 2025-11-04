@@ -94,7 +94,7 @@ export default function KnowledgeBaseArticlePage() {
                           return <h2 key={index} id={id} className="text-xl font-semibold pt-4">{item.text}</h2>
                       }
                       if (item.type === 'h3') {
-                          return <h3 key={index} id={id} className="text-lg font-semibold pt-2">{item.text}</h3>
+                          return <h3 key={index.toString()} id={id} className="text-lg font-semibold pt-2">{item.text}</h3>
                       }
                       if (item.type === 'p') {
                           return <p key={index} className="text-sm leading-relaxed">{item.text}</p>
@@ -122,7 +122,7 @@ export default function KnowledgeBaseArticlePage() {
                                         <li key={index}>
                                             <a href={`#${id}`} className={cn(
                                                 "text-sm text-muted-foreground hover:text-foreground",
-                                                item.type === 'h3' && 'pl-4'
+                                                item.type === 'h3' && ''
                                             )}>
                                                 {item.text}
                                             </a>
