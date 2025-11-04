@@ -7,12 +7,18 @@ type EmptyStateProps = {
   image: string;
   title: string;
   description: string;
+  size?: 'default' | 'small';
 };
 
-export function EmptyState({ image, title, description }: EmptyStateProps) {
+export function EmptyState({ image, title, description, size = 'default' }: EmptyStateProps) {
   const emptyStateImage = PlaceHolderImages.find(
     (img) => img.id === image
   );
+
+  const imageSize = size === 'small' ? { width: 120, height: 80 } : { width: 180, height: 120 };
+  const titleClass = size === 'small' ? 'text-base font-medium' : 'text-lg font-semibold';
+  const descriptionClass = size === 'small' ? 'text-sm' : '';
+
 
   return (
     <div className="w-full flex flex-col items-center justify-center text-center">
@@ -20,14 +26,14 @@ export function EmptyState({ image, title, description }: EmptyStateProps) {
         <Image
           src={emptyStateImage.imageUrl}
           alt={emptyStateImage.description}
-          width={180}
-          height={120}
+          width={imageSize.width}
+          height={imageSize.height}
           data-ai-hint={emptyStateImage.imageHint}
           className="max-w-[120px] max-h-[120px] object-contain"
         />
       )}
-      <h3 className="mt-6 text-lg font-semibold">{title}</h3>
-      <p className="mt-1 text-muted-foreground max-w-sm">
+      <h3 className={`mt-6 ${titleClass}`}>{title}</h3>
+      <p className={`mt-1 text-muted-foreground max-w-sm ${descriptionClass}`}>
         {description}
       </p>
     </div>

@@ -30,6 +30,7 @@ export default function VoidPage() {
               image="empty-box"
               title="Nothing to see here yet"
               description="Any process that is void will land here."
+              size="small"
             />
           </div>
         </div>
