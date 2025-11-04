@@ -18,7 +18,7 @@ export default function Dashboard() {
       <SidebarInset>
         <div className="flex flex-col h-screen">
           <AppHeader />
-          <div className="p-4 md:px-6 md:pt-6">
+          <div className="p-4 md:px-6">
             <StatusToolbar statuses={statusCards} />
           </div>
           <div className="flex-1 flex items-center justify-center p-4 md:p-6">

@@ -14,7 +14,7 @@ export default function DataPage() {
       <SidebarInset>
         <div className="flex flex-col h-screen">
           <AppHeader />
-          <main className="p-4 md:px-6 md:pt-6">
+          <main className="p-4 md:px-6">
             <div className="rounded-lg border bg-card text-card-foreground shadow-sm">
                 <Table>
                     <TableHeader>
