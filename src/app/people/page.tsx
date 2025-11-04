@@ -33,41 +33,41 @@ export default function PeoplePage() {
                             <div className="flex justify-between items-center">
                                 <div className="relative w-full max-w-sm">
                                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                                    <Input placeholder="Search team members" className="pl-10" />
+                                    <Input placeholder="Search team members" className="pl-10 text-xs h-9" />
                                 </div>
-                                <Button className="bg-gray-800 text-white hover:bg-gray-900">Invite members</Button>
+                                <Button size="sm" className="bg-gray-800 text-white hover:bg-gray-900">Invite members</Button>
                             </div>
                         </div>
 
                         <Tabs defaultValue="team-members">
                             <TabsList className="border-b-0 p-0 bg-transparent gap-4">
-                                <TabsTrigger value="team-members" className="data-[state=active]:border-b-2 data-[state=active]:border-primary data-[state=active]:shadow-none rounded-none p-2 text-sm font-medium">Team members</TabsTrigger>
-                                <TabsTrigger value="invited" className="data-[state=active]:border-b-2 data-[state=active]:border-primary data-[state=active]:shadow-none rounded-none p-2 text-sm font-medium text-muted-foreground">Invited</TabsTrigger>
+                                <TabsTrigger value="team-members" className="data-[state=active]:border-b-2 data-[state=active]:border-primary data-[state=active]:shadow-none rounded-none p-2 text-xs font-medium">Team members</TabsTrigger>
+                                <TabsTrigger value="invited" className="data-[state=active]:border-b-2 data-[state=active]:border-primary data-[state=active]:shadow-none rounded-none p-2 text-xs font-medium text-muted-foreground">Invited</TabsTrigger>
                             </TabsList>
                             <TabsContent value="team-members" className="mt-4">
                                 <div className="rounded-lg border bg-card text-card-foreground">
                                     <Table>
                                         <TableHeader>
                                             <TableRow className="hover:bg-transparent">
-                                                <TableHead>Name</TableHead>
-                                                <TableHead>Email</TableHead>
-                                                <TableHead>Role</TableHead>
-                                                <TableHead>Team</TableHead>
+                                                <TableHead className="text-xs">Name</TableHead>
+                                                <TableHead className="text-xs">Email</TableHead>
+                                                <TableHead className="text-xs">Role</TableHead>
+                                                <TableHead className="text-xs">Team</TableHead>
                                             </TableRow>
                                         </TableHeader>
                                         <TableBody>
                                             {teamMembers.map((member) => (
                                                 <TableRow key={member.email}>
-                                                    <TableCell>
+                                                    <TableCell className="text-xs">
                                                         <div className="flex items-center gap-3">
                                                             <MemberAvatar name={member.name} />
                                                             <span className="font-medium">{member.name}</span>
-                                                            {member.isYou && <span className="text-muted-foreground text-sm">(You)</span>}
+                                                            {member.isYou && <span className="text-muted-foreground text-xs">(You)</span>}
                                                         </div>
                                                     </TableCell>
-                                                    <TableCell className="text-muted-foreground">{member.email}</TableCell>
-                                                    <TableCell className="text-muted-foreground">{member.role}</TableCell>
-                                                    <TableCell className="text-muted-foreground">{member.team}</TableCell>
+                                                    <TableCell className="text-muted-foreground text-xs">{member.email}</TableCell>
+                                                    <TableCell className="text-muted-foreground text-xs">{member.role}</TableCell>
+                                                    <TableCell className="text-muted-foreground text-xs">{member.team}</TableCell>
                                                 </TableRow>
                                             ))}
                                         </TableBody>
@@ -76,8 +76,8 @@ export default function PeoplePage() {
                             </TabsContent>
                              <TabsContent value="invited">
                                 <div className="text-center p-8 border rounded-lg">
-                                    <h3 className="font-semibold">No pending invitations</h3>
-                                    <p className="text-sm text-muted-foreground">Invited members will appear here.</p>
+                                    <h3 className="font-semibold text-xs">No pending invitations</h3>
+                                    <p className="text-xs text-muted-foreground">Invited members will appear here.</p>
                                 </div>
                             </TabsContent>
                         </Tabs>
