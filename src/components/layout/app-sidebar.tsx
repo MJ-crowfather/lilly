@@ -94,11 +94,11 @@ export function AppSidebar() {
               <SidebarMenuButton
                 href="/"
                 isActive={pathname === '/'}
-                tooltip="ACH + Checks Reconciliation"
+                tooltip="AE/PC Reporting"
                 className="font-normal data-[active=true]:font-normal text-xs"
               >
                 <ProcessIcon />
-                <span style={{ fontSize: '0.7rem' }}>ACH + Checks Reconciliation</span>
+                <span style={{ fontSize: '0.7rem' }}>AE/PC Reporting</span>
               </SidebarMenuButton>
             </SidebarMenuItem>
           </SidebarGroup>

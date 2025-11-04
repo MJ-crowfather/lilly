@@ -22,7 +22,7 @@ const formatPath = (path: string) => {
     );
   }
 
-  let title = "ACH + Checks Reconciliation";
+  let title = "AE/PC Reporting";
   if (path.startsWith('/data')) {
     title = "Data";
   } else if (path.startsWith('/people')) {
