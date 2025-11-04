@@ -18,19 +18,19 @@ export default function DataPage() {
               <Table>
                   <TableHeader>
                       <TableRow>
-                          <TableHead className="text-sm">Datasets</TableHead>
-                          <TableHead className="text-sm">Description</TableHead>
+                          <TableHead className="text-xs">Datasets</TableHead>
+                          <TableHead className="text-xs">Description</TableHead>
                       </TableRow>
                   </TableHeader>
                   <TableBody>
                     <TableRow>
-                        <TableCell className="font-medium text-sm">
+                        <TableCell className="font-medium text-xs">
                           <Link href="/data/final-merged-sheet" className="flex items-center gap-2 hover:underline">
                             <Gem className="h-4 w-4 text-muted-foreground" />
                             Final Merged Sheet
                           </Link>
                         </TableCell>
-                        <TableCell className="text-sm">
+                        <TableCell className="text-xs">
                           Final Merged Sheet Dataset
                         </TableCell>
                     </TableRow>
