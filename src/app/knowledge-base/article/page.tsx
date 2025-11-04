@@ -16,13 +16,13 @@ const articleContent = [
     { type: 'p', text: "Social Care agents monitor Lilly's social channels via Sprinklr to detect and report adverse events (AE) and product complaints (PC). Agents manually tag cases, export data, populate Excel forms, and email reports to regulatory compliance." },
     { type: 'p', text: 'Current Metrics: ~10 min/case | 400-450 cases/month | 800-900 hours/year' },
     { type: 'h2', text: 'Process Flow' },
-    { type: 'h3', text: '1. Case Detection & Auto-Tagging' },
+    { type: 'h3', text: 'Case Detection & Auto-Tagging' },
     { type: 'ul', items: [
         'Sprinklr captures social posts mentioning Lilly products with potential AE/PC keywords',
         'Auto-applies ~50% of tags: Compliance (AE/PC), Product, Audience (HCP/Consumer), Geography',
         'Case assigned to agent queue with unique Case ID'
     ]},
-    { type: 'h3', text: '2. Agent Review & Tag Verification' },
+    { type: 'h3', text: 'Agent Review & Tag Verification' },
     { type: 'p', text: 'Agent opens case in Sprinklr (Conversation View + Properties Panel). Verifies auto-tags and manually adds/corrects:'},
     { type: 'ul', items: [
         'Compliance: AE, PC, AE and PC, None',
@@ -31,10 +31,10 @@ const articleContent = [
         'Therapeutic Area: Diabetes, Oncology, etc.',
     ]},
     { type: 'p', text: 'Tags via Properties Panel or Macro Modal'},
-    { type: 'h3', text: '3. AE/PC Dashboard Check' },
+    { type: 'h3', text: 'AE/PC Dashboard Check' },
     { type: 'p', text: 'Navigate to "AE/PC" tab in Sprinklr. View table export with all tagged cases.'},
     { type: 'ul', items: ['Deduplication Issue: Multi-tagged cases (e.g., HCP + Consumer) appear as duplicate rows']},
-    { type: 'h3', text: '4. Manual Excel Form Population' },
+    { type: 'h3', text: 'Manual Excel Form Population' },
     { type: 'p', text: 'Agent copies 17 fields from Sprinklr to Excel template:'},
     { type: 'ul', items: [
         'Case #, Receipt Date, Username, Message Text',
@@ -43,13 +43,13 @@ const articleContent = [
         'Patient info (often "Unknown")',
     ]},
     { type: 'p', text: 'Switches between Sprinklr and Excel tabs for each field'},
-    { type: 'h3', text: '5. Email Submission' },
+    { type: 'h3', text: 'Email Submission' },
     { type: 'ul', items: [
         'Save Excel file with descriptive filename',
         'Email to USAnswersCenter@lilly.com with subject "AE/PC Report"',
         'Attach Excel file and send'
     ]},
-    { type: 'h3', text: '6. Case Closure' },
+    { type: 'h3', text: 'Case Closure' },
     { type: 'ul', items: [
         'Return to Sprinklr',
         'Click Macro → Select "Closed"',
@@ -89,7 +89,7 @@ export default function KnowledgeBaseArticlePage() {
                 <div className="w-2/3 pr-16 space-y-4">
                   <h2 className="text-xl font-semibold">Pace AI Agent - AE/PC Reporting Automation</h2>
                   {articleContent.map((item, index) => {
-                      const id = item.type !== 'p' && item.type !== 'ul' ? slugify(item.text) : undefined;
+                      const id = item.type !== 'p' && item.type !== 'ul' && item.text ? slugify(item.text) : undefined;
                       if (item.type === 'h2') {
                           return <h2 key={index} id={id} className="text-xl font-semibold pt-4">{item.text}</h2>
                       }
@@ -117,7 +117,7 @@ export default function KnowledgeBaseArticlePage() {
                         <CollapsibleContent className="mt-2 pl-4 border-l">
                             <ul className="space-y-2">
                                 {toc.map((item, index) => {
-                                    const id = slugify(item.text!);
+                                    const id = item.text ? slugify(item.text) : '';
                                     return (
                                         <li key={index}>
                                             <a href={`#${id}`} className={cn(
