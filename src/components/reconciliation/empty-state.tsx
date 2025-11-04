@@ -3,9 +3,15 @@
 import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 
-export function EmptyState() {
+type EmptyStateProps = {
+  image: string;
+  title: string;
+  description: string;
+};
+
+export function EmptyState({ image, title, description }: EmptyStateProps) {
   const emptyStateImage = PlaceHolderImages.find(
-    (img) => img.id === 'empty-state-birds'
+    (img) => img.id === image
   );
 
   return (
@@ -17,11 +23,12 @@ export function EmptyState() {
           width={180}
           height={120}
           data-ai-hint={emptyStateImage.imageHint}
+          className="max-w-[120px] max-h-[120px] object-contain"
         />
       )}
-      <h3 className="mt-6 text-lg font-semibold">No blockers right now</h3>
+      <h3 className="mt-6 text-lg font-semibold">{title}</h3>
       <p className="mt-1 text-muted-foreground max-w-sm">
-        Sit back and let things flow, we'll nudge you when it's time to step in.
+        {description}
       </p>
     </div>
   );
