@@ -35,7 +35,7 @@ export default function DonePage() {
             <div className="p-4 md:px-6">
                 <StatusToolbar statuses={statusCards} />
             </div>
-            <div className="rounded-lg border-t bg-card text-card-foreground shadow-sm mx-4 md:mx-6">
+            <div className="rounded-t-lg border-t bg-card text-card-foreground shadow-sm mx-4 md:mx-6">
                 <div className="p-4 flex items-center justify-between">
                     <Button variant="outline" size="sm">
                         <Filter className="h-4 w-4 mr-2" />
