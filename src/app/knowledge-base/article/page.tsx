@@ -7,9 +7,12 @@ import { AppSidebar } from '@/components/layout/app-sidebar';
 import { SidebarProvider, SidebarInset } from '@/components/ui/sidebar';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
-import { ArrowUp, ChevronRight } from 'lucide-react';
+import { ArrowUp, ChevronRight, Loader2 } from 'lucide-react';
 import { Collapsible, CollapsibleTrigger, CollapsibleContent } from '@/components/ui/collapsible';
 import { cn } from '@/lib/utils';
+import { answerQuestion } from '@/ai/flows/knowledge-base-flow';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { PaceIcon } from '@/components/pace-icon';
 
 const articleContent = [
     { type: 'h2', text: 'Overview' },
@@ -65,14 +68,60 @@ const articleContent = [
     ]}
 ];
 
+const articleText = articleContent.map(item => {
+    if (item.type === 'ul') {
+        return item.items.map(li => `- ${li}`).join('\n');
+    }
+    return item.text;
+}).join('\n\n');
+
+
 function slugify(text: string) {
     return text.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, '');
 }
 
+type Message = {
+  role: 'user' | 'pace';
+  content: string;
+};
+
+
 export default function KnowledgeBaseArticlePage() {
   const [open, setOpen] = React.useState(true);
+  const [messages, setMessages] = React.useState<Message[]>([]);
+  const [input, setInput] = React.useState('');
+  const [isLoading, setIsLoading] = React.useState(false);
+  const chatContainerRef = React.useRef<HTMLDivElement>(null);
+
 
   const toc = articleContent.filter(item => item.type === 'h2' || item.type === 'h3');
+
+  React.useEffect(() => {
+    if (chatContainerRef.current) {
+        chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
+  }, [messages]);
+
+  const handleSendMessage = async () => {
+    if (!input.trim() || isLoading) return;
+
+    const userMessage: Message = { role: 'user', content: input };
+    setMessages(prev => [...prev, userMessage]);
+    setInput('');
+    setIsLoading(true);
+
+    try {
+      const result = await answerQuestion({ question: input, context: articleText });
+      const paceMessage: Message = { role: 'pace', content: result.answer };
+      setMessages(prev => [...prev, paceMessage]);
+    } catch (error) {
+      console.error('Error getting answer:', error);
+      const errorMessage: Message = { role: 'pace', content: 'Sorry, I encountered an error. Please try again.' };
+      setMessages(prev => [...prev, errorMessage]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <SidebarProvider>
@@ -84,65 +133,116 @@ export default function KnowledgeBaseArticlePage() {
             <header className="h-[140px] w-full bg-gray-50 flex items-center px-8 login-diagonal-bg">
                 <h1 className="text-3xl font-bold tracking-tight">AE/PC Reporting</h1>
             </header>
-            <main className="flex-1 flex justify-center py-8 px-4 md:px-8">
-              <div className="w-full max-w-6xl flex">
-                <div className="w-2/3 pr-16 space-y-4">
-                  <h2 className="text-xl font-semibold">Pace AI Agent - AE/PC Reporting Automation</h2>
-                  {articleContent.map((item, index) => {
-                      const id = item.type !== 'p' && item.type !== 'ul' && item.text ? slugify(item.text) : undefined;
-                      if (item.type === 'h2') {
-                          return <h2 key={index} id={id} className="text-xl font-semibold pt-4">{item.text}</h2>
-                      }
-                      if (item.type === 'h3') {
-                          return <h3 key={index.toString()} id={id} className="text-lg font-semibold pt-2">{item.text}</h3>
-                      }
-                      if (item.type === 'p') {
-                          return <p key={index} className="text-sm leading-relaxed">{item.text}</p>
-                      }
-                      if (item.type === 'ul') {
-                          return <ul key={index} className="list-disc pl-5 space-y-1 text-sm">
-                              {item.items.map((li, liIndex) => <li key={liIndex}>{li}</li>)}
-                          </ul>
-                      }
-                      return null;
-                  })}
-                </div>
-                <aside className="w-1/3 sticky top-20 self-start">
-                    <h3 className="text-xs font-semibold text-muted-foreground mb-2">In this knowledge base:</h3>
-                     <Collapsible open={open} onOpenChange={setOpen}>
-                        <CollapsibleTrigger className="flex items-center justify-between w-full text-left">
-                            <span className="text-sm font-medium">Pace AI Agent - AE/PC Reporting Automation</span>
-                            <ChevronRight className={cn("h-4 w-4 transition-transform", open && "rotate-90")} />
-                        </CollapsibleTrigger>
-                        <CollapsibleContent className="mt-2 pl-4 border-l">
-                            <ul className="space-y-2">
-                                {toc.map((item, index) => {
-                                    const id = item.text ? slugify(item.text) : '';
-                                    return (
-                                        <li key={index}>
-                                            <a href={`#${id}`} className={cn(
-                                                "text-sm text-muted-foreground hover:text-foreground",
-                                                item.type === 'h3' && ''
-                                            )}>
-                                                {item.text}
-                                            </a>
-                                        </li>
-                                    );
-                                })}
+            
+            <main ref={chatContainerRef} className="flex-1 flex justify-center py-8 px-4 md:px-8 overflow-y-auto">
+              {messages.length === 0 ? (
+                <div className="w-full max-w-6xl flex">
+                    <div className="w-2/3 pr-16 space-y-4">
+                    <h2 className="text-xl font-semibold">Pace AI Agent - AE/PC Reporting Automation</h2>
+                    {articleContent.map((item, index) => {
+                        const id = item.type !== 'p' && item.type !== 'ul' && item.text ? slugify(item.text) : undefined;
+                        if (item.type === 'h2') {
+                            return <h2 key={index} id={id} className="text-xl font-semibold pt-4">{item.text}</h2>
+                        }
+                        if (item.type === 'h3') {
+                            return <h3 key={index.toString()} id={id} className="text-lg font-semibold pt-2">{item.text}</h3>
+                        }
+                        if (item.type === 'p') {
+                            return <p key={index} className="text-sm leading-relaxed">{item.text}</p>
+                        }
+                        if (item.type === 'ul') {
+                            return <ul key={index} className="list-disc pl-5 space-y-1 text-sm">
+                                {item.items.map((li, liIndex) => <li key={liIndex}>{li}</li>)}
                             </ul>
-                        </CollapsibleContent>
-                    </Collapsible>
-                </aside>
-              </div>
+                        }
+                        return null;
+                    })}
+                    </div>
+                    <aside className="w-1/3 sticky top-20 self-start">
+                        <h3 className="text-xs font-semibold text-muted-foreground mb-2">In this knowledge base:</h3>
+                        <Collapsible open={open} onOpenChange={setOpen}>
+                            <CollapsibleTrigger className="flex items-center justify-between w-full text-left">
+                                <span className="text-sm font-medium">Pace AI Agent - AE/PC Reporting Automation</span>
+                                <ChevronRight className={cn("h-4 w-4 transition-transform", open && "rotate-90")} />
+                            </CollapsibleTrigger>
+                            <CollapsibleContent className="mt-2 pl-4 border-l">
+                                <ul className="space-y-2">
+                                    {toc.map((item, index) => {
+                                        const id = item.text ? slugify(item.text) : '';
+                                        return (
+                                            <li key={index}>
+                                                <a href={`#${id}`} className={cn(
+                                                    "text-sm text-muted-foreground hover:text-foreground",
+                                                    item.type === 'h3' && ''
+                                                )}>
+                                                    {item.text}
+                                                </a>
+                                            </li>
+                                        );
+                                    })}
+                                </ul>
+                            </CollapsibleContent>
+                        </Collapsible>
+                    </aside>
+                </div>
+              ) : (
+                <div className="w-full max-w-2xl space-y-6">
+                  {messages.map((msg, index) => (
+                    <div key={index} className={cn("flex items-start gap-4", msg.role === 'user' && "justify-end")}>
+                      {msg.role === 'pace' && (
+                         <Avatar className="h-8 w-8 bg-primary text-primary-foreground flex items-center justify-center">
+                            <PaceIcon className="h-5 w-5" />
+                         </Avatar>
+                      )}
+                      <div className={cn(
+                        "rounded-lg p-3 max-w-lg",
+                        msg.role === 'user' ? "bg-muted" : "bg-primary text-primary-foreground"
+                      )}>
+                        <p className="text-sm whitespace-pre-wrap">{msg.content}</p>
+                      </div>
+                       {msg.role === 'user' && (
+                        <Avatar className="h-8 w-8">
+                            <AvatarFallback>U</AvatarFallback>
+                        </Avatar>
+                      )}
+                    </div>
+                  ))}
+                   {isLoading && (
+                    <div className="flex items-start gap-4">
+                       <Avatar className="h-8 w-8 bg-primary text-primary-foreground flex items-center justify-center">
+                          <PaceIcon className="h-5 w-5" />
+                       </Avatar>
+                      <div className="rounded-lg p-3 max-w-lg bg-primary text-primary-foreground">
+                        <Loader2 className="h-5 w-5 animate-spin" />
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
             </main>
+
             <div className="sticky bottom-0 bg-background/80 backdrop-blur-sm p-4">
                 <div className="max-w-2xl mx-auto relative">
                     <Textarea 
                       placeholder="Ask away..."
+                      value={input}
+                      onChange={(e) => setInput(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' && !e.shiftKey) {
+                            e.preventDefault();
+                            handleSendMessage();
+                        }
+                      }}
                       className="rounded-xl p-4 pr-12 h-14 resize-none shadow-lg focus-visible:ring-primary/50"
+                      disabled={isLoading}
                     />
-                    <Button size="icon" className="absolute right-3 top-1/2 -translate-y-1/2 h-8 w-8 bg-gray-300 hover:bg-gray-400 text-gray-700">
-                      <ArrowUp className="h-4 w-4" />
+                    <Button 
+                      size="icon" 
+                      className="absolute right-3 top-1/2 -translate-y-1/2 h-8 w-8 bg-gray-300 hover:bg-gray-400 text-gray-700 disabled:opacity-50"
+                      onClick={handleSendMessage}
+                      disabled={isLoading || !input.trim()}
+                    >
+                      {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <ArrowUp className="h-4 w-4" />}
                     </Button>
                 </div>
             </div>
