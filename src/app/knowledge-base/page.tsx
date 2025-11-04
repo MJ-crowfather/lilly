@@ -24,7 +24,7 @@ export default function KnowledgeBasePage() {
                 <KnowledgeBaseIcon className="mr-2" />
                 Knowledge Base
               </Button>
-              <h1 className="text-3xl font-bold mb-8 flex items-center gap-2">
+              <h1 className="text-2xl font-bold mb-8 flex items-center gap-2">
                 Ask <PaceIcon /> Pace anything about PR Validation
               </h1>
 
