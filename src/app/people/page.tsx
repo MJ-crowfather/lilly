@@ -1,5 +1,6 @@
 'use client';
 
+import * as React from 'react';
 import { AppHeader } from '@/components/layout/app-header';
 import { AppSidebar } from '@/components/layout/app-sidebar';
 import { SidebarProvider, SidebarInset } from '@/components/ui/sidebar';
@@ -21,6 +22,12 @@ function MemberAvatar({ name }: { name: string }) {
 }
 
 export default function PeoplePage() {
+    const [searchTerm, setSearchTerm] = React.useState('');
+
+    const filteredMembers = teamMembers.filter((member) =>
+        member.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
     return (
         <SidebarProvider>
             <AppSidebar />
@@ -33,9 +40,14 @@ export default function PeoplePage() {
                             <div className="flex justify-between items-center">
                                 <div className="relative w-full max-w-sm">
                                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                                    <Input placeholder="Search team members" className="pl-10 text-xs h-9" />
+                                    <Input 
+                                        placeholder="Search team members" 
+                                        className="pl-10 text-xs h-9" 
+                                        value={searchTerm}
+                                        onChange={(e) => setSearchTerm(e.target.value)}
+                                    />
                                 </div>
-                                <Button size="sm" className="bg-gray-800 text-white hover:bg-gray-900">Invite members</Button>
+                                <Button size="sm" className="bg-gray-800 text-white hover:bg-gray-900 text-xs">Invite members</Button>
                             </div>
                         </div>
 
@@ -56,7 +68,7 @@ export default function PeoplePage() {
                                             </TableRow>
                                         </TableHeader>
                                         <TableBody>
-                                            {teamMembers.map((member) => (
+                                            {filteredMembers.map((member) => (
                                                 <TableRow key={member.email}>
                                                     <TableCell className="text-xs">
                                                         <div className="flex items-center gap-3">
