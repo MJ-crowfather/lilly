@@ -14,31 +14,29 @@ export default function DataPage() {
       <SidebarInset>
         <div className="flex flex-col h-screen">
           <AppHeader />
-          <main className="p-4 md:px-6">
-            <div className="rounded-lg border bg-card text-card-foreground shadow-sm">
-                <Table>
-                    <TableHeader>
-                        <TableRow>
-                            <TableHead>Datasets</TableHead>
-                            <TableHead>Description</TableHead>
-                        </TableRow>
-                    </TableHeader>
-                    <TableBody>
+          <div className="rounded-lg bg-card text-card-foreground">
+              <Table>
+                  <TableHeader>
                       <TableRow>
-                          <TableCell className="font-medium">
-                            <Link href="/data/final-merged-sheet" className="flex items-center gap-2 hover:underline">
-                              <Gem className="h-4 w-4 text-muted-foreground" />
-                              Final Merged Sheet
-                            </Link>
-                          </TableCell>
-                          <TableCell>
-                            Final Merged Sheet Dataset
-                          </TableCell>
+                          <TableHead>Datasets</TableHead>
+                          <TableHead>Description</TableHead>
                       </TableRow>
-                    </TableBody>
-                </Table>
-            </div>
-          </main>
+                  </TableHeader>
+                  <TableBody>
+                    <TableRow>
+                        <TableCell className="font-medium">
+                          <Link href="/data/final-merged-sheet" className="flex items-center gap-2 hover:underline">
+                            <Gem className="h-4 w-4 text-muted-foreground" />
+                            Final Merged Sheet
+                          </Link>
+                        </TableCell>
+                        <TableCell>
+                          Final Merged Sheet Dataset
+                        </TableCell>
+                    </TableRow>
+                  </TableBody>
+              </Table>
+          </div>
         </div>
       </SidebarInset>
     </SidebarProvider>
