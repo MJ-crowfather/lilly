@@ -10,15 +10,15 @@ import { finalMergedSheetData, type MergedSheetEntry } from '@/lib/data';
 import { Filter, ArrowDownToLine, History, PanelTopOpen, ArrowUpDown } from 'lucide-react';
 
 const tableHeaders = [
-  "AEPC_Report_Form",
   "channel",
-  "reporter_information",
-  "reporter_location",
+  "Lilly Agent assigned",
+  "reporter_username",
+  "Receipt Date",
   "lilly_products",
   "respondent_type",
   "hcp_type",
   "patient_gender",
-  "patient_age_category",
+  "patient_age",
   "ae_pc_details",
   "report_type",
   "contacted_poster",
@@ -40,6 +40,7 @@ function SortableHeader({ children }: { children: React.ReactNode }) {
 export default function SheetDetailsPage({ params }: { params: { sheetId: string } }) {
   // In a real app, you would fetch data based on params.sheetId
   const data: MergedSheetEntry[] = finalMergedSheetData;
+  const dataKeys = Object.keys(data[0] || {}) as (keyof MergedSheetEntry)[];
 
   return (
     <SidebarProvider>
@@ -80,21 +81,9 @@ export default function SheetDetailsPage({ params }: { params: { sheetId: string
                       <TableBody>
                           {data.map((row, index) => (
                               <TableRow key={index}>
-                                  <TableCell>{row.AEPC_Report_Form}</TableCell>
-                                  <TableCell>{row.channel}</TableCell>
-                                  <TableCell>{row.reporter_information}</TableCell>
-                                  <TableCell>{row.reporter_location}</TableCell>
-                                  <TableCell>{row.lilly_products}</TableCell>
-                                  <TableCell>{row.respondent_type}</TableCell>
-                                  <TableCell>{row.hcp_type}</TableCell>
-                                  <TableCell>{row.patient_gender}</TableCell>
-                                  <TableCell>{row.patient_age_category}</TableCell>
-                                  <TableCell>{row.ae_pc_details}</TableCell>
-                                  <TableCell>{row.report_type}</TableCell>
-                                  <TableCell>{row.contacted_poster}</TableCell>
-                                  <TableCell>{row.poster_consent}</TableCell>
-                                  <TableCell>{row.poster_contact_info}</TableCell>
-                                  <TableCell>{row.lot_control_number}</TableCell>
+                                  {dataKeys.map(key => (
+                                      <TableCell key={key}>{row[key]}</TableCell>
+                                  ))}
                               </TableRow>
                           ))}
                       </TableBody>
