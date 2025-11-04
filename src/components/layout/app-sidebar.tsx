@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import * as React from 'react';
@@ -84,7 +85,7 @@ export function AppSidebar() {
           </SidebarMenuItem>
           <SidebarMenuItem>
             <SidebarMenuButton
-              href="#"
+              href="/people"
               isActive={pathname.startsWith('/people')}
               tooltip="People"
             >

@@ -1,4 +1,5 @@
 
+
 "use client"
 
 import Link from 'next/link';
@@ -25,7 +26,7 @@ const formatPath = (path: string) => {
   if (path.startsWith('/data')) {
     title = "Data";
   } else if (path.startsWith('/people')) {
-    title = "People";
+    title = "Team";
   }
 
   return <h1 className="text-sm font-medium tracking-tight">{title}</h1>;

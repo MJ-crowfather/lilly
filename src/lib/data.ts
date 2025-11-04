@@ -1,4 +1,5 @@
 
+
 export type StatusCard = {
   title: "Needs Attention" | "Void" | "In Progress" | "Done";
   value: number;
@@ -26,6 +27,15 @@ export type DoneCase = {
   case_summary: string;
   assigned_agent: string;
 };
+
+export type TeamMember = {
+  name: string;
+  isYou?: boolean;
+  email: string;
+  role: 'System Admin';
+  team: string;
+};
+
 
 export const statusCards: StatusCard[] = [
   { title: "Needs Attention", value: 0, change: "+2" },
@@ -206,4 +216,20 @@ export const doneCases: DoneCase[] = [
     case_summary: "Patient reported severe migraines after first dose.",
     assigned_agent: "Agent B",
   },
+];
+
+
+export const teamMembers: TeamMember[] = [
+  { name: 'Vignesh', isYou: true, email: 'vignesh@zamp.ai', role: 'System Admin', team: 'Add Team' },
+  { name: 'Maheedhar', email: 'maheedhar@zamp.ai', role: 'System Admin', team: 'Add Team' },
+  { name: 'Apoorva', email: 'apoorva@zamp.ai', role: 'System Admin', team: 'Add Team' },
+  { name: 'Abhishek', email: 'abhishek@zamp.ai', role: 'System Admin', team: 'Add Team' },
+  { name: 'Aman', email: 'aman@zamp.ai', role: 'System Admin', team: 'Add Team' },
+  { name: 'Aditya', email: 'aditya.jain@zamp.ai', role: 'System Admin', team: 'Add Team' },
+  { name: 'Shubhransh', email: 'shubhransh@zamp.ai', role: 'System Admin', team: 'Add Team' },
+  { name: 'Saurabh', email: 'saurabh@zamp.ai', role: 'System Admin', team: 'Add Team' },
+  { name: 'Akshay', email: 'akshay.srivastava@ext.zamp.ai', role: 'System Admin', team: 'Add Team' },
+  { name: 'Palak', email: 'palak.raghuwanshi@zamp.ai', role: 'System Admin', team: 'Add Team' },
+  { name: 'Aashita', email: 'aashita@zamp.ai', role: 'System Admin', team: 'Add Team' },
+  { name: 'Swati', email: 'swati.deshwal@zamp.ai', role: 'System Admin', team: 'Add Team' },
 ];
