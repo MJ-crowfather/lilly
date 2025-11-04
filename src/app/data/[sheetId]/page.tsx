@@ -113,7 +113,7 @@ export default function SheetDetailsPage({ params }: { params: { sheetId: string
                           {data.map((row, index) => (
                               <TableRow key={index}>
                                   {tableHeaders.map(key => (
-                                      <TableCell key={key} className="text-xs">{row[key as keyof MergedSheetEntry]}</TableCell>
+                                      <TableCell key={key} className="text-xs py-1">{row[key as keyof MergedSheetEntry]}</TableCell>
                                   ))}
                               </TableRow>
                           ))}
