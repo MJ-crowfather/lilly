@@ -314,20 +314,19 @@ export const teamMembers: TeamMember[] = [
 export type Artifact = {
   id: string;
   name: string;
-  type: 'document' | 'video' | 'dashboard' | 'drive';
+  type: 'document' | 'video' | 'dashboard' | 'link';
   external?: boolean;
 };
 
 export const artifacts: Artifact[] = [
-    { id: 'art1', name: 'Dashboard', type: 'dashboard', external: true },
-    { id: 'art2', name: 'PR Data for PR1106', type: 'document', external: true },
+    { id: 'art1', name: 'Dashboard', type: 'link', external: true },
+    { id: 'art2', name: 'PR Data for PR1106', type: 'link', external: true },
     { id: 'art3', name: 'Extraction Video', type: 'video' },
-    { id: 'art4', name: 'PR Extracted Dataset', type: 'document' },
+    { id: 'art4', name: 'PR Extracted Dataset', type: 'dashboard' },
     { id: 'art5', name: 'PR1106.pdf', type: 'document' },
     { id: 'art6', name: 'PR1106.pdf', type: 'document' },
     { id: 'art7', name: 'Video Recording', type: 'video' },
-    { id: 'art8', name: 'PR Data', type: 'document' },
-    { id: 'art9', name: 'Review Draft', type: 'drive' },
+    { id: 'art8', name: 'PR Data', type: 'dashboard' },
 ];
 
 export type Activity = {

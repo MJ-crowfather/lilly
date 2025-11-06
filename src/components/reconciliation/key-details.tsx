@@ -7,20 +7,20 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { ExternalLink, Maximize2 } from 'lucide-react';
-import { DocumentIcon, VideoIcon, DashboardIcon, GoogleDriveIcon } from '@/components/ui/icons';
+import { DocumentIcon, VideoIcon, DashboardIcon } from '@/components/ui/icons';
 
 const ArtifactLink = ({ artifact }: { artifact: Artifact }) => {
     let icon;
     switch(artifact.type) {
-        case 'document': icon = <DocumentIcon className="h-4 w-4 text-muted-foreground" />; break;
-        case 'video': icon = <VideoIcon className="h-4 w-4 text-muted-foreground" />; break;
-        case 'dashboard': icon = <DashboardIcon className="h-4 w-4 text-muted-foreground" />; break;
-        case 'drive': icon = <GoogleDriveIcon className="h-4 w-4 text-muted-foreground" />; break;
-        default: icon = <DocumentIcon className="h-4 w-4 text-muted-foreground" />;
+        case 'document': icon = <DocumentIcon className="h-4 w-4" />; break;
+        case 'video': icon = <VideoIcon className="h-4 w-4" />; break;
+        case 'dashboard': icon = <DashboardIcon className="h-4 w-4" />; break;
+        case 'link': icon = <ExternalLink className="h-4 w-4" />; break;
+        default: icon = <DocumentIcon className="h-4 w-4" />;
     }
 
     return (
-        <Link href="#" className="flex items-center gap-2 text-sm text-foreground hover:underline">
+        <Link href="#" className="flex items-center gap-2 text-sm text-foreground bg-muted/60 hover:bg-muted rounded-md p-2">
             {icon}
             <span>{artifact.name}</span>
             {artifact.external && <ExternalLink className="h-3 w-3 text-muted-foreground" />}
