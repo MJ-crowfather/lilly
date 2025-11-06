@@ -188,6 +188,29 @@ export const billOfSaleData: BillOfSaleEntry[] = [
 ];
 
 
+export type DriversLicenseEntry = {
+    id: string; // Corresponds to stock_id
+    id_first_name: string;
+    id_last_name: string;
+    id_full_name: string;
+    id_expiry_date: string;
+    id_number: string;
+    id_issue_date: string;
+    id_type: 'DriverLicense' | 'Passport' | 'PRCard' | 'CitizenshipCard' | 'MilitaryID' | 'OntarioPhotoID';
+    temporary_id_provided: 'Y' | 'N';
+    temporary_id_type: string;
+    temporary_id_expiry_date: string;
+};
+
+export const driversLicenseData: DriversLicenseEntry[] = [
+    { id: '72590', id_first_name: 'Christopher', id_last_name: 'Merjanian', id_full_name: 'Christopher Merjanian', id_expiry_date: '2028-10-20', id_number: 'M1234-56789-01234', id_issue_date: '2023-10-20', id_type: 'DriverLicense', temporary_id_provided: 'N', temporary_id_type: '-', temporary_id_expiry_date: '-' },
+    { id: '83145', id_first_name: 'Jessica', id_last_name: 'Miller', id_full_name: 'Jessica Miller', id_expiry_date: '2027-05-15', id_number: 'M5678-12345-67890', id_issue_date: '2022-05-15', id_type: 'DriverLicense', temporary_id_provided: 'N', temporary_id_type: '-', temporary_id_expiry_date: '-' },
+    { id: '94221', id_first_name: 'Michael', id_last_name: 'Smith', id_full_name: 'Michael Smith', id_expiry_date: '2029-08-01', id_number: 'P987654321', id_issue_date: '2019-08-01', id_type: 'Passport', temporary_id_provided: 'Y', temporary_id_type: 'Expired Driver License', temporary_id_expiry_date: '2024-01-15' },
+    { id: '10538', id_first_name: 'Emily', id_last_name: 'Johnson', id_full_name: 'Emily Johnson', id_expiry_date: '2026-11-30', id_number: 'ON54321-98765', id_issue_date: '2021-11-30', id_type: 'OntarioPhotoID', temporary_id_provided: 'N', temporary_id_type: '-', temporary_id_expiry_date: '-' },
+    { id: '11649', id_first_name: 'David', id_last_name: 'Williams', id_full_name: 'David Williams', id_expiry_date: '2025-03-22', id_number: 'W1112-22334-45567', id_issue_date: '2020-03-22', id_type: 'DriverLicense', temporary_id_provided: 'N', temporary_id_type: '-', temporary_id_expiry_date: '-' }
+];
+
+
 export const doneCases: DoneCase[] = [
   {
     case_number: "PR1116",

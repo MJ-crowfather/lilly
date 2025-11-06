@@ -10,13 +10,25 @@ import { Gem, Pencil, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useCompany } from '@/components/company-provider';
 
+type Dataset = {
+  name: string;
+  description: string;
+  link: string;
+};
+
 export default function DataPage() {
   const { company } = useCompany();
 
   const isClutch = company === 'Clutch';
-  const datasetName = isClutch ? 'Bill of Sale Dataset' : 'AE/PC Report Sheet';
-  const datasetDesc = isClutch ? 'Bill of Sale Dataset' : 'AE/PC Report Sheet Dataset';
-  const datasetLink = isClutch ? '/data/bill-of-sale' : '/data/final-merged-sheet';
+
+  const datasets: Dataset[] = isClutch
+    ? [
+        { name: 'Bill of Sale Dataset', description: 'Bill of Sale Dataset', link: '/data/bill-of-sale' },
+        { name: 'Driver\'s License Dataset', description: 'Driver\'s License Dataset', link: '/data/drivers-license' }
+      ]
+    : [
+        { name: 'AE/PC Report Sheet', description: 'AE/PC Report Sheet Dataset', link: '/data/final-merged-sheet' }
+      ];
 
 
   return (
@@ -35,27 +47,29 @@ export default function DataPage() {
                       </TableRow>
                   </TableHeader>
                   <TableBody>
-                    <TableRow className="group">
-                        <TableCell className="font-medium text-xs">
-                          <Link href={datasetLink} className="flex items-center gap-2 hover:underline">
-                            <Gem className="h-4 w-4 text-muted-foreground" />
-                            {datasetName}
-                          </Link>
-                        </TableCell>
-                        <TableCell className="text-xs">
-                          {datasetDesc}
-                        </TableCell>
-                        <TableCell className="opacity-0 group-hover:opacity-100 transition-opacity">
-                          <div className="flex items-center justify-end gap-2">
-                            <Button variant="ghost" size="icon" className="h-6 w-6">
-                              <Pencil className="h-4 w-4 text-muted-foreground" />
-                            </Button>
-                            <Button variant="ghost" size="icon" className="h-6 w-6">
-                              <ArrowRight className="h-4 w-4 text-muted-foreground" />
-                            </Button>
-                          </div>
-                        </TableCell>
-                    </TableRow>
+                    {datasets.map((dataset) => (
+                      <TableRow key={dataset.link} className="group">
+                          <TableCell className="font-medium text-xs">
+                            <Link href={dataset.link} className="flex items-center gap-2 hover:underline">
+                              <Gem className="h-4 w-4 text-muted-foreground" />
+                              {dataset.name}
+                            </Link>
+                          </TableCell>
+                          <TableCell className="text-xs">
+                            {dataset.description}
+                          </TableCell>
+                          <TableCell className="opacity-0 group-hover:opacity-100 transition-opacity">
+                            <div className="flex items-center justify-end gap-2">
+                              <Button variant="ghost" size="icon" className="h-6 w-6">
+                                <Pencil className="h-4 w-4 text-muted-foreground" />
+                              </Button>
+                              <Button variant="ghost" size="icon" className="h-6 w-6">
+                                <ArrowRight className="h-4 w-4 text-muted-foreground" />
+                              </Button>
+                            </div>
+                          </TableCell>
+                      </TableRow>
+                    ))}
                   </TableBody>
               </Table>
           </div>
@@ -64,5 +78,3 @@ export default function DataPage() {
     </SidebarProvider>
   );
 }
-
-    
