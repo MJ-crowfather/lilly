@@ -324,16 +324,12 @@ export type Activity = {
     status: 'completed' | 'in-progress';
     description: string;
     artifacts?: Artifact[];
-    details?: {
-        seeReasoning?: boolean;
-        viewData?: boolean;
-    };
 };
 
 export const activityLog: Activity[] = [
     { id: 'act1', timestamp: '2024-07-22T10:37:00Z', status: 'completed', description: 'Retrieved incomplete verification task from queue', artifacts: [artifacts[0]] },
     { id: 'act2', timestamp: '2024-07-22T10:38:00Z', status: 'completed', description: 'Documents captured successfully', artifacts: [artifacts[1], artifacts[2]] },
-    { id: 'act3', timestamp: '2024-07-22T10:39:00Z', status: 'completed', description: 'OCR extraction completed — all key fields identified', artifacts: [artifacts[3]], details: { seeReasoning: true, viewData: true } },
+    { id: 'act3', timestamp: '2024-07-22T10:39:00Z', status: 'completed', description: 'OCR extraction completed — all key fields identified', artifacts: [artifacts[3]]},
     { id: 'act4', timestamp: '2024-07-22T10:40:00Z', status: 'completed', description: 'Successfully completed Cross-document verification', artifacts: [artifacts[4]] },
     { id: 'act5', timestamp: '2024-07-22T10:41:00Z', status: 'completed', description: 'Verification marked complete on Dashboard' },
 ];
