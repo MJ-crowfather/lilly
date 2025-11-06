@@ -207,7 +207,7 @@ export const driversLicenseData: DriversLicenseEntry[] = [
     { id: '83145', id_first_name: 'Jessica', id_last_name: 'Miller', id_full_name: 'Jessica Miller', id_expiry_date: '2027-05-15', id_number: 'M5678-12345-67890', id_issue_date: '2022-05-15', id_type: 'DriverLicense', temporary_id_provided: 'N', temporary_id_type: '-', temporary_id_expiry_date: '-' },
     { id: '94221', id_first_name: 'Michael', id_last_name: 'Smith', id_full_name: 'Michael Smith', id_expiry_date: '2024-02-10', id_number: 'S5555-66666-77777', id_issue_date: '2019-02-10', id_type: 'DriverLicense', temporary_id_provided: 'Y', temporary_id_type: 'Passport', temporary_id_expiry_date: '2029-08-01' },
     { id: '10538', id_first_name: 'Emily', id_last_name: 'Johnson', id_full_name: 'Emily Johnson', id_expiry_date: '2024-04-05', id_number: 'J8888-99999-00000', id_issue_date: '2019-04-05', id_type: 'DriverLicense', temporary_id_provided: 'Y', temporary_id_type: 'OntarioPhotoID', temporary_id_expiry_date: '2026-11-30' },
-    { id: '11649', id_first_name: 'David', id_last_name: 'Williams', id_full_name: 'David Williams', id_expiry_date: '2025-03-22', id_number: 'W1112-22334-45567', id_issue_date: '2020-03-22', id_type: 'DriverLicense', temporary_id_provided: 'N', temporary_id_type: '-', temporary_id_expiry_date: '-' }
+    { id: '11649', id_first_name: 'David', id_last_name: 'Williams', id_full_name: 'David Williams', id_expiry_date: '2026-03-22', id_number: 'W1112-22334-45567', id_issue_date: '2021-03-22', id_type: 'DriverLicense', temporary_id_provided: 'N', temporary_id_type: '-', temporary_id_expiry_date: '-' }
 ];
 
 
