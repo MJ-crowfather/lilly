@@ -297,19 +297,11 @@ export const lillyDoneCases: DoneCase[] = [
 
 
 export const teamMembers: TeamMember[] = [
-  { name: 'Vignesh', isYou: true, email: 'vignesh@zamp.ai', role: 'System Admin', team: 'Add Team' },
-  { name: 'Maheedhar', email: 'maheedhar@zamp.ai', role: 'System Admin', team: 'Add Team' },
-  { name: 'Apoorva', email: 'apoorva@zamp.ai', role: 'System Admin', team: 'Add Team' },
-  { name: 'Abhishek', email: 'abhishek@zamp.ai', role: 'System Admin', team: 'Add Team' },
-  { name: 'Aman', email: 'aman@zamp.ai', role: 'System Admin', team: 'Add Team' },
-  { name: 'Aditya', email: 'aditya.jain@zamp.ai', role: 'System Admin', team: 'Add Team' },
-  { name: 'Shubhransh', email: 'shubhransh@zamp.ai', role: 'System Admin', team: 'Add Team' },
-  { name: 'Saurabh', email: 'saurabh@zamp.ai', role: 'System Admin', team: 'Add Team' },
-  { name: 'Akshay', email: 'akshay.srivastava@ext.zamp.ai', role: 'System Admin', team: 'Add Team' },
-  { name: 'Palak', email: 'palak.raghuwanshi@zamp.ai', role: 'System Admin', team: 'Add Team' },
-  { name: 'Aashita', email: 'aashita@zamp.ai', role: 'System Admin', team: 'Add Team' },
-  { name: 'Swati', email: 'swati.deshwal@zamp.ai', role: 'System Admin', team: 'Add Team' },
+    { name: 'Ethan Donovan', isYou: true, email: 'ethan.donovan@example.com', role: 'System Admin', team: 'Admins' },
+    { name: 'Aisha Khan', email: 'aisha.khan@example.com', role: 'System Admin', team: 'Admins' },
+    { name: 'Leo Martinez', email: 'leo.martinez@example.com', role: 'System Admin', team: 'Admins' },
 ];
+
 
 export type Artifact = {
   id: string;
@@ -324,9 +316,6 @@ export const artifacts: Artifact[] = [
     { id: 'art3', name: 'Extraction Video', type: 'video' },
     { id: 'art4', name: 'PR Extracted Dataset', type: 'dashboard' },
     { id: 'art5', name: 'PR1106.pdf', type: 'document' },
-    { id: 'art6', name: 'PR1106.pdf', type: 'document' },
-    { id: 'art7', name: 'Video Recording', type: 'video' },
-    { id: 'art8', name: 'PR Data', type: 'dashboard' },
 ];
 
 export type Activity = {
@@ -342,11 +331,10 @@ export type Activity = {
 };
 
 export const activityLog: Activity[] = [
-    { id: 'act1', timestamp: '2024-07-22T10:37:00Z', status: 'completed', description: 'Fetched submitted PR', artifacts: [artifacts.find(a => a.id === 'art1')!] },
-    { id: 'act2', timestamp: '2024-07-22T10:38:00Z', status: 'completed', description: 'PR data fetched successfully for PR ID: PR1106', artifacts: [artifacts.find(a => a.id === 'art2')!, artifacts.find(a => a.id === 'art3')!, artifacts.find(a => a.id === 'art4')!] },
-    { id: 'act3', timestamp: '2024-07-22T10:38:00Z', status: 'completed', description: 'Fetched PDF attachment PR1106.pdf', artifacts: [artifacts.find(a => a.id === 'art5')!] },
-    { id: 'act4', timestamp: '2024-07-22T10:39:00Z-05:00', status: 'completed', description: 'Successfully identified PR1106.pdf as a Statement of Work document', details: { seeReasoning: true }, artifacts: [artifacts.find(a => a.id === 'art6')!] },
-    { id: 'act5', timestamp: '2024-07-22T10:40:00Z-05:00', status: 'completed', description: 'Extracted key fields successfully', details: { seeReasoning: true, viewData: true } },
-    { id: 'act6', timestamp: '2024-07-22T10:41:00Z-05:00', status: 'completed', description: 'This is a service based PR. Hence, swapped price to 1.0 and quantity to 10520.00 for PR: PR1106', artifacts: [artifacts.find(a => a.id === 'art7')!] },
+    { id: 'act1', timestamp: '2024-07-22T10:37:00Z', status: 'completed', description: 'Retrieved incomplete verification task from queue', artifacts: [artifacts[0]] },
+    { id: 'act2', timestamp: '2024-07-22T10:38:00Z', status: 'completed', description: 'Documents captured successfully', artifacts: [artifacts[1], artifacts[2]] },
+    { id: 'act3', timestamp: '2024-07-22T10:39:00Z', status: 'completed', description: 'OCR extraction completed — all key fields identified', artifacts: [artifacts[3]], details: { seeReasoning: true, viewData: true } },
+    { id: 'act4', timestamp: '2024-07-22T10:40:00Z', status: 'completed', description: 'Successfully completed Cross-document verification', artifacts: [artifacts[4]] },
+    { id: 'act5', timestamp: '2024-07-22T10:41:00Z', status: 'completed', description: 'Verification marked complete on Dashboard' },
 ];
     
