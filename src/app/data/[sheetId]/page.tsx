@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import * as React from 'react';
@@ -8,7 +9,7 @@ import { SidebarProvider, SidebarInset } from '@/components/ui/sidebar';
 import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { finalMergedSheetData, billOfSaleData, type MergedSheetEntry, type BillOfSaleEntry } from '@/lib/data';
-import { Filter, ArrowDownToLine, History, SlidersHorizontal, ArrowUpDown, Search, Database, X } from 'lucide-react';
+import { Filter, ArrowDownToLine, History, SlidersHorizontal, ArrowUpDown, Search, Database, X, ChevronRight } from 'lucide-react';
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuSub, DropdownMenuSubTrigger, DropdownMenuSubContent, DropdownMenuPortal, DropdownMenuCheckboxItem } from '@/components/ui/dropdown-menu';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -16,6 +17,8 @@ import { Separator } from '@/components/ui/separator';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { Badge } from '@/components/ui/badge';
 import { useCompany } from '@/components/company-provider';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
+import { cn } from '@/lib/utils';
 
 const lillyTableHeaders = [
   "channel", "Lilly Agent assigned", "reporter_username", "Receipt Date", "lilly_products",
@@ -23,13 +26,18 @@ const lillyTableHeaders = [
   "report_type", "contacted_poster", "poster_consent", "poster_contact_info", "lot_control_number"
 ] as const;
 
-const clutchTableHeaders = [
-    "stock_id", "customer_first_name", "customer_last_name", "customer_full_name",
-    "vehicle_year", "vehicle_make", "vehicle_model", "vehicle_vin", "vehicle_vin_last6",
-    "bos_effective_date", "selling_price", "additions_dropoff_tomorrow",
-    "additions_partnership_discount", "applicable_loan_balance", "deductions",
-    "adjustment_sbs", "net_vehicle_value"
+const visibleClutchHeaders = [
+    "stock_id", "customer_full_name", "vehicle_year", "vehicle_make", "vehicle_model", 
+    "vehicle_vin", "bos_effective_date", "selling_price", "net_vehicle_value"
 ] as const;
+
+const expandableClutchHeaders = [
+    "additions_dropoff_tomorrow", "additions_partnership_discount", 
+    "applicable_loan_balance", "deductions", "adjustment_sbs"
+] as const;
+
+const clutchTableHeaders = [...visibleClutchHeaders, ...expandableClutchHeaders, "customer_first_name", "customer_last_name", "vehicle_vin_last6"];
+
 
 type LillyTableHeader = typeof lillyTableHeaders[number];
 type ClutchTableHeader = typeof clutchTableHeaders[number];
@@ -63,11 +71,18 @@ export default function SheetDetailsPage({ params }: { params: { sheetId: string
 
   const data = isClutch ? billOfSaleData : finalMergedSheetData;
   const tableHeaders = isClutch ? clutchTableHeaders : lillyTableHeaders;
+  const displayHeaders = isClutch ? visibleClutchHeaders : lillyTableHeaders;
 
   const [filters, setFilters] = React.useState<Filter[]>([]);
-  const [searchTerms, setSearchTerms] = React.useState<Record<TableHeader, string>>(() =>
-    Object.fromEntries(tableHeaders.map(h => [h, ''])) as Record<TableHeader, string>
+  const [searchTerms, setSearchTerms] = React.useState<Record<string, string>>(() =>
+    Object.fromEntries(tableHeaders.map(h => [h, '']))
   );
+  const [expandedRows, setExpandedRows] = React.useState<string[]>([]);
+
+  const toggleRow = (id: string) => {
+    setExpandedRows(prev => prev.includes(id) ? prev.filter(rowId => rowId !== id) : [...prev, id]);
+  }
+
 
   const uniqueValues = React.useMemo(() => {
       const allValues: Record<string, Set<string>> = {};
@@ -126,9 +141,84 @@ export default function SheetDetailsPage({ params }: { params: { sheetId: string
     setFilters([]);
   };
 
-  const handleSearchChange = (column: TableHeader, term: string) => {
+  const handleSearchChange = (column: string, term: string) => {
       setSearchTerms(prev => ({ ...prev, [column]: term }));
   };
+
+  const renderLillyTable = () => (
+    <Table>
+        <TableHeader>
+            <TableRow>
+            {lillyTableHeaders.map(header => (
+                <TableHead key={header} className="text-xs">
+                    <SortableHeader>{formatHeader(header)}</SortableHeader>
+                </TableHead>
+            ))}
+            </TableRow>
+        </TableHeader>
+        <TableBody>
+            {filteredData.map((row, index) => (
+                <TableRow key={index}>
+                    {lillyTableHeaders.map(key => (
+                        <TableCell key={key} className="text-xs py-1">{(row as any)[key]}</TableCell>
+                    ))}
+                </TableRow>
+            ))}
+        </TableBody>
+    </Table>
+  );
+
+  const renderClutchTable = () => (
+     <Table>
+        <TableHeader>
+            <TableRow>
+                <TableHead className="w-8" />
+                {visibleClutchHeaders.map(header => (
+                    <TableHead key={header} className="text-xs">
+                        <SortableHeader>{formatHeader(header)}</SortableHeader>
+                    </TableHead>
+                ))}
+            </TableRow>
+        </TableHeader>
+        <TableBody>
+            {(filteredData as BillOfSaleEntry[]).map((row) => (
+                <Collapsible asChild key={row.stock_id} open={expandedRows.includes(row.stock_id)} onOpenChange={() => toggleRow(row.stock_id)}>
+                    <>
+                        <TableRow className="text-xs">
+                            <TableCell>
+                                <CollapsibleTrigger asChild>
+                                    <Button variant="ghost" size="icon" className="h-6 w-6">
+                                        <ChevronRight className={cn("h-4 w-4 transition-transform", expandedRows.includes(row.stock_id) && "rotate-90")} />
+                                    </Button>
+                                </CollapsibleTrigger>
+                            </TableCell>
+                            {visibleClutchHeaders.map(key => (
+                                <TableCell key={key} className="py-1">
+                                    {key === 'net_vehicle_value' || key === 'selling_price' ? `$${(row[key] as number).toFixed(2)}` : (row as any)[key]}
+                                </TableCell>
+                            ))}
+                        </TableRow>
+                        <CollapsibleContent asChild>
+                           <tr className="bg-muted/50 hover:bg-muted">
+                                <td colSpan={visibleClutchHeaders.length + 1} className="p-0">
+                                    <div className="grid grid-cols-5 gap-x-4 px-16 py-2">
+                                        {expandableClutchHeaders.map(header => (
+                                            <div key={header}>
+                                                <p className="text-xs font-semibold text-muted-foreground">{formatHeader(header)}</p>
+                                                <p className="text-sm">{(row as any)[header]}</p>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </td>
+                            </tr>
+                        </CollapsibleContent>
+                    </>
+                </Collapsible>
+            ))}
+        </TableBody>
+    </Table>
+  );
+
 
   return (
     <SidebarProvider>
@@ -155,7 +245,7 @@ export default function SheetDetailsPage({ params }: { params: { sheetId: string
                             </div>
                             <Separator />
                             <ScrollArea className="h-60">
-                            {tableHeaders.map(header => (
+                            {displayHeaders.map(header => (
                                 <DropdownMenuSub key={header}>
                                     <DropdownMenuSubTrigger>{formatHeader(header)}</DropdownMenuSubTrigger>
                                     <DropdownMenuPortal>
@@ -163,14 +253,14 @@ export default function SheetDetailsPage({ params }: { params: { sheetId: string
                                             <div className="p-2">
                                                 <Input
                                                     placeholder="Search values..."
-                                                    value={searchTerms[header]}
+                                                    value={searchTerms[header] || ''}
                                                     onChange={(e) => handleSearchChange(header, e.target.value)}
                                                     className="w-full"
                                                 />
                                             </div>
                                             <ScrollArea className="max-h-48">
                                                 {Array.from(uniqueValues[header] || [])
-                                                  .filter(value => value.toLowerCase().includes(searchTerms[header].toLowerCase()))
+                                                  .filter(value => value.toLowerCase().includes((searchTerms[header] || '').toLowerCase()))
                                                   .map(value => {
                                                     const isChecked = filters.find(f => f.column === header)?.values.includes(value) ?? false;
                                                     return (
@@ -260,26 +350,7 @@ export default function SheetDetailsPage({ params }: { params: { sheetId: string
             </div>
             <div className="flex-1 overflow-auto">
               <div className="rounded-lg bg-card text-card-foreground">
-                  <Table>
-                      <TableHeader>
-                          <TableRow>
-                            {tableHeaders.map(header => (
-                                <TableHead key={header} className="text-xs">
-                                    <SortableHeader>{formatHeader(header)}</SortableHeader>
-                                </TableHead>
-                            ))}
-                          </TableRow>
-                      </TableHeader>
-                      <TableBody>
-                          {filteredData.map((row, index) => (
-                              <TableRow key={index}>
-                                  {tableHeaders.map(key => (
-                                      <TableCell key={key} className="text-xs py-1">{(row as any)[key]}</TableCell>
-                                  ))}
-                              </TableRow>
-                          ))}
-                      </TableBody>
-                  </Table>
+                  {isClutch ? renderClutchTable() : renderLillyTable()}
               </div>
             </div>
           </main>
@@ -288,5 +359,7 @@ export default function SheetDetailsPage({ params }: { params: { sheetId: string
     </SidebarProvider>
   );
 }
+
+    
 
     
