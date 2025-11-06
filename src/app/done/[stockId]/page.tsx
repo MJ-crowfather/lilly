@@ -79,8 +79,17 @@ export default function ActivityLogPage() {
                                     </div>
                                 </div>
                             </div>
+                            
+                            <div className="relative py-6">
+                                <div className="absolute inset-0 flex items-center" aria-hidden="true">
+                                    <div className="w-full border-t border-gray-300" />
+                                </div>
+                                <div className="relative flex justify-center">
+                                    <span className="bg-muted/30 px-2 text-xs text-muted-foreground font-semibold">Today</span>
+                                </div>
+                            </div>
 
-                            <div className="flex-1 overflow-y-auto p-8">
+                            <div className="flex-1 overflow-y-auto px-8 pb-8">
                                 <ActivityTimeline activities={activityLog} />
                             </div>
 

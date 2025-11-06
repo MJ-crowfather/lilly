@@ -1,3 +1,4 @@
+
 'use client';
 
 import * as React from 'react';
@@ -27,35 +28,18 @@ const ArtifactPill = ({ artifact }: { artifact: Artifact }) => {
 };
 
 export const ActivityTimeline = ({ activities }: { activities: Activity[] }) => {
-    let lastDate: string | null = null;
-    
     return (
         <div className="max-w-4xl mx-auto">
             <div className="relative">
                 {activities.map((activity, index) => {
                     const activityDate = new Date(activity.timestamp);
                     if (isNaN(activityDate.getTime())) {
-                        // Don't render if date is invalid, but log error for debugging
                         console.error("Invalid timestamp for activity:", activity);
                         return null; 
                     }
-                    const dateStr = activityDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-                    const showDate = dateStr !== lastDate;
-                    if (showDate) {
-                        lastDate = dateStr;
-                    }
-
-                    const isToday = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) === dateStr;
 
                     return (
                         <React.Fragment key={activity.id}>
-                            {showDate && (
-                                <div className="text-center my-6">
-                                     <p className="text-xs text-muted-foreground font-semibold">
-                                        {isToday ? 'Today' : activityDate.toLocaleDateString('en-US', { weekday: 'long' })}
-                                     </p>
-                                </div>
-                            )}
                             <div className="flex items-start gap-4 mb-8">
                                 <div className="text-xs text-muted-foreground min-w-[60px] text-right mt-0.5">{activityDate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true })}</div>
                                 <div className="relative flex flex-col items-center">
