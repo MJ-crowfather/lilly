@@ -29,7 +29,7 @@ const ArtifactPill = ({ artifact }: { artifact: Artifact }) => {
 export const ActivityTimeline = ({ activities }: { activities: Activity[] }) => {
     return (
         <div className="relative">
-            {activities.map((activity) => {
+            {activities.map((activity, index) => {
                 const activityDate = new Date(activity.timestamp);
                 if (isNaN(activityDate.getTime())) {
                     console.error("Invalid timestamp for activity:", activity);
@@ -41,6 +41,9 @@ export const ActivityTimeline = ({ activities }: { activities: Activity[] }) => 
                         <div className="text-xs text-muted-foreground min-w-[60px] text-right mt-0.5">{activityDate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true })}</div>
                         <div className="relative flex flex-col items-center">
                             <DoneStatusIcon className="h-2 w-2 mt-1" />
+                            {index < activities.length - 1 && (
+                                <div className="w-px h-full bg-gray-200 mt-2"></div>
+                            )}
                         </div>
                         <div className="flex-1 pt-0 ml-2">
                             <p className="text-sm">{activity.description}</p>
