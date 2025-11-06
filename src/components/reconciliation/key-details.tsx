@@ -42,29 +42,23 @@ export const KeyDetails = ({ caseData, artifacts }: { caseData: ClutchDoneCase, 
                         </Button>
                     </div>
                     <AccordionContent>
-                        <div className="space-y-2 text-xs">
-                            <h4 className="font-medium text-muted-foreground">Summary</h4>
-                             <div className="space-y-2">
-                                <div className="flex justify-between">
-                                    <span className="text-muted-foreground">Customer Name:</span>
-                                    <span className="font-medium text-foreground">{caseData.customer_full_name}</span>
-                                </div>
-                                <div className="flex justify-between">
-                                    <span className="text-muted-foreground">Vehicle:</span>
-                                    <span className="font-medium text-foreground">{caseData.vehicle_year} {caseData.vehicle_make} {caseData.vehicle_model}</span>
-                                </div>
-                                <div className="flex justify-between">
-                                    <span className="text-muted-foreground">BOS Effective Date:</span>
-                                    <span className="font-medium text-foreground">{caseData.bos_effective_date}</span>
-                                </div>
-                                <div className="flex justify-between">
-                                    <span className="text-muted-foreground">Applicable Loan / Lien Amount:</span>
-                                    <span className="font-medium text-foreground">{caseData.applicable_loan_balance}</span>
-                                </div>
-                                <div className="flex justify-between">
-                                    <span className="text-muted-foreground">Net Vehicle Value:</span>
-                                    <span className="font-medium text-foreground">${caseData.net_vehicle_value.toFixed(2)}</span>
-                                </div>
+                        <div className="space-y-3 text-sm">
+                            <h4 className="font-medium text-muted-foreground text-xs">Summary</h4>
+                             <div className="grid grid-cols-[max-content,1fr] gap-x-2 gap-y-2 text-xs">
+                                <span className="text-muted-foreground">Customer Name:</span>
+                                <span className="font-medium text-foreground text-left">{caseData.customer_full_name}</span>
+                                
+                                <span className="text-muted-foreground">Vehicle:</span>
+                                <span className="font-medium text-foreground text-left">{caseData.vehicle_year} {caseData.vehicle_make} {caseData.vehicle_model}</span>
+                                
+                                <span className="text-muted-foreground">BOS Effective Date:</span>
+                                <span className="font-medium text-foreground text-left">{caseData.bos_effective_date}</span>
+
+                                <span className="text-muted-foreground">Applicable Loan / Lien Amount:</span>
+                                <span className="font-medium text-foreground text-left">{caseData.applicable_loan_balance}</span>
+                                
+                                <span className="text-muted-foreground">Net Vehicle Value:</span>
+                                <span className="font-medium text-foreground text-left">${caseData.net_vehicle_value.toFixed(2)}</span>
                             </div>
                         </div>
                     </AccordionContent>
