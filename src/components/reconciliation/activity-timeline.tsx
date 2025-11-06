@@ -42,7 +42,7 @@ export const ActivityTimeline = ({ activities }: { activities: Activity[] }) => 
                         <div className="relative flex flex-col items-center">
                             <DoneStatusIcon className="h-2 w-2 mt-1" />
                             {index < activities.length - 1 && (
-                                <div className="w-px h-full bg-gray-200 mt-2"></div>
+                                <div className="absolute top-3 left-1/2 -translate-x-1/2 w-px bg-gray-200" style={{ height: 'calc(100% + 2rem)' }}></div>
                             )}
                         </div>
                         <div className="flex-1 pt-0 ml-2">
