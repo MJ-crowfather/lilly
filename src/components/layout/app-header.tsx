@@ -1,3 +1,4 @@
+
 'use client';
 
 import Link from 'next/link';
@@ -25,8 +26,10 @@ const KnowledgeBaseHeader = () => {
 };
 
 
-const formatPath = (path: string, processName: string) => {
+const formatPath = (path: string, company: 'Eli Lilly' | 'Clutch' | 'skunk works') => {
   if (path.startsWith('/data/')) {
+    const isClutch = company === 'Clutch';
+    const dataSetName = isClutch ? 'Bill of Sale Dataset' : 'AE/PC Report Sheet';
     return (
       <div className="flex items-center gap-2 text-xs">
         <Link href="/data" className="flex items-center gap-1 text-muted-foreground hover:text-foreground">
@@ -34,12 +37,18 @@ const formatPath = (path: string, processName: string) => {
             Data
         </Link>
         <ChevronsRight className="h-4 w-4 text-muted-foreground" />
-        <span className="font-medium text-foreground">AE/PC Report Sheet</span>
+        <span className="font-medium text-foreground">{dataSetName}</span>
       </div>
     );
   }
 
-  let title = processName;
+  let title = "AE/PC Reporting"; // Default for Eli Lilly
+  if (company === 'Clutch') {
+      title = "Document Verification";
+  } else if (company === 'skunk works') {
+      title = "Stealth Project";
+  }
+
   if (path.startsWith('/data')) {
     title = "Data";
   } else if (path.startsWith('/people')) {
@@ -51,7 +60,7 @@ const formatPath = (path: string, processName: string) => {
 
 export function AppHeader() {
   const pathname = usePathname();
-  const { companyData } = useCompany();
+  const { company, companyData } = useCompany();
   
   if (pathname.startsWith('/knowledge-base')) {
     return (
@@ -64,7 +73,7 @@ export function AppHeader() {
     )
   }
   
-  const headerContent = formatPath(pathname, companyData.processName);
+  const headerContent = formatPath(pathname, company);
 
   return (
     <header className="flex h-[53px] items-center justify-between gap-4 p-4 border-b">
@@ -87,3 +96,5 @@ export function AppHeader() {
     </header>
   )
 }
+
+    

@@ -7,7 +7,7 @@ import { AppSidebar } from '@/components/layout/app-sidebar';
 import { SidebarProvider, SidebarInset } from '@/components/ui/sidebar';
 import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { finalMergedSheetData, type MergedSheetEntry } from '@/lib/data';
+import { finalMergedSheetData, billOfSaleData, type MergedSheetEntry, type BillOfSaleEntry } from '@/lib/data';
 import { Filter, ArrowDownToLine, History, SlidersHorizontal, ArrowUpDown, Search, Database, X } from 'lucide-react';
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuSub, DropdownMenuSubTrigger, DropdownMenuSubContent, DropdownMenuPortal, DropdownMenuCheckboxItem } from '@/components/ui/dropdown-menu';
 import { Input } from '@/components/ui/input';
@@ -15,26 +15,25 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { Separator } from '@/components/ui/separator';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { Badge } from '@/components/ui/badge';
+import { useCompany } from '@/components/company-provider';
 
-const tableHeaders = [
-  "channel",
-  "Lilly Agent assigned",
-  "reporter_username",
-  "Receipt Date",
-  "lilly_products",
-  "respondent_type",
-  "hcp_type",
-  "patient_gender",
-  "patient_age",
-  "ae_pc_details",
-  "report_type",
-  "contacted_poster",
-  "poster_consent",
-  "poster_contact_info",
-  "lot_control_number"
-] as const; // Make it a tuple of string literals
+const lillyTableHeaders = [
+  "channel", "Lilly Agent assigned", "reporter_username", "Receipt Date", "lilly_products",
+  "respondent_type", "hcp_type", "patient_gender", "patient_age", "ae_pc_details",
+  "report_type", "contacted_poster", "poster_consent", "poster_contact_info", "lot_control_number"
+] as const;
 
-type TableHeader = typeof tableHeaders[number];
+const clutchTableHeaders = [
+    "stock_id", "customer_first_name", "customer_last_name", "customer_full_name",
+    "vehicle_year", "vehicle_make", "vehicle_model", "vehicle_vin", "vehicle_vin_last6",
+    "bos_effective_date", "selling_price", "additions_dropoff_tomorrow",
+    "additions_partnership_discount", "applicable_loan_balance", "deductions",
+    "adjustment_sbs", "net_vehicle_value"
+] as const;
+
+type LillyTableHeader = typeof lillyTableHeaders[number];
+type ClutchTableHeader = typeof clutchTableHeaders[number];
+type TableHeader = LillyTableHeader | ClutchTableHeader;
 
 type Filter = {
     column: TableHeader;
@@ -51,47 +50,53 @@ function SortableHeader({ children }: { children: React.ReactNode }) {
 }
 
 function formatHeader(header: string): string {
-    if (header === 'ae_pc_details') {
-        return 'AE/PC Details';
-    }
+    if (header === 'ae_pc_details') return 'AE/PC Details';
+    if (header === 'bos_effective_date') return 'BOS Effective Date';
+    if (header === 'stock_id') return 'Stock ID';
     return header.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
 }
 
 
 export default function SheetDetailsPage({ params }: { params: { sheetId: string } }) {
+  const { company } = useCompany();
+  const isClutch = company === 'Clutch';
+
+  const data = isClutch ? billOfSaleData : finalMergedSheetData;
+  const tableHeaders = isClutch ? clutchTableHeaders : lillyTableHeaders;
+
   const [filters, setFilters] = React.useState<Filter[]>([]);
   const [searchTerms, setSearchTerms] = React.useState<Record<TableHeader, string>>(() =>
     Object.fromEntries(tableHeaders.map(h => [h, ''])) as Record<TableHeader, string>
   );
 
   const uniqueValues = React.useMemo(() => {
-      const allValues: Record<TableHeader, Set<string>> = {} as Record<TableHeader, Set<string>>;
+      const allValues: Record<string, Set<string>> = {};
       tableHeaders.forEach(header => {
           allValues[header] = new Set();
       });
-      finalMergedSheetData.forEach(row => {
+      data.forEach(row => {
           tableHeaders.forEach(header => {
-              const value = row[header];
+              const value = (row as any)[header];
               if (value !== null && value !== undefined) {
                   allValues[header].add(String(value));
               }
           });
       });
       return allValues;
-  }, []);
+  }, [data, tableHeaders]);
 
   const filteredData = React.useMemo(() => {
     if (filters.length === 0) {
-      return finalMergedSheetData;
+      return data;
     }
-    return finalMergedSheetData.filter(row => {
+    return data.filter(row => {
       return filters.every(filter => {
         if (filter.values.length === 0) return true;
-        const rowValue = String(row[filter.column]);
+        const rowValue = String((row as any)[filter.column]);
         return filter.values.includes(rowValue);
       });
     });
-  }, [filters]);
+  }, [data, filters]);
 
   const handleFilterChange = (column: TableHeader, value: string, checked: boolean) => {
     setFilters(prevFilters => {
@@ -164,7 +169,7 @@ export default function SheetDetailsPage({ params }: { params: { sheetId: string
                                                 />
                                             </div>
                                             <ScrollArea className="max-h-48">
-                                                {Array.from(uniqueValues[header])
+                                                {Array.from(uniqueValues[header] || [])
                                                   .filter(value => value.toLowerCase().includes(searchTerms[header].toLowerCase()))
                                                   .map(value => {
                                                     const isChecked = filters.find(f => f.column === header)?.values.includes(value) ?? false;
@@ -269,7 +274,7 @@ export default function SheetDetailsPage({ params }: { params: { sheetId: string
                           {filteredData.map((row, index) => (
                               <TableRow key={index}>
                                   {tableHeaders.map(key => (
-                                      <TableCell key={key} className="text-xs py-1">{row[key as keyof MergedSheetEntry]}</TableCell>
+                                      <TableCell key={key} className="text-xs py-1">{(row as any)[key]}</TableCell>
                                   ))}
                               </TableRow>
                           ))}

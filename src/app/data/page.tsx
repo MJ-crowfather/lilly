@@ -1,3 +1,4 @@
+
 'use client';
 
 import Link from 'next/link';
@@ -7,8 +8,17 @@ import { SidebarProvider, SidebarInset } from '@/components/ui/sidebar';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Gem, Pencil, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useCompany } from '@/components/company-provider';
 
 export default function DataPage() {
+  const { company } = useCompany();
+
+  const isClutch = company === 'Clutch';
+  const datasetName = isClutch ? 'Bill of Sale Dataset' : 'AE/PC Report Sheet';
+  const datasetDesc = isClutch ? 'Bill of Sale Dataset' : 'AE/PC Report Sheet Dataset';
+  const datasetLink = isClutch ? '/data/bill-of-sale' : '/data/final-merged-sheet';
+
+
   return (
     <SidebarProvider>
       <AppSidebar />
@@ -27,13 +37,13 @@ export default function DataPage() {
                   <TableBody>
                     <TableRow className="group">
                         <TableCell className="font-medium text-xs">
-                          <Link href="/data/final-merged-sheet" className="flex items-center gap-2 hover:underline">
+                          <Link href={datasetLink} className="flex items-center gap-2 hover:underline">
                             <Gem className="h-4 w-4 text-muted-foreground" />
-                            AE/PC Report Sheet
+                            {datasetName}
                           </Link>
                         </TableCell>
                         <TableCell className="text-xs">
-                          AE/PC Report Sheet Dataset
+                          {datasetDesc}
                         </TableCell>
                         <TableCell className="opacity-0 group-hover:opacity-100 transition-opacity">
                           <div className="flex items-center justify-end gap-2">
@@ -54,3 +64,5 @@ export default function DataPage() {
     </SidebarProvider>
   );
 }
+
+    

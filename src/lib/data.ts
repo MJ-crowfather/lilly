@@ -1,5 +1,4 @@
 
-
 export type StatusCard = {
   title: "Needs Attention" | "Void" | "In Progress" | "Done";
   value: number;
@@ -160,6 +159,35 @@ export const finalMergedSheetData: MergedSheetEntry[] = [
 ];
 
 
+export type BillOfSaleEntry = {
+    stock_id: string;
+    customer_first_name: string;
+    customer_last_name: string;
+    customer_full_name: string;
+    vehicle_year: number;
+    vehicle_make: string;
+    vehicle_model: string;
+    vehicle_vin: string;
+    vehicle_vin_last6: string;
+    bos_effective_date: string;
+    selling_price: number;
+    additions_dropoff_tomorrow: string;
+    additions_partnership_discount: string;
+    applicable_loan_balance: string;
+    deductions: string;
+    adjustment_sbs: number;
+    net_vehicle_value: number;
+};
+
+export const billOfSaleData: BillOfSaleEntry[] = [
+    { stock_id: '72590', customer_first_name: 'Christopher', customer_last_name: 'Merjanian', customer_full_name: 'Christopher Merjanian', vehicle_year: 2019, vehicle_make: 'Volkswagen', vehicle_model: 'Jetta', vehicle_vin: '3VWE57BU9KM098462', vehicle_vin_last6: '098642', bos_effective_date: '6/8/2024', selling_price: 15473.00, additions_dropoff_tomorrow: '-', additions_partnership_discount: '-', applicable_loan_balance: '-', deductions: '-', adjustment_sbs: 300.00, net_vehicle_value: 15773.00 },
+    { stock_id: '83145', customer_first_name: 'Jessica', customer_last_name: 'Miller', customer_full_name: 'Jessica Miller', vehicle_year: 2021, vehicle_make: 'Honda', vehicle_model: 'Civic', vehicle_vin: '1HGFE2F58ML123456', vehicle_vin_last6: '123456', bos_effective_date: '6/10/2024', selling_price: 21500.00, additions_dropoff_tomorrow: '-', additions_partnership_discount: '-', applicable_loan_balance: '-', deductions: '500.00', adjustment_sbs: 0.00, net_vehicle_value: 21000.00 },
+    { stock_id: '94221', customer_first_name: 'Michael', customer_last_name: 'Smith', customer_full_name: 'Michael Smith', vehicle_year: 2020, vehicle_make: 'Toyota', vehicle_model: 'Camry', vehicle_vin: '4T1BF1FK0LU789012', vehicle_vin_last6: '789012', bos_effective_date: '6/11/2024', selling_price: 24300.00, additions_dropoff_tomorrow: '-', additions_partnership_discount: '250.00', applicable_loan_balance: '-', deductions: '-', adjustment_sbs: 150.00, net_vehicle_value: 24200.00 },
+    { stock_id: '10538', customer_first_name: 'Emily', customer_last_name: 'Johnson', customer_full_name: 'Emily Johnson', vehicle_year: 2022, vehicle_make: 'Ford', vehicle_model: 'Mustang', vehicle_vin: '1FATP8UHXN5456789', vehicle_vin_last6: '456789', bos_effective_date: '6/12/2024', selling_price: 35000.00, additions_dropoff_tomorrow: '100.00', additions_partnership_discount: '-', applicable_loan_balance: '-', deductions: '-', adjustment_sbs: 0.00, net_vehicle_value: 35100.00 },
+    { stock_id: '11649', customer_first_name: 'David', customer_last_name: 'Williams', customer_full_name: 'David Williams', vehicle_year: 2018, vehicle_make: 'Chevrolet', vehicle_model: 'Silverado', vehicle_vin: '1GCUKREC2JZ123789', vehicle_vin_last6: '123789', bos_effective_date: '6/14/2024', selling_price: 28000.00, additions_dropoff_tomorrow: '-', additions_partnership_discount: '-', applicable_loan_balance: '-', deductions: '1000.00', adjustment_sbs: 200.00, net_vehicle_value: 27200.00 }
+];
+
+
 export const doneCases: DoneCase[] = [
   {
     case_number: "PR1116",
@@ -233,3 +261,5 @@ export const teamMembers: TeamMember[] = [
   { name: 'Aashita', email: 'aashita@zamp.ai', role: 'System Admin', team: 'Add Team' },
   { name: 'Swati', email: 'swati.deshwal@zamp.ai', role: 'System Admin', team: 'Add Team' },
 ];
+
+    
