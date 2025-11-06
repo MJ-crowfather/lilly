@@ -27,38 +27,43 @@ export default function ActivityLogPage() {
         clutchDoneCases.findIndex(c => c.stock_id === stockId)
     );
 
-    const caseData = clutchDoneCases[currentIndex];
-    
-    const navigate = (direction: 'next' | 'prev') => {
-        const nextIndex = direction === 'next' ? (currentIndex + 1) % clutchDoneCases.length : (currentIndex - 1 + clutchDoneCases.length) % clutchDoneCases.length;
-        const nextStockId = clutchDoneCases[nextIndex].stock_id;
-        router.push(`/done/${nextStockId}`);
-    };
-
+    // This effect ensures that if the stockId in the URL changes, we update the component's state.
     React.useEffect(() => {
         const newIndex = clutchDoneCases.findIndex(c => c.stock_id === stockId);
         if (newIndex !== -1) {
             setCurrentIndex(newIndex);
+        } else {
+            // If the stockId is not found, maybe redirect to the main done page.
+            router.push('/done');
         }
-    }, [stockId]);
+    }, [stockId, router]);
+    
+    // This ensures we always have the correct case data for the current stockId.
+    const caseData = clutchDoneCases[currentIndex];
+
+    const navigate = (direction: 'next' | 'prev') => {
+        const nextIndex = direction === 'next' 
+            ? (currentIndex + 1) % clutchDoneCases.length 
+            : (currentIndex - 1 + clutchDoneCases.length) % clutchDoneCases.length;
+        const nextStockId = clutchDoneCases[nextIndex].stock_id;
+        router.push(`/done/${nextStockId}`);
+    };
     
     const activityLog = React.useMemo(() => {
         const caseSpecialArtifacts = specialArtifacts[stockId] || [];
+        // Important: Create a deep copy of baseActivityLog to avoid mutations across renders.
+        const newLog = JSON.parse(JSON.stringify(baseActivityLog));
+        
         if (caseSpecialArtifacts.length > 0) {
-            const newLog = [...baseActivityLog];
-            const documentsCapturedIndex = newLog.findIndex(act => act.id === 'act2');
+            const documentsCapturedIndex = newLog.findIndex((act: Activity) => act.id === 'act2');
             if (documentsCapturedIndex !== -1) {
-                newLog[documentsCapturedIndex] = {
-                    ...newLog[documentsCapturedIndex],
-                    artifacts: [
-                        ...(newLog[documentsCapturedIndex].artifacts || []),
-                        ...caseSpecialArtifacts
-                    ]
+                 if (!newLog[documentsCapturedIndex].artifacts) {
+                    newLog[documentsCapturedIndex].artifacts = [];
                 }
+                newLog[documentsCapturedIndex].artifacts.push(...caseSpecialArtifacts);
             }
-            return newLog;
         }
-        return baseActivityLog;
+        return newLog;
     }, [stockId]);
 
     const getArtifactsForCase = (stockId: string): Artifact[] => {
@@ -74,12 +79,20 @@ export default function ActivityLogPage() {
     
     const artifacts = getArtifactsForCase(stockId);
 
+    // If data is not yet available (e.g., during initial render or if stockId is invalid),
+    // show a loading or fallback state.
     if (company !== 'Clutch' || !caseData) {
-        // You can render a loading state or redirect
-        if (typeof window !== 'undefined') {
-            router.push('/done');
-        }
-        return null;
+        return (
+            <SidebarProvider>
+                <AppSidebar />
+                <SidebarInset>
+                    <div className="flex flex-col h-screen bg-muted/30">
+                        <AppHeader />
+                        <div className="flex-1 flex items-center justify-center">Loading...</div>
+                    </div>
+                </SidebarInset>
+            </SidebarProvider>
+        );
     }
 
     return (
