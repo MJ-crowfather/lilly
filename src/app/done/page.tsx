@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { AppHeader } from '@/components/layout/app-header';
 import { AppSidebar } from '@/components/layout/app-sidebar';
 import { StatusToolbar } from '@/components/reconciliation/status-toolbar';
@@ -48,6 +49,7 @@ function formatHeader(header: string): string {
 export default function DonePage() {
   const { company } = useCompany();
   const isClutch = company === 'Clutch';
+  const router = useRouter();
 
   const tableHeaders = isClutch ? clutchTableHeaders : lillyTableHeaders;
   const data = isClutch ? clutchDoneCases : lillyDoneCases;
@@ -158,8 +160,11 @@ export default function DonePage() {
       </TableHeader>
       <TableBody>
           {(filteredData as ClutchDoneCase[]).map((caseItem) => (
-            <Link href={`/done/${caseItem.stock_id}`} legacyBehavior key={caseItem.stock_id}>
-              <TableRow className="border-b-0 cursor-pointer">
+              <TableRow 
+                key={caseItem.stock_id}
+                className="border-b-0 cursor-pointer"
+                onClick={() => router.push(`/done/${caseItem.stock_id}`)}
+              >
                   <TableCell className="py-2">
                     <div className="flex items-center gap-2">
                       <DoneStatusIcon className="h-2 w-2"/>
@@ -175,7 +180,6 @@ export default function DonePage() {
                     </TableCell>
                   ))}
               </TableRow>
-            </Link>
           ))}
       </TableBody>
     </Table>
