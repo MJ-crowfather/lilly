@@ -1,8 +1,9 @@
 'use client';
 
+import * as React from 'react';
 import { Activity, Artifact } from '@/lib/data';
 import { cn } from '@/lib/utils';
-import { CheckCircle2 } from 'lucide-react';
+import { CheckCircle2, ChevronRight } from 'lucide-react';
 import { DocumentIcon, VideoIcon, DashboardIcon } from '@/components/ui/icons';
 import Link from 'next/link';
 
