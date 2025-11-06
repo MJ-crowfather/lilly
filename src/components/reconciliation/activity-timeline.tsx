@@ -3,7 +3,6 @@
 
 import * as React from 'react';
 import { Activity, Artifact } from '@/lib/data';
-import { cn } from '@/lib/utils';
 import { ChevronRight } from 'lucide-react';
 import { DocumentIcon, VideoIcon, DashboardIcon } from '@/components/ui/icons';
 import Link from 'next/link';
@@ -29,7 +28,7 @@ const ArtifactPill = ({ artifact }: { artifact: Artifact }) => {
 
 export const ActivityTimeline = ({ activities }: { activities: Activity[] }) => {
     return (
-        <div className="max-w-4xl mx-auto">
+        <div className="">
             <div className="relative">
                 {activities.map((activity, index) => {
                     const activityDate = new Date(activity.timestamp);
@@ -47,7 +46,7 @@ export const ActivityTimeline = ({ activities }: { activities: Activity[] }) => 
                                     {index < activities.length - 1 && <div className="w-px h-full bg-border absolute top-full" style={{height: 'calc(100% + 2rem + 2px)'}} />}
                                 </div>
                                 <div className="flex-1 pt-0 ml-2">
-                                    <p className="text-xs">{activity.description}</p>
+                                    <p className="text-sm">{activity.description}</p>
                                     <div className="mt-2 flex flex-wrap gap-2">
                                         {activity.artifacts?.map(artifact => <ArtifactPill key={artifact.id} artifact={artifact} />)}
                                     </div>
