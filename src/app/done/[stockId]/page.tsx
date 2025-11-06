@@ -1,3 +1,4 @@
+
 'use client';
 
 import * as React from 'react';
@@ -11,7 +12,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { ActivityTimeline } from '@/components/reconciliation/activity-timeline';
 import { KeyDetails } from '@/components/reconciliation/key-details';
 import { clutchDoneCases, activityLog, artifacts, type ClutchDoneCase } from '@/lib/data';
-import { ArrowUp, ChevronLeft, ChevronRight, CheckCircle2 } from 'lucide-react';
+import { ArrowUp, ChevronLeft, ChevronRight, Check } from 'lucide-react';
 import { useCompany } from '@/components/company-provider';
 import { PaceIcon } from '@/components/pace-icon';
 
@@ -61,9 +62,9 @@ export default function ActivityLogPage() {
                                 <div className="flex items-center justify-between">
                                     <div className="flex items-center gap-3">
                                         <p className="text-sm text-muted-foreground">Stock ID</p>
-                                        <h1 className="font-semibold">{caseData.stock_id}</h1>
-                                        <Badge variant="outline" className="text-green-600 border-green-200 bg-green-50">
-                                            <CheckCircle2 className="h-3 w-3 mr-1" />
+                                        <span className="font-semibold text-lg">{caseData.stock_id}</span>
+                                        <Badge variant="outline" className="font-normal">
+                                            <Check className="h-4 w-4 mr-1 text-green-600" />
                                             Done
                                         </Badge>
                                     </div>
