@@ -7,7 +7,7 @@ import { type ClutchDoneCase, type Artifact } from '@/lib/data';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
-import { ExternalLink, Maximize2 } from 'lucide-react';
+import { ExternalLink, Maximize2, FileImage } from 'lucide-react';
 import { DocumentIcon, VideoIcon, DashboardIcon } from '@/components/ui/icons';
 
 const ArtifactLink = ({ artifact }: { artifact: Artifact }) => {
@@ -17,6 +17,7 @@ const ArtifactLink = ({ artifact }: { artifact: Artifact }) => {
         case 'video': icon = <VideoIcon className="h-4 w-4" />; break;
         case 'dashboard': icon = <DashboardIcon className="h-4 w-4" />; break;
         case 'link': icon = <ExternalLink className="h-4 w-4" />; break;
+        case 'image': icon = <FileImage className="h-4 w-4" />; break;
         default: icon = <DocumentIcon className="h-4 w-4" />;
     }
 

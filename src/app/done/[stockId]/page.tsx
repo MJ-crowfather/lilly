@@ -11,7 +11,7 @@ import { Badge } from '@/components/ui/badge';
 import { Textarea } from '@/components/ui/textarea';
 import { ActivityTimeline } from '@/components/reconciliation/activity-timeline';
 import { KeyDetails } from '@/components/reconciliation/key-details';
-import { clutchDoneCases, activityLog, artifacts, type ClutchDoneCase } from '@/lib/data';
+import { clutchDoneCases, activityLog, baseArtifacts, specialArtifacts, type ClutchDoneCase, type Artifact } from '@/lib/data';
 import { ArrowUp, ChevronLeft, ChevronRight, Check } from 'lucide-react';
 import { useCompany } from '@/components/company-provider';
 import { PaceIcon } from '@/components/pace-icon';
@@ -41,6 +41,13 @@ export default function ActivityLogPage() {
             setCurrentIndex(newIndex);
         }
     }, [stockId]);
+
+    const getArtifactsForCase = (stockId: string): Artifact[] => {
+        const caseSpecialArtifacts = specialArtifacts[stockId] || [];
+        return [...baseArtifacts, ...caseSpecialArtifacts];
+    };
+    
+    const artifacts = getArtifactsForCase(stockId);
 
     if (company !== 'Clutch' || !caseData) {
         // You can render a loading state or redirect

@@ -306,16 +306,26 @@ export const teamMembers: TeamMember[] = [
 export type Artifact = {
   id: string;
   name: string;
-  type: 'document' | 'video' | 'dashboard' | 'link';
+  type: 'document' | 'video' | 'dashboard' | 'link' | 'image';
   external?: boolean;
 };
 
-export const artifacts: Artifact[] = [
-    { id: 'art1', name: 'Dashboard', type: 'link', external: true },
-    { id: 'art2', name: 'PR Data for PR1106', type: 'link', external: true },
-    { id: 'art3', name: 'Extraction Video', type: 'video' },
-    { id: 'art4', name: 'PR Extracted Dataset', type: 'dashboard' },
-    { id: 'art5', name: 'PR1106.pdf', type: 'document' },
+export const baseArtifacts: Artifact[] = [
+    { id: 'art1', name: 'Bill of Sale', type: 'image' },
+    { id: 'art2', name: 'Driver\'s License', type: 'image' },
+];
+
+export const specialArtifacts: Record<string, Artifact[]> = {
+    '94221': [{ id: 'art-passport', name: 'Passport', type: 'image' }],
+    '10538': [{ id: 'art-ontario', name: 'Ontario Photo ID', type: 'image' }]
+};
+
+export const activityLog: Activity[] = [
+    { id: 'act1', timestamp: '2024-07-22T10:37:00Z', status: 'completed', description: 'Retrieved incomplete verification task from queue' },
+    { id: 'act2', timestamp: '2024-07-22T10:38:00Z', status: 'completed', description: 'Documents captured successfully' },
+    { id: 'act3', timestamp: '2024-07-22T10:39:00Z', status: 'completed', description: 'OCR extraction completed — all key fields identified'},
+    { id: 'act4', timestamp: '2024-07-22T10:40:00Z', status: 'completed', description: 'Successfully completed Cross-document verification' },
+    { id: 'act5', timestamp: '2024-07-22T10:41:00Z', status: 'completed', description: 'Verification marked complete on Dashboard' },
 ];
 
 export type Activity = {
@@ -325,12 +335,5 @@ export type Activity = {
     description: string;
     artifacts?: Artifact[];
 };
-
-export const activityLog: Activity[] = [
-    { id: 'act1', timestamp: '2024-07-22T10:37:00Z', status: 'completed', description: 'Retrieved incomplete verification task from queue', artifacts: [artifacts[0]] },
-    { id: 'act2', timestamp: '2024-07-22T10:38:00Z', status: 'completed', description: 'Documents captured successfully', artifacts: [artifacts[1], artifacts[2]] },
-    { id: 'act3', timestamp: '2024-07-22T10:39:00Z', status: 'completed', description: 'OCR extraction completed — all key fields identified', artifacts: [artifacts[3]]},
-    { id: 'act4', timestamp: '2024-07-22T10:40:00Z', status: 'completed', description: 'Successfully completed Cross-document verification', artifacts: [artifacts[4]] },
-    { id: 'act5', timestamp: '2024-07-22T10:41:00Z', status: 'completed', description: 'Verification marked complete on Dashboard' },
-];
     
+
