@@ -27,8 +27,9 @@ const lillyTableHeaders = [
 ] as const;
 
 const visibleClutchHeaders = [
-    "stock_id", "customer_full_name", "vehicle_year", "vehicle_make", "vehicle_model", 
-    "vehicle_vin_last6", "bos_effective_date", "selling_price", "net_vehicle_value"
+    "stock_id", "customer_first_name", "customer_last_name", "customer_full_name", 
+    "vehicle_year", "vehicle_make", "vehicle_model", "vehicle_vin", "vehicle_vin_last6", 
+    "bos_effective_date", "selling_price", "net_vehicle_value"
 ] as const;
 
 const expandableClutchHeaders = [
@@ -36,7 +37,7 @@ const expandableClutchHeaders = [
     "applicable_loan_balance", "deductions", "adjustment_sbs"
 ] as const;
 
-const clutchBillOfSaleTableHeaders = [...visibleClutchHeaders, ...expandableClutchHeaders, "customer_first_name", "customer_last_name", "vehicle_vin"];
+const clutchBillOfSaleTableHeaders = ["stock_id", "customer_first_name", "customer_last_name", "customer_full_name", "vehicle_year", "vehicle_make", "vehicle_model", "vehicle_vin", "vehicle_vin_last6", "bos_effective_date", "selling_price", "additions_dropoff_tomorrow", "additions_partnership_discount", "applicable_loan_balance", "deductions", "adjustment_sbs", "net_vehicle_value"];
 
 const clutchDriversLicenseTableHeaders = [
     "id_first_name", "id_last_name", "id_full_name", "id_expiry_date", "id_number", 
