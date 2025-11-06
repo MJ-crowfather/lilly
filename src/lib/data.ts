@@ -210,8 +210,34 @@ export const driversLicenseData: DriversLicenseEntry[] = [
     { id: '11649', id_first_name: 'David', id_last_name: 'Williams', id_full_name: 'David Williams', id_expiry_date: '2026-03-22', id_number: 'W1112-22334-45567', id_issue_date: '2021-03-22', id_type: 'DriverLicense', temporary_id_provided: 'N', temporary_id_type: '-', temporary_id_expiry_date: '-' }
 ];
 
+export type ClutchDoneCase = {
+  id: string;
+  customer_full_name: string;
+  vehicle_year: number;
+  vehicle_make: string;
+  vehicle_model: string;
+  vehicle_vin: string;
+  bos_effective_date: string;
+  selling_price: number;
+  applicable_loan_balance: string;
+  net_vehicle_value: number;
+}
 
-export const doneCases: DoneCase[] = [
+export const clutchDoneCases: ClutchDoneCase[] = billOfSaleData.map(bos => ({
+  id: bos.stock_id,
+  customer_full_name: bos.customer_full_name,
+  vehicle_year: bos.vehicle_year,
+  vehicle_make: bos.vehicle_make,
+  vehicle_model: bos.vehicle_model,
+  vehicle_vin: bos.vehicle_vin,
+  bos_effective_date: bos.bos_effective_date,
+  selling_price: bos.selling_price,
+  applicable_loan_balance: bos.applicable_loan_balance,
+  net_vehicle_value: bos.net_vehicle_value,
+}));
+
+
+export const lillyDoneCases: DoneCase[] = [
   {
     case_number: "PR1116",
     receipt_date: "03 Nov",

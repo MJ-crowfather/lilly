@@ -6,7 +6,7 @@ import { AppHeader } from '@/components/layout/app-header';
 import { AppSidebar } from '@/components/layout/app-sidebar';
 import { StatusToolbar } from '@/components/reconciliation/status-toolbar';
 import { SidebarProvider, SidebarInset } from '@/components/ui/sidebar';
-import { statusCards, doneCases, type DoneCase } from '@/lib/data';
+import { statusCards, lillyDoneCases, clutchDoneCases, type DoneCase, type ClutchDoneCase } from '@/lib/data';
 import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Filter, Check, Search, X } from 'lucide-react';
@@ -15,20 +15,19 @@ import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Separator } from '@/components/ui/separator';
 import { Badge } from '@/components/ui/badge';
+import { useCompany } from '@/components/company-provider';
 
-const tableHeaders: (keyof DoneCase)[] = [
-  'case_number',
-  'receipt_date',
-  'social_network',
-  'username',
-  'lilly_product',
-  'report_type',
-  'respondent_type',
-  'case_summary',
-  'assigned_agent',
+const lillyTableHeaders: (keyof DoneCase)[] = [
+  'case_number', 'receipt_date', 'social_network', 'username', 'lilly_product', 'report_type', 'respondent_type', 'case_summary', 'assigned_agent'
 ];
 
-type TableHeader = typeof tableHeaders[number];
+const clutchTableHeaders: (keyof ClutchDoneCase)[] = [
+  'customer_full_name', 'vehicle_year', 'vehicle_make', 'vehicle_model', 'vehicle_vin', 'bos_effective_date', 'selling_price', 'applicable_loan_balance', 'net_vehicle_value'
+];
+
+type LillyTableHeader = typeof lillyTableHeaders[number];
+type ClutchTableHeader = typeof clutchTableHeaders[number];
+type TableHeader = LillyTableHeader | ClutchTableHeader;
 
 type AppliedFilter = {
     column: TableHeader;
@@ -46,39 +45,45 @@ function formatHeader(header: string): string {
 }
 
 export default function DonePage() {
+  const { company } = useCompany();
+  const isClutch = company === 'Clutch';
+
+  const tableHeaders = isClutch ? clutchTableHeaders : lillyTableHeaders;
+  const data = isClutch ? clutchDoneCases : lillyDoneCases;
+  
   const [filters, setFilters] = React.useState<AppliedFilter[]>([]);
-  const [searchTerms, setSearchTerms] = React.useState<Record<TableHeader, string>>(() =>
-    Object.fromEntries(tableHeaders.map(h => [h, ''])) as Record<TableHeader, string>
+  const [searchTerms, setSearchTerms] = React.useState<Record<string, string>>(() =>
+    Object.fromEntries(tableHeaders.map(h => [h, '']))
   );
 
   const uniqueValues = React.useMemo(() => {
-      const allValues: Record<TableHeader, Set<string>> = {} as Record<TableHeader, Set<string>>;
+      const allValues: Record<string, Set<string>> = {};
       tableHeaders.forEach(header => {
           allValues[header] = new Set();
       });
-      doneCases.forEach(row => {
+      data.forEach(row => {
           tableHeaders.forEach(header => {
-              const value = row[header];
+              const value = (row as any)[header];
               if (value !== null && value !== undefined) {
                   allValues[header].add(String(value));
               }
           });
       });
       return allValues;
-  }, []);
+  }, [data, tableHeaders]);
 
   const filteredData = React.useMemo(() => {
     if (filters.length === 0) {
-      return doneCases;
+      return data;
     }
-    return doneCases.filter(row => {
+    return data.filter(row => {
       return filters.every(filter => {
         if (filter.values.length === 0) return true;
-        const rowValue = String(row[filter.column]);
+        const rowValue = String((row as any)[filter.column]);
         return filter.values.includes(rowValue);
       });
     });
-  }, [filters]);
+  }, [data, filters]);
 
   const handleFilterChange = (column: TableHeader, value: string, checked: boolean) => {
     setFilters(prevFilters => {
@@ -108,9 +113,70 @@ export default function DonePage() {
     setFilters([]);
   };
 
-  const handleSearchChange = (column: TableHeader, term: string) => {
+  const handleSearchChange = (column: string, term: string) => {
       setSearchTerms(prev => ({ ...prev, [column]: term }));
   };
+
+  const renderLillyTable = () => (
+    <Table>
+      <TableHeader>
+          <TableRow>
+              <TableHead className="text-xs w-12"></TableHead>
+              {lillyTableHeaders.map((header) => (
+                  <TableHead key={header} className="text-xs">{formatHeader(header)}</TableHead>
+              ))}
+          </TableRow>
+      </TableHeader>
+      <TableBody>
+          {(filteredData as DoneCase[]).map((caseItem) => (
+              <TableRow key={caseItem.case_number} className="border-b-0">
+                  <TableCell className="py-2">
+                    <div className="flex items-center gap-2">
+                      <DoneStatusIcon className="h-2 w-2"/>
+                      <Check className="h-4 w-4 text-green-600" />
+                    </div>
+                  </TableCell>
+                  {lillyTableHeaders.map(header => (
+                    <TableCell key={header} className="py-2 text-xs max-w-[250px] truncate">{caseItem[header]}</TableCell>
+                  ))}
+              </TableRow>
+          ))}
+      </TableBody>
+    </Table>
+  );
+
+  const renderClutchTable = () => (
+     <Table>
+      <TableHeader>
+          <TableRow>
+              <TableHead className="text-xs w-12"></TableHead>
+              {clutchTableHeaders.map((header) => (
+                  <TableHead key={header} className="text-xs">{formatHeader(header)}</TableHead>
+              ))}
+          </TableRow>
+      </TableHeader>
+      <TableBody>
+          {(filteredData as ClutchDoneCase[]).map((caseItem) => (
+              <TableRow key={caseItem.id} className="border-b-0">
+                  <TableCell className="py-2">
+                    <div className="flex items-center gap-2">
+                      <DoneStatusIcon className="h-2 w-2"/>
+                      <Check className="h-4 w-4 text-green-600" />
+                    </div>
+                  </TableCell>
+                  {clutchTableHeaders.map(header => (
+                    <TableCell key={header} className="py-2 text-xs max-w-[250px] truncate">
+                      {(header === 'selling_price' || header === 'net_vehicle_value') && typeof caseItem[header] === 'number' 
+                        ? `$${(caseItem[header] as number).toFixed(2)}`
+                        : caseItem[header]
+                      }
+                    </TableCell>
+                  ))}
+              </TableRow>
+          ))}
+      </TableBody>
+    </Table>
+  );
 
   return (
     <SidebarProvider>
@@ -153,8 +219,8 @@ export default function DonePage() {
                                                 />
                                             </div>
                                             <ScrollArea className="max-h-48">
-                                                {Array.from(uniqueValues[header])
-                                                  .filter(value => value.toLowerCase().includes(searchTerms[header].toLowerCase()))
+                                                {Array.from(uniqueValues[header] || [])
+                                                  .filter(value => value.toLowerCase().includes((searchTerms[header] || '').toLowerCase()))
                                                   .map(value => {
                                                     const isChecked = filters.find(f => f.column === header)?.values.includes(value) ?? false;
                                                     return (
@@ -199,31 +265,7 @@ export default function DonePage() {
             </div>
             <div className="flex-1 overflow-auto">
                 <div className="bg-card text-card-foreground">
-                    <Table>
-                        <TableHeader>
-                            <TableRow>
-                                <TableHead className="text-xs w-12"></TableHead>
-                                {tableHeaders.map((header) => (
-                                    <TableHead key={header} className="text-xs">{formatHeader(header)}</TableHead>
-                                ))}
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                            {filteredData.map((caseItem) => (
-                                <TableRow key={caseItem.case_number} className="border-b-0">
-                                    <TableCell className="py-2">
-                                      <div className="flex items-center gap-2">
-                                        <DoneStatusIcon className="h-2 w-2"/>
-                                        <Check className="h-4 w-4 text-green-600" />
-                                      </div>
-                                    </TableCell>
-                                    {tableHeaders.map(header => (
-                                      <TableCell key={header} className="py-2 text-xs max-w-[250px] truncate">{caseItem[header]}</TableCell>
-                                    ))}
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
+                    {isClutch ? renderClutchTable() : renderLillyTable()}
                 </div>
             </div>
           </main>
