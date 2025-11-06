@@ -3,6 +3,7 @@
 'use client';
 
 import * as React from 'react';
+import { useParams } from 'next/navigation';
 import { AppHeader } from '@/components/layout/app-header';
 import { AppSidebar } from '@/components/layout/app-sidebar';
 import { SidebarProvider, SidebarInset } from '@/components/ui/sidebar';
@@ -73,12 +74,14 @@ function formatHeader(header: string): string {
 }
 
 
-export default function SheetDetailsPage({ params }: { params: { sheetId: string } }) {
+export default function SheetDetailsPage() {
+  const params = useParams();
+  const sheetId = params.sheetId as string;
   const { company } = useCompany();
   const isClutch = company === 'Clutch';
 
-  const isBillOfSale = params.sheetId === 'bill-of-sale';
-  const isDriversLicense = params.sheetId === 'drivers-license';
+  const isBillOfSale = sheetId === 'bill-of-sale';
+  const isDriversLicense = sheetId === 'drivers-license';
 
   const data = isClutch 
     ? (isBillOfSale ? billOfSaleData : driversLicenseData) 
