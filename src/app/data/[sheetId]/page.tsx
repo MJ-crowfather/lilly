@@ -28,7 +28,7 @@ const lillyTableHeaders = [
 
 const visibleClutchHeaders = [
     "stock_id", "customer_full_name", "vehicle_year", "vehicle_make", "vehicle_model", 
-    "vehicle_vin", "bos_effective_date", "selling_price", "net_vehicle_value"
+    "vehicle_vin_last6", "bos_effective_date", "selling_price", "net_vehicle_value"
 ] as const;
 
 const expandableClutchHeaders = [
@@ -36,7 +36,7 @@ const expandableClutchHeaders = [
     "applicable_loan_balance", "deductions", "adjustment_sbs"
 ] as const;
 
-const clutchBillOfSaleTableHeaders = [...visibleClutchHeaders, ...expandableClutchHeaders, "customer_first_name", "customer_last_name", "vehicle_vin_last6"];
+const clutchBillOfSaleTableHeaders = [...visibleClutchHeaders, ...expandableClutchHeaders, "customer_first_name", "customer_last_name", "vehicle_vin"];
 
 const clutchDriversLicenseTableHeaders = [
     "id_first_name", "id_last_name", "id_full_name", "id_expiry_date", "id_number", 
@@ -45,7 +45,7 @@ const clutchDriversLicenseTableHeaders = [
 
 
 type LillyTableHeader = typeof lillyTableHeaders[number];
-type ClutchBillOfSaleHeader = typeof clutchBillOfSaleTableHeaders[number];
+type ClutchBillOfSaleHeader = (typeof clutchBillOfSaleTableHeaders)[number];
 type ClutchDriversLicenseHeader = typeof clutchDriversLicenseTableHeaders[number];
 type TableHeader = LillyTableHeader | ClutchBillOfSaleHeader | ClutchDriversLicenseHeader;
 
