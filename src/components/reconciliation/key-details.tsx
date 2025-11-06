@@ -23,7 +23,7 @@ const ArtifactLink = ({ artifact }: { artifact: Artifact }) => {
     return (
         <Link href="#" className="inline-flex items-center gap-2 text-xs text-foreground bg-muted hover:bg-muted/80 rounded-md p-2">
             {icon}
-            <span>{artifact.name}</span>
+            <span className="text-xs">{artifact.name}</span>
             {artifact.external && <ExternalLink className="h-3 w-3 text-muted-foreground" />}
         </Link>
     )
