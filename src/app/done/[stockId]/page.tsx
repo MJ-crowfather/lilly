@@ -62,7 +62,7 @@ export default function ActivityLogPage() {
                                 <div className="flex items-center justify-between">
                                     <div className="flex items-center gap-3">
                                         <p className="text-sm text-muted-foreground">Stock ID</p>
-                                        <span className="font-semibold text-lg">{caseData.stock_id}</span>
+                                        <span className="font-semibold text-sm">{caseData.stock_id}</span>
                                         <Badge variant="outline" className="font-normal">
                                             <Check className="h-4 w-4 mr-1 text-green-600" />
                                             Done
