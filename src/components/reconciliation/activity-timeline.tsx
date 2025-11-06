@@ -37,14 +37,14 @@ export const ActivityTimeline = ({ activities }: { activities: Activity[] }) => 
                 }
 
                 return (
-                    <div key={activity.id} className="flex items-start gap-4 mb-8">
+                    <div key={activity.id} className="flex items-start gap-4 mb-16">
                         <div className="text-xs text-muted-foreground min-w-[60px] text-right mt-0.5">{activityDate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true })}</div>
                         <div className="relative flex flex-col items-center">
                             <div className="relative z-10 bg-muted/30">
                                 <DoneStatusIcon className="h-2 w-2 mt-1" />
                             </div>
                             {index < activities.length - 1 && (
-                                <div className="absolute top-3 left-1/2 -translate-x-1/2 w-px bg-gray-200" style={{ height: 'calc(100% + 2rem)' }}></div>
+                                <div className="absolute top-3 left-1/2 -translate-x-1/2 w-px bg-gray-200" style={{ height: 'calc(100% + 4rem)' }}></div>
                             )}
                         </div>
                         <div className="flex-1 pt-0 ml-2">
