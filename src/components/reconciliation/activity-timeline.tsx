@@ -18,7 +18,7 @@ const ArtifactPill = ({ artifact }: { artifact: Artifact }) => {
     }
 
     return (
-        <Link href="#" className="flex items-center gap-1.5 bg-background border rounded-md px-2 py-1 text-xs hover:bg-muted">
+        <Link href="#" className="flex items-center gap-1.5 bg-muted hover:bg-muted/80 rounded-md px-2 py-1 text-xs">
             {icon}
             <span className="font-medium">{artifact.name}</span>
             {artifact.external && <ChevronRight className="h-3 w-3 text-muted-foreground" />}
@@ -40,7 +40,9 @@ export const ActivityTimeline = ({ activities }: { activities: Activity[] }) => 
                     <div key={activity.id} className="flex items-start gap-4 mb-8">
                         <div className="text-xs text-muted-foreground min-w-[60px] text-right mt-0.5">{activityDate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true })}</div>
                         <div className="relative flex flex-col items-center">
-                            <DoneStatusIcon className="h-2 w-2 mt-1" />
+                            <div className="relative z-10 bg-muted/30">
+                                <DoneStatusIcon className="h-2 w-2 mt-1" />
+                            </div>
                             {index < activities.length - 1 && (
                                 <div className="absolute top-3 left-1/2 -translate-x-1/2 w-px bg-gray-200" style={{ height: 'calc(100% + 2rem)' }}></div>
                             )}
