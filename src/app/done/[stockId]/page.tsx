@@ -11,7 +11,7 @@ import { Badge } from '@/components/ui/badge';
 import { Textarea } from '@/components/ui/textarea';
 import { ActivityTimeline } from '@/components/reconciliation/activity-timeline';
 import { KeyDetails } from '@/components/reconciliation/key-details';
-import { clutchDoneCases, activityLog, baseArtifacts, specialArtifacts, type ClutchDoneCase, type Artifact } from '@/lib/data';
+import { clutchDoneCases, activityLog as baseActivityLog, baseArtifacts, specialArtifacts, type ClutchDoneCase, type Artifact } from '@/lib/data';
 import { ArrowUp, ChevronLeft, ChevronRight, Check } from 'lucide-react';
 import { useCompany } from '@/components/company-provider';
 import { PaceIcon } from '@/components/pace-icon';
@@ -41,13 +41,32 @@ export default function ActivityLogPage() {
             setCurrentIndex(newIndex);
         }
     }, [stockId]);
+    
+    const activityLog = React.useMemo(() => {
+        const caseSpecialArtifacts = specialArtifacts[stockId] || [];
+        if (caseSpecialArtifacts.length > 0) {
+            const newLog = [...baseActivityLog];
+            const documentsCapturedIndex = newLog.findIndex(act => act.id === 'act2');
+            if (documentsCapturedIndex !== -1) {
+                newLog[documentsCapturedIndex] = {
+                    ...newLog[documentsCapturedIndex],
+                    artifacts: [
+                        ...(newLog[documentsCapturedIndex].artifacts || []),
+                        ...caseSpecialArtifacts
+                    ]
+                }
+            }
+            return newLog;
+        }
+        return baseActivityLog;
+    }, [stockId]);
 
     const getArtifactsForCase = (stockId: string): Artifact[] => {
         const caseSpecialArtifacts = specialArtifacts[stockId] || [];
         const activityArtifacts = activityLog.flatMap(a => a.artifacts || []);
         
         // Combine and remove duplicates
-        const allArtifacts = [...baseArtifacts, ...caseSpecialArtifacts];
+        const allArtifacts = [...baseArtifacts, ...caseSpecialArtifacts, ...activityArtifacts];
         const uniqueArtifacts = Array.from(new Map(allArtifacts.map(item => [item.id, item])).values());
         
         return uniqueArtifacts;
