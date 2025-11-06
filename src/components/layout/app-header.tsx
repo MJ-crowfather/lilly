@@ -25,6 +25,20 @@ const KnowledgeBaseHeader = () => {
   );
 };
 
+const ActivityLogHeader = () => {
+    const { companyData } = useCompany();
+    return (
+      <div className="flex items-center gap-2 text-sm">
+        <Link href="/done" className="text-muted-foreground hover:text-foreground flex items-center gap-1">
+            <ArrowLeft className="h-4 w-4" />
+            {companyData.processName}
+        </Link>
+        <ChevronsRight className="h-4 w-4 text-muted-foreground" />
+        <span className="font-medium text-foreground">Activity Logs</span>
+      </div>
+    );
+};
+
 
 const formatPath = (path: string, company: 'Eli Lilly' | 'Clutch' | 'skunk works') => {
   if (path.startsWith('/data/')) {
@@ -60,7 +74,7 @@ const formatPath = (path: string, company: 'Eli Lilly' | 'Clutch' | 'skunk works
 
 export function AppHeader() {
   const pathname = usePathname();
-  const { company, companyData } = useCompany();
+  const { company } = useCompany();
   
   if (pathname.startsWith('/knowledge-base')) {
     return (
@@ -68,6 +82,29 @@ export function AppHeader() {
         <div className="flex items-center gap-2">
           <SidebarTrigger />
           <KnowledgeBaseHeader />
+        </div>
+      </header>
+    )
+  }
+
+  if (pathname.startsWith('/done/')) {
+    return (
+      <header className="flex h-[53px] items-center justify-between gap-4 px-4 border-b">
+        <div className="flex items-center gap-2">
+          <SidebarTrigger />
+          <ActivityLogHeader />
+        </div>
+        <div className="flex items-center gap-2">
+          <Button asChild variant="outline" size="sm" className="flex items-center gap-2 text-xs">
+            <Link href="/knowledge-base">
+              <Book className="h-4 w-4" />
+              <span>Knowledge Base</span>
+            </Link>
+          </Button>
+          <Button variant="outline" size="sm" className="flex items-center gap-2 text-xs">
+            <Share2 className="h-4 w-4" />
+            <span>Share</span>
+          </Button>
         </div>
       </header>
     )
@@ -96,5 +133,3 @@ export function AppHeader() {
     </header>
   )
 }
-
-    

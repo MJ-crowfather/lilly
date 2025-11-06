@@ -189,7 +189,7 @@ export const billOfSaleData: BillOfSaleEntry[] = [
 
 
 export type DriversLicenseEntry = {
-    stock_id: string; // Corresponds to stock_id
+    stock_id: string;
     id_first_name: string;
     id_last_name: string;
     id_full_name: string;
@@ -311,4 +311,43 @@ export const teamMembers: TeamMember[] = [
   { name: 'Swati', email: 'swati.deshwal@zamp.ai', role: 'System Admin', team: 'Add Team' },
 ];
 
+export type Artifact = {
+  id: string;
+  name: string;
+  type: 'document' | 'video' | 'dashboard' | 'drive';
+  external?: boolean;
+};
+
+export const artifacts: Artifact[] = [
+    { id: 'art1', name: 'Dashboard', type: 'dashboard', external: true },
+    { id: 'art2', name: 'PR Data for PR1106', type: 'document', external: true },
+    { id: 'art3', name: 'Extraction Video', type: 'video' },
+    { id: 'art4', name: 'PR Extracted Dataset', type: 'document' },
+    { id: 'art5', name: 'PR1106.pdf', type: 'document' },
+    { id: 'art6', name: 'PR1106.pdf', type: 'document' },
+    { id: 'art7', name: 'Video Recording', type: 'video' },
+    { id: 'art8', name: 'PR Data', type: 'document' },
+    { id: 'art9', name: 'Review Draft', type: 'drive' },
+];
+
+export type Activity = {
+    id: string;
+    timestamp: string;
+    status: 'completed' | 'in-progress';
+    description: string;
+    artifacts?: Artifact[];
+    details?: {
+        seeReasoning?: boolean;
+        viewData?: boolean;
+    };
+};
+
+export const activityLog: Activity[] = [
+    { id: 'act1', timestamp: '2024-07-22T10:37:00Z', status: 'completed', description: 'Fetched submitted PR', artifacts: [artifacts.find(a => a.id === 'art1')!] },
+    { id: 'act2', timestamp: '2024-07-22T10:38:00Z', status: 'completed', description: 'PR data fetched successfully for PR ID: PR1106', artifacts: [artifacts.find(a => a.id === 'art2')!, artifacts.find(a => a.id === 'art3')!, artifacts.find(a => a.id === 'art4')!] },
+    { id: 'act3', timestamp: '2024-07-22T10:38:00Z', status: 'completed', description: 'Fetched PDF attachment PR1106.pdf', artifacts: [artifacts.find(a => a.id === 'art5')!] },
+    { id: 'act4', timestamp: '2024-07-22T10:39:00Z-05:00', status: 'completed', description: 'Successfully identified PR1106.pdf as a Statement of Work document', details: { seeReasoning: true }, artifacts: [artifacts.find(a => a.id === 'art6')!] },
+    { id: 'act5', timestamp: '2024-07-22T10:40:00Z-05:00', status: 'completed', description: 'Extracted key fields successfully', details: { seeReasoning: true, viewData: true } },
+    { id: 'act6', timestamp: '2024-07-22T10:41:00Z-05:00', status: 'completed', description: 'This is a service based PR. Hence, swapped price to 1.0 and quantity to 10520.00 for PR: PR1106', artifacts: [artifacts.find(a => a.id === 'art7')!] },
+];
     

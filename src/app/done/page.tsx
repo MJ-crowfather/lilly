@@ -1,6 +1,7 @@
 'use client';
 
 import * as React from 'react';
+import Link from 'next/link';
 import { AppHeader } from '@/components/layout/app-header';
 import { AppSidebar } from '@/components/layout/app-sidebar';
 import { StatusToolbar } from '@/components/reconciliation/status-toolbar';
@@ -157,7 +158,8 @@ export default function DonePage() {
       </TableHeader>
       <TableBody>
           {(filteredData as ClutchDoneCase[]).map((caseItem) => (
-              <TableRow key={caseItem.stock_id} className="border-b-0">
+            <Link href={`/done/${caseItem.stock_id}`} legacyBehavior key={caseItem.stock_id}>
+              <TableRow className="border-b-0 cursor-pointer">
                   <TableCell className="py-2">
                     <div className="flex items-center gap-2">
                       <DoneStatusIcon className="h-2 w-2"/>
@@ -165,7 +167,7 @@ export default function DonePage() {
                     </div>
                   </TableCell>
                   {clutchTableHeaders.map(header => (
-                    <TableCell key={header} className="py-2 text-xs max-w-[250px] truncate">
+                    <TableCell key={header} className="py-2 text-xs max-w-[150px] truncate">
                       {(header === 'selling_price' || header === 'net_vehicle_value') && typeof (caseItem as any)[header] === 'number' 
                         ? `$${((caseItem as any)[header] as number).toFixed(2)}`
                         : (caseItem as any)[header]
@@ -173,6 +175,7 @@ export default function DonePage() {
                     </TableCell>
                   ))}
               </TableRow>
+            </Link>
           ))}
       </TableBody>
     </Table>
