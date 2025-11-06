@@ -44,7 +44,13 @@ export default function ActivityLogPage() {
 
     const getArtifactsForCase = (stockId: string): Artifact[] => {
         const caseSpecialArtifacts = specialArtifacts[stockId] || [];
-        return [...baseArtifacts, ...caseSpecialArtifacts];
+        const activityArtifacts = activityLog.flatMap(a => a.artifacts || []);
+        
+        // Combine and remove duplicates
+        const allArtifacts = [...baseArtifacts, ...caseSpecialArtifacts];
+        const uniqueArtifacts = Array.from(new Map(allArtifacts.map(item => [item.id, item])).values());
+        
+        return uniqueArtifacts;
     };
     
     const artifacts = getArtifactsForCase(stockId);
