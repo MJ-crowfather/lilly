@@ -17,6 +17,8 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { Separator } from '@/components/ui/separator';
 import { Badge } from '@/components/ui/badge';
 import { useCompany } from '@/components/company-provider';
+import { DoneStatusIcon } from '@/components/reconciliation/done-status-icon';
+
 
 const lillyTableHeaders: (keyof DoneCase)[] = [
   'case_number', 'receipt_date', 'social_network', 'username', 'lilly_product', 'report_type', 'respondent_type', 'case_summary', 'assigned_agent'
@@ -34,12 +36,6 @@ type AppliedFilter = {
     column: TableHeader;
     values: string[];
 };
-
-const DoneStatusIcon = (props: React.SVGProps<SVGSVGElement>) => (
-    <svg viewBox="0 0 8 8" {...props}>
-      <rect width="8" height="8" rx="1.5" className="fill-green-100 dark:fill-green-900/50 stroke-green-500 dark:stroke-green-400" strokeWidth="1"/>
-    </svg>
-);
 
 function formatHeader(header: string): string {
     if (header === 'stock_id') return 'Stock ID';
