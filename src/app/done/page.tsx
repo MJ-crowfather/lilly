@@ -1,4 +1,3 @@
-
 'use client';
 
 import * as React from 'react';
@@ -22,7 +21,7 @@ const lillyTableHeaders: (keyof DoneCase)[] = [
 ];
 
 const clutchTableHeaders: (keyof ClutchDoneCase)[] = [
-  'customer_full_name', 'vehicle_year', 'vehicle_make', 'vehicle_model', 'vehicle_vin', 'bos_effective_date', 'selling_price', 'applicable_loan_balance', 'net_vehicle_value'
+  'stock_id', 'customer_full_name', 'vehicle_year', 'vehicle_make', 'vehicle_model', 'vehicle_vin', 'bos_effective_date', 'selling_price', 'applicable_loan_balance', 'net_vehicle_value'
 ];
 
 type LillyTableHeader = typeof lillyTableHeaders[number];
@@ -41,6 +40,7 @@ const DoneStatusIcon = (props: React.SVGProps<SVGSVGElement>) => (
 );
 
 function formatHeader(header: string): string {
+    if (header === 'stock_id') return 'Stock ID';
     return header.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
 }
 
@@ -157,7 +157,7 @@ export default function DonePage() {
       </TableHeader>
       <TableBody>
           {(filteredData as ClutchDoneCase[]).map((caseItem) => (
-              <TableRow key={caseItem.id} className="border-b-0">
+              <TableRow key={caseItem.stock_id} className="border-b-0">
                   <TableCell className="py-2">
                     <div className="flex items-center gap-2">
                       <DoneStatusIcon className="h-2 w-2"/>
@@ -166,9 +166,9 @@ export default function DonePage() {
                   </TableCell>
                   {clutchTableHeaders.map(header => (
                     <TableCell key={header} className="py-2 text-xs max-w-[250px] truncate">
-                      {(header === 'selling_price' || header === 'net_vehicle_value') && typeof caseItem[header] === 'number' 
-                        ? `$${(caseItem[header] as number).toFixed(2)}`
-                        : caseItem[header]
+                      {(header === 'selling_price' || header === 'net_vehicle_value') && typeof (caseItem as any)[header] === 'number' 
+                        ? `$${((caseItem as any)[header] as number).toFixed(2)}`
+                        : (caseItem as any)[header]
                       }
                     </TableCell>
                   ))}

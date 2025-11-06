@@ -40,7 +40,7 @@ const expandableClutchHeaders = [
 const clutchBillOfSaleTableHeaders = ["stock_id", "customer_first_name", "customer_last_name", "customer_full_name", "vehicle_year", "vehicle_make", "vehicle_model", "vehicle_vin", "vehicle_vin_last6", "bos_effective_date", "selling_price", "additions_dropoff_tomorrow", "additions_partnership_discount", "applicable_loan_balance", "deductions", "adjustment_sbs", "net_vehicle_value"];
 
 const clutchDriversLicenseTableHeaders = [
-    "id_first_name", "id_last_name", "id_full_name", "id_expiry_date", "id_number", 
+    "stock_id", "id_first_name", "id_last_name", "id_full_name", "id_expiry_date", "id_number", 
     "id_issue_date", "id_type", "temporary_id_provided", "temporary_id_type", "temporary_id_expiry_date"
 ] as const;
 
@@ -67,7 +67,7 @@ function SortableHeader({ children }: { children: React.ReactNode }) {
 function formatHeader(header: string): string {
     if (header === 'ae_pc_details') return 'AE/PC Details';
     if (header === 'bos_effective_date') return 'BOS Effective Date';
-    if (header === 'stock_id' || header === 'id') return 'Stock ID';
+    if (header === 'stock_id') return 'Stock ID';
     if (header.startsWith('id_')) return header.substring(3).replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
     return header.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
 }
@@ -252,7 +252,7 @@ export default function SheetDetailsPage({ params }: { params: { sheetId: string
         </TableHeader>
         <TableBody>
             {(filteredData as DriversLicenseEntry[]).map((row) => (
-                <TableRow key={row.id}>
+                <TableRow key={row.stock_id}>
                     {clutchDriversLicenseTableHeaders.map(key => (
                         <TableCell key={key} className="text-xs py-1">{(row as any)[key]}</TableCell>
                     ))}

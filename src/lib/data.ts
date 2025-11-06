@@ -184,12 +184,12 @@ export const billOfSaleData: BillOfSaleEntry[] = [
     { stock_id: '83145', customer_first_name: 'Jessica', customer_last_name: 'Miller', customer_full_name: 'Jessica Miller', vehicle_year: 2021, vehicle_make: 'Honda', vehicle_model: 'Civic', vehicle_vin: '1HGFE2F58ML123456', vehicle_vin_last6: '123456', bos_effective_date: '2025-09-01', selling_price: 21500.00, additions_dropoff_tomorrow: '-', additions_partnership_discount: '-', applicable_loan_balance: '-', deductions: '500.00', adjustment_sbs: 0.00, net_vehicle_value: 21000.00 },
     { stock_id: '94221', customer_first_name: 'Michael', customer_last_name: 'Smith', customer_full_name: 'Michael Smith', vehicle_year: 2020, vehicle_make: 'Toyota', vehicle_model: 'Camry', vehicle_vin: '4T1BF1FK0LU789012', vehicle_vin_last6: '789012', bos_effective_date: '2025-10-22', selling_price: 24300.00, additions_dropoff_tomorrow: '-', additions_partnership_discount: '250.00', applicable_loan_balance: '-', deductions: '-', adjustment_sbs: 150.00, net_vehicle_value: 24200.00 },
     { stock_id: '10538', customer_first_name: 'Emily', customer_last_name: 'Johnson', customer_full_name: 'Emily Johnson', vehicle_year: 2022, vehicle_make: 'Ford', vehicle_model: 'Mustang', vehicle_vin: '1FATP8UHXN5456789', vehicle_vin_last6: '456789', bos_effective_date: '2025-11-05', selling_price: 35000.00, additions_dropoff_tomorrow: '100.00', additions_partnership_discount: '-', applicable_loan_balance: '-', deductions: '-', adjustment_sbs: 0.00, net_vehicle_value: 35100.00 },
-    { stock_id: '11649', customer_first_name: 'David', customer_last_name: 'Williams', customer_full_name: 'David Williams', vehicle_year: 2018, vehicle_make: 'Chevrolet', vehicle_model: 'Silverado', vehicle_vin: '1GCUKREC2JZ123789', vehicle_vin_last6: '123789', bos_effective_date: '2025-12-18', selling_price: 28000.00, additions_dropoff_tomorrow: '-', additions_partnership_discount: '-', applicable_loan_balance: '-', deductions: '1000.00', adjustment_sbs: 200.00, net_vehicle_value: 27200.00 }
+    { stock_id: '11649', customer_first_name: 'David', customer_last_name: 'Williams', customer_full_name: 'David Williams', vehicle_year: 2018, vehicle_make: 'Chevrolet', vehicle_model: 'Silverado', vehicle_vin: '1GCUKREC2JZ123789', vehicle_vin_last6: '123789', bos_effective_date: '2025-07-18', selling_price: 28000.00, additions_dropoff_tomorrow: '-', additions_partnership_discount: '-', applicable_loan_balance: '-', deductions: '1000.00', adjustment_sbs: 200.00, net_vehicle_value: 27200.00 }
 ];
 
 
 export type DriversLicenseEntry = {
-    id: string; // Corresponds to stock_id
+    stock_id: string; // Corresponds to stock_id
     id_first_name: string;
     id_last_name: string;
     id_full_name: string;
@@ -203,15 +203,15 @@ export type DriversLicenseEntry = {
 };
 
 export const driversLicenseData: DriversLicenseEntry[] = [
-    { id: '72590', id_first_name: 'Christopher', id_last_name: 'Merjanian', id_full_name: 'Christopher Merjanian', id_expiry_date: '2028-10-20', id_number: 'M1234-56789-01234', id_issue_date: '2023-10-20', id_type: 'DriverLicense', temporary_id_provided: 'N', temporary_id_type: '-', temporary_id_expiry_date: '-' },
-    { id: '83145', id_first_name: 'Jessica', id_last_name: 'Miller', id_full_name: 'Jessica Miller', id_expiry_date: '2027-05-15', id_number: 'M5678-12345-67890', id_issue_date: '2022-05-15', id_type: 'DriverLicense', temporary_id_provided: 'N', temporary_id_type: '-', temporary_id_expiry_date: '-' },
-    { id: '94221', id_first_name: 'Michael', id_last_name: 'Smith', id_full_name: 'Michael Smith', id_expiry_date: '2024-02-10', id_number: 'S5555-66666-77777', id_issue_date: '2019-02-10', id_type: 'DriverLicense', temporary_id_provided: 'Y', temporary_id_type: 'Passport', temporary_id_expiry_date: '2029-08-01' },
-    { id: '10538', id_first_name: 'Emily', id_last_name: 'Johnson', id_full_name: 'Emily Johnson', id_expiry_date: '2024-04-05', id_number: 'J8888-99999-00000', id_issue_date: '2019-04-05', id_type: 'DriverLicense', temporary_id_provided: 'Y', temporary_id_type: 'OntarioPhotoID', temporary_id_expiry_date: '2026-11-30' },
-    { id: '11649', id_first_name: 'David', id_last_name: 'Williams', id_full_name: 'David Williams', id_expiry_date: '2026-03-22', id_number: 'W1112-22334-45567', id_issue_date: '2021-03-22', id_type: 'DriverLicense', temporary_id_provided: 'N', temporary_id_type: '-', temporary_id_expiry_date: '-' }
+    { stock_id: '72590', id_first_name: 'Christopher', id_last_name: 'Merjanian', id_full_name: 'Christopher Merjanian', id_expiry_date: '2028-10-20', id_number: 'M1234-56789-01234', id_issue_date: '2023-10-20', id_type: 'DriverLicense', temporary_id_provided: 'N', temporary_id_type: '-', temporary_id_expiry_date: '-' },
+    { stock_id: '83145', id_first_name: 'Jessica', id_last_name: 'Miller', id_full_name: 'Jessica Miller', id_expiry_date: '2027-05-15', id_number: 'M5678-12345-67890', id_issue_date: '2022-05-15', id_type: 'DriverLicense', temporary_id_provided: 'N', temporary_id_type: '-', temporary_id_expiry_date: '-' },
+    { stock_id: '94221', id_first_name: 'Michael', id_last_name: 'Smith', id_full_name: 'Michael Smith', id_expiry_date: '2024-02-10', id_number: 'S5555-66666-77777', id_issue_date: '2019-02-10', id_type: 'DriverLicense', temporary_id_provided: 'Y', temporary_id_type: 'Passport', temporary_id_expiry_date: '2029-08-01' },
+    { stock_id: '10538', id_first_name: 'Emily', id_last_name: 'Johnson', id_full_name: 'Emily Johnson', id_expiry_date: '2024-04-05', id_number: 'J8888-99999-00000', id_issue_date: '2019-04-05', id_type: 'DriverLicense', temporary_id_provided: 'Y', temporary_id_type: 'OntarioPhotoID', temporary_id_expiry_date: '2026-11-30' },
+    { stock_id: '11649', id_first_name: 'David', id_last_name: 'Williams', id_full_name: 'David Williams', id_expiry_date: '2026-03-22', id_number: 'W1112-22334-45567', id_issue_date: '2021-03-22', id_type: 'DriverLicense', temporary_id_provided: 'N', temporary_id_type: '-', temporary_id_expiry_date: '-' }
 ];
 
 export type ClutchDoneCase = {
-  id: string;
+  stock_id: string;
   customer_full_name: string;
   vehicle_year: number;
   vehicle_make: string;
@@ -224,7 +224,7 @@ export type ClutchDoneCase = {
 }
 
 export const clutchDoneCases: ClutchDoneCase[] = billOfSaleData.map(bos => ({
-  id: bos.stock_id,
+  stock_id: bos.stock_id,
   customer_full_name: bos.customer_full_name,
   vehicle_year: bos.vehicle_year,
   vehicle_make: bos.vehicle_make,
