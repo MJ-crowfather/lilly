@@ -29,9 +29,6 @@ const ArtifactPill = ({ artifact }: { artifact: Artifact }) => {
 export const ActivityTimeline = ({ activities }: { activities: Activity[] }) => {
     return (
         <div className="relative">
-            {activities.length > 1 && (
-                <div className="absolute left-[70px] w-px bg-border top-1 bottom-1" style={{height: `calc(100% - 2rem)`}} />
-            )}
             {activities.map((activity) => {
                 const activityDate = new Date(activity.timestamp);
                 if (isNaN(activityDate.getTime())) {
@@ -42,7 +39,7 @@ export const ActivityTimeline = ({ activities }: { activities: Activity[] }) => 
                 return (
                     <div key={activity.id} className="flex items-start gap-4 mb-8">
                         <div className="text-xs text-muted-foreground min-w-[60px] text-right mt-0.5">{activityDate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true })}</div>
-                        <div className="relative flex flex-col items-center z-10 bg-muted/30">
+                        <div className="relative flex flex-col items-center">
                             <DoneStatusIcon className="h-2 w-2 mt-1" />
                         </div>
                         <div className="flex-1 pt-0 ml-2">
