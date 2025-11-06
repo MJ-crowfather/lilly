@@ -21,7 +21,7 @@ const ArtifactLink = ({ artifact }: { artifact: Artifact }) => {
     }
 
     return (
-        <Link href="#" className="flex items-center gap-2 text-xs text-foreground bg-muted/60 hover:bg-muted rounded-md p-2">
+        <Link href="#" className="inline-flex items-center gap-2 text-xs text-foreground bg-muted hover:bg-muted/80 rounded-md p-2">
             {icon}
             <span>{artifact.name}</span>
             {artifact.external && <ExternalLink className="h-3 w-3 text-muted-foreground" />}
@@ -75,7 +75,7 @@ export const KeyDetails = ({ caseData, artifacts }: { caseData: ClutchDoneCase, 
 
             <div className="space-y-4">
                  <h3 className="text-xs font-semibold">Artifacts</h3>
-                 <div className="space-y-3">
+                 <div className="flex flex-col items-start gap-3">
                     {artifacts.map(artifact => <ArtifactLink key={artifact.id} artifact={artifact} />)}
                  </div>
             </div>
