@@ -2,6 +2,7 @@ import type {Metadata} from 'next';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 import { AuthProvider } from '@/components/auth-provider';
+import { CompanyProvider } from '@/components/company-provider';
 
 export const metadata: Metadata = {
   title: 'Reconciliation Dashboard',
@@ -22,7 +23,9 @@ export default function RootLayout({
       </head>
       <body className="font-body antialiased">
         <AuthProvider>
-          {children}
+          <CompanyProvider>
+            {children}
+          </CompanyProvider>
         </AuthProvider>
         <Toaster />
       </body>

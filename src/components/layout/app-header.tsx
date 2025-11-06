@@ -1,23 +1,22 @@
-
-
-"use client"
+'use client';
 
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { Button } from "@/components/ui/button";
 import { SidebarTrigger } from "@/components/ui/sidebar";
-import { ArrowLeft, ChevronsRight, Book, Share2, ChevronsUpDown } from 'lucide-react';
-import { KnowledgeBaseIcon } from '../knowledge-base-icon';
+import { ArrowLeft, ChevronsRight, Book, Share2 } from 'lucide-react';
+import { useCompany } from '../company-provider';
 
 const KnowledgeBaseHeader = () => {
   const router = useRouter();
+  const { companyData } = useCompany();
   return (
     <div className="flex items-center gap-2 text-sm">
       <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => router.back()}>
         <ArrowLeft className="h-4 w-4" />
       </Button>
       <Link href="/" className="text-muted-foreground hover:text-foreground">
-        AE/PC Reporting
+        {companyData.processName}
       </Link>
       <ChevronsRight className="h-4 w-4 text-muted-foreground" />
       <span className="font-medium text-foreground">Knowledge Base</span>
@@ -26,7 +25,7 @@ const KnowledgeBaseHeader = () => {
 };
 
 
-const formatPath = (path: string) => {
+const formatPath = (path: string, processName: string) => {
   if (path.startsWith('/data/')) {
     return (
       <div className="flex items-center gap-2 text-xs">
@@ -40,7 +39,7 @@ const formatPath = (path: string) => {
     );
   }
 
-  let title = "AE/PC Reporting";
+  let title = processName;
   if (path.startsWith('/data')) {
     title = "Data";
   } else if (path.startsWith('/people')) {
@@ -52,6 +51,7 @@ const formatPath = (path: string) => {
 
 export function AppHeader() {
   const pathname = usePathname();
+  const { companyData } = useCompany();
   
   if (pathname.startsWith('/knowledge-base')) {
     return (
@@ -64,7 +64,7 @@ export function AppHeader() {
     )
   }
   
-  const headerContent = formatPath(pathname);
+  const headerContent = formatPath(pathname, companyData.processName);
 
   return (
     <header className="flex h-[53px] items-center justify-between gap-4 p-4 border-b">

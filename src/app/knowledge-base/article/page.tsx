@@ -1,4 +1,3 @@
-
 'use client';
 
 import * as React from 'react';
@@ -13,6 +12,7 @@ import { cn } from '@/lib/utils';
 import { answerQuestion } from '@/ai/flows/knowledge-base-flow';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { PaceIcon } from '@/components/pace-icon';
+import { useCompany } from '@/components/company-provider';
 
 const articleContent = [
     { type: 'h2', text: 'Overview' },
@@ -92,7 +92,7 @@ export default function KnowledgeBaseArticlePage() {
   const [input, setInput] = React.useState('');
   const [isLoading, setIsLoading] = React.useState(false);
   const chatContainerRef = React.useRef<HTMLDivElement>(null);
-
+  const { companyData } = useCompany();
 
   const toc = articleContent.filter(item => item.type === 'h2' || item.type === 'h3');
 
@@ -131,14 +131,14 @@ export default function KnowledgeBaseArticlePage() {
           <AppHeader />
           <div className="flex-1 flex flex-col relative">
             <header className="h-[140px] w-full bg-gray-50 flex items-center px-8 login-diagonal-bg">
-                <h1 className="text-3xl font-bold tracking-tight">AE/PC Reporting</h1>
+                <h1 className="text-3xl font-bold tracking-tight">{companyData.processName}</h1>
             </header>
             
             <main ref={chatContainerRef} className="flex-1 flex justify-center py-8 px-4 md:px-8 overflow-y-auto">
               {messages.length === 0 ? (
                 <div className="w-full max-w-6xl flex">
                     <div className="w-2/3 pr-16 space-y-4">
-                    <h2 className="text-xl font-semibold">Pace AI Agent - AE/PC Reporting Automation</h2>
+                    <h2 className="text-xl font-semibold">Pace AI Agent - {companyData.processName}</h2>
                     {articleContent.map((item, index) => {
                         const id = item.type !== 'p' && item.type !== 'ul' && item.text ? slugify(item.text) : undefined;
                         if (item.type === 'h2') {
@@ -162,7 +162,7 @@ export default function KnowledgeBaseArticlePage() {
                         <h3 className="text-xs font-semibold text-muted-foreground mb-2">In this knowledge base:</h3>
                         <Collapsible open={open} onOpenChange={setOpen}>
                             <CollapsibleTrigger className="flex items-center justify-between w-full text-left">
-                                <span className="text-sm font-medium">Pace AI Agent - AE/PC Reporting Automation</span>
+                                <span className="text-sm font-medium">Pace AI Agent - {companyData.processName}</span>
                                 <ChevronRight className={cn("h-4 w-4 transition-transform", open && "rotate-90")} />
                             </CollapsibleTrigger>
                             <CollapsibleContent className="mt-2 pl-4 border-l">

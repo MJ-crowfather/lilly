@@ -1,4 +1,3 @@
-
 'use client';
 
 import * as React from 'react';
@@ -14,6 +13,7 @@ import { PaceIcon } from '@/components/pace-icon';
 import { answerQuestion } from '@/ai/flows/knowledge-base-flow';
 import { cn } from '@/lib/utils';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { useCompany } from '@/components/company-provider';
 
 
 const articleText = `
@@ -75,6 +75,7 @@ export default function KnowledgeBasePage() {
   const [input, setInput] = React.useState('');
   const [isLoading, setIsLoading] = React.useState(false);
   const chatContainerRef = React.useRef<HTMLDivElement>(null);
+  const { companyData } = useCompany();
 
   React.useEffect(() => {
     if (chatContainerRef.current) {
@@ -119,7 +120,7 @@ export default function KnowledgeBasePage() {
                         Knowledge Base
                     </Button>
                     <h1 className="text-2xl font-bold mb-8 flex items-center gap-2">
-                        Ask <PaceIcon /> Pace anything about AE/PC Process Reporting
+                        Ask <PaceIcon /> Pace anything about {companyData.processName}
                     </h1>
                 </div>
             ) : (
