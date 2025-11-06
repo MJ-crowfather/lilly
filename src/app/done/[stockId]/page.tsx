@@ -64,7 +64,7 @@ export default function ActivityLogPage() {
                                         <p className="text-sm text-muted-foreground">Stock ID</p>
                                         <span className="font-semibold text-sm">{caseData.stock_id}</span>
                                         <Badge variant="outline" className="font-normal">
-                                            <Check className="h-5 w-5 mr-1" />
+                                            <Check className="h-4 w-4 mr-1 text-green-600" />
                                             Done
                                         </Badge>
                                     </div>
