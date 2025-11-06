@@ -315,7 +315,8 @@ export const baseArtifacts: Artifact[] = [
     { id: 'art-dl', name: 'Driver\'s License', type: 'image' },
     { id: 'art-dash', name: 'Dashboard', type: 'dashboard' },
     { id: 'art-video', name: 'Extraction Video', type: 'video' },
-    { id: 'art-dataset', name: 'PR Extracted Dataset', type: 'document' },
+    { id: 'art-bos-dataset', name: 'BOS Dataset', type: 'document' },
+    { id: 'art-dl-dataset', name: 'DL Dataset', type: 'document' },
     { id: 'art-pdf', name: 'PR1106.pdf', type: 'document' },
 ];
 
@@ -335,8 +336,8 @@ export type Activity = {
 export const activityLog: Activity[] = [
     { id: 'act1', timestamp: '2024-07-22T10:37:00Z', status: 'completed', description: 'Retrieved incomplete verification task from queue', artifacts: [baseArtifacts[2]] },
     { id: 'act2', timestamp: '2024-07-22T10:38:00Z', status: 'completed', description: 'Documents captured successfully', artifacts: [baseArtifacts[0], baseArtifacts[1], baseArtifacts[3]] },
-    { id: 'act3', timestamp: '2024-07-22T10:39:00Z', status: 'completed', description: 'OCR extraction completed — all key fields identified', artifacts: [baseArtifacts[4]]},
-    { id: 'act4', timestamp: '2024-07-22T10:40:00Z', status: 'completed', description: 'Successfully completed Cross-document verification', artifacts: [baseArtifacts[5]] },
+    { id: 'act3', timestamp: '2024-07-22T10:39:00Z', status: 'completed', description: 'OCR extraction completed — all key fields identified', artifacts: [baseArtifacts[4], baseArtifacts[5]]},
+    { id: 'act4', timestamp: '2024-07-22T10:40:00Z', status: 'completed', description: 'Successfully completed Cross-document verification', artifacts: [baseArtifacts[6]] },
     { id: 'act5', timestamp: '2024-07-22T10:41:00Z', status: 'completed', description: 'Verification marked complete on Dashboard' },
 ];
     
