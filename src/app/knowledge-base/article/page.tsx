@@ -1,3 +1,4 @@
+
 'use client';
 
 import * as React from 'react';
@@ -75,7 +76,7 @@ const clutchArticleContent = [
     { type: 'p', text: 'Document verification agents validate customer identity, vehicle ownership, and supporting documents for vehicle purchase transactions. The process uses OCR-based matching against the Bill of Sale (BOS) as the authoritative "golden record." Agents manually access Clutch\'s platform, download documents, and perform visual cross-checks using predefined matching logic.' },
     { type: 'p', text: 'Current Metrics: Manual OCR extraction and comparison | Two-level approval workflow | Multiple document types per transaction' },
     { type: 'h2', text: 'Process Flow' },
-    { type: 'h3', text: '1. Portal Access & Task Retrieval' },
+    { type: 'h3', text: 'Portal Access & Task Retrieval' },
     { type: 'ul', items: [
         'Login to Clutch platform (admin.clutchenv.ca)',
         'Apply filters to retrieve eligible tasks:',
@@ -88,7 +89,7 @@ const clutchArticleContent = [
     { type: 'ul', items: [
         'Access assigned verification queue'
     ]},
-    { type: 'h3', text: '2. Document Download & BOS Analysis' },
+    { type: 'h3', text: 'Document Download & BOS Analysis' },
     { type: 'p', text: 'Agent captures and processes all transaction documents:'},
     { type: 'ul', items: [
         'Generate unique batch key: BATCH_[Transaction_ID]_[Timestamp]',
@@ -112,7 +113,7 @@ const clutchArticleContent = [
         'Net Vehicle Value',
         'Bill of Sale Effective Date',
     ]},
-    { type: 'h3', text: '3. Identity Document Verification' },
+    { type: 'h3', text: 'Identity Document Verification' },
     { type: 'p', text: "Validate Driver's License(s) against BOS data:" },
     { type: 'ul', items: [
         'Name Matching: First and last names must exactly match BOS (no abbreviations)',
@@ -122,7 +123,7 @@ const clutchArticleContent = [
         'Suspended licenses require address-matching mail (bank statement or utility bill)',
         'Reject photocopies, screenshots, or illegible images'
     ]},
-    { type: 'h3', text: '4. Banking Information Verification' },
+    { type: 'h3', text: 'Banking Information Verification' },
     { type: 'p', text: 'Validate Direct Deposit Form or Void Cheque:' },
     { type: 'ul', items: [
         'Name Matching: Must match BOS and ID exactly',
@@ -137,7 +138,7 @@ const clutchArticleContent = [
     { type: 'ul', items: [
         'Verify Canadian banking format standards'
     ]},
-    { type: 'h3', text: '5. Vehicle Ownership Document Verification' },
+    { type: 'h3', text: 'Vehicle Ownership Document Verification' },
     { type: 'p', text: 'Validate Vehicle Registration against BOS:' },
     { type: 'ul', items: [
         'VIN Matching: Full VIN or last 6 digits must match BOS',
@@ -151,7 +152,7 @@ const clutchArticleContent = [
         'ON, NS, NB, PEI, YT: Original photo/scan; no expiration',
         'BC, AB, QC, MB, SK, NT, NU: Original or electronic copy; has expiration date',
     ]},
-    { type: 'h3', text: '6. Lien Documentation Processing (If Applicable)' },
+    { type: 'h3', text: 'Lien Documentation Processing (If Applicable)' },
     { type: 'p', text: 'Process financed vehicle documentation:' },
     { type: 'p', text: 'Lien Buyout Letter requirements:' },
     { type: 'ul', items: [
@@ -171,7 +172,7 @@ const clutchArticleContent = [
     { type: 'ul', items: [
       'Compare VIN, vehicle details, and lien record with BOS'
     ]},
-    { type: 'h3', text: '7. Lease Documentation Processing (If Applicable)' },
+    { type: 'h3', text: 'Lease Documentation Processing (If Applicable)' },
     { type: 'p', text: 'Validate lease-related documents:' },
     { type: 'ul', items: [
         'Lessee Name: Must match BOS',
@@ -187,7 +188,7 @@ const clutchArticleContent = [
         'Accept lender-issued letters or recent BOS for bought-out leases',
         'Required BOS elements: Vehicle details, purchase date, dealership/salesperson, signatures'
     ]},
-    { type: 'h3', text: '8. Cross-Document Validation & Exception Flagging' },
+    { type: 'h3', text: 'Cross-Document Validation & Exception Flagging' },
     { type: 'p', text: 'Perform comprehensive cross-validation using BOS as source of truth:'},
     { type: 'table', headers: ['Validation Area', 'Rule', 'Expected Result'], rows: [
         ['Name Consistency', 'BOS = ID = Bank = Ownership', '✓'],
@@ -200,7 +201,7 @@ const clutchArticleContent = [
       'Generate detailed exception logs with field-level mismatches',
       'Tag exceptions for "Needs Attention" queue'
     ]},
-    { type: 'h3', text: '9. Task Completion & Status Update' },
+    { type: 'h3', text: 'Task Completion & Status Update' },
     { type: 'p', text: 'Mark verification tasks as complete or escalate:'},
     { type: 'ul', items: [
       'Update task status based on validation results',
@@ -441,3 +442,5 @@ export default function KnowledgeBaseArticlePage() {
     </SidebarProvider>
   );
 }
+
+    
