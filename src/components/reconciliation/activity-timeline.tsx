@@ -3,7 +3,7 @@
 
 import * as React from 'react';
 import { Activity, Artifact } from '@/lib/data';
-import { ChevronRight } from 'lucide-react';
+import { ChevronRight, ExternalLink } from 'lucide-react';
 import { DocumentIcon, VideoIcon, DashboardIcon } from '@/components/ui/icons';
 import Link from 'next/link';
 import { DoneStatusIcon } from '@/components/reconciliation/done-status-icon';
@@ -14,6 +14,7 @@ const ArtifactPill = ({ artifact }: { artifact: Artifact }) => {
         case 'document': icon = <DocumentIcon className="h-3 w-3" />; break;
         case 'video': icon = <VideoIcon className="h-3 w-3" />; break;
         case 'dashboard': icon = <DashboardIcon className="h-3 w-3" />; break;
+        case 'link': icon = <ExternalLink className="h-3 w-3" />; break;
         default: icon = <DocumentIcon className="h-3 w-3" />;
     }
 
