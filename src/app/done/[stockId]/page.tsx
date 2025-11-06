@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useParams } from 'next/navigation';
 import { AppHeader } from '@/components/layout/app-header';
 import { AppSidebar } from '@/components/layout/app-sidebar';
 import { SidebarProvider, SidebarInset } from '@/components/ui/sidebar';
@@ -16,10 +16,11 @@ import { useCompany } from '@/components/company-provider';
 import { PaceIcon } from '@/components/pace-icon';
 
 
-export default function ActivityLogPage({ params }: { params: { stockId: string } }) {
+export default function ActivityLogPage() {
     const { company } = useCompany();
     const router = useRouter();
-    const { stockId } = params;
+    const params = useParams();
+    const stockId = params.stockId as string;
 
     const [currentIndex, setCurrentIndex] = React.useState(
         clutchDoneCases.findIndex(c => c.stock_id === stockId)
