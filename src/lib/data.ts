@@ -308,6 +308,7 @@ export type Artifact = {
   name: string;
   type: 'document' | 'video' | 'dashboard' | 'link' | 'image';
   external?: boolean;
+  href?: string;
 };
 
 export const baseArtifacts: Artifact[] = [
@@ -315,7 +316,7 @@ export const baseArtifacts: Artifact[] = [
     { id: 'art-dl', name: 'Driver\'s License', type: 'image' },
     { id: 'art-dash', name: 'Dashboard', type: 'dashboard' },
     { id: 'art-video', name: 'Extraction Video', type: 'video' },
-    { id: 'art-bos-dataset', name: 'BOS Dataset', type: 'document' },
+    { id: 'art-bos-dataset', name: 'BOS Dataset', type: 'document', href: '/data/bill-of-sale' },
     { id: 'art-dl-dataset', name: 'DL Dataset', type: 'document' },
     { id: 'art-verification-video', name: 'Verification Video', type: 'video' },
 ];
@@ -346,3 +347,6 @@ export const activityLog: Activity[] = [
 
 
 
+
+
+    
