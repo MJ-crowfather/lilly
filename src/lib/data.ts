@@ -297,9 +297,9 @@ export const lillyDoneCases: DoneCase[] = [
 
 
 export const teamMembers: TeamMember[] = [
-    { name: 'Ethan Donovan', isYou: true, email: 'ethan.donovan@example.com', role: 'System Admin', team: 'Admins' },
-    { name: 'Aisha Khan', email: 'aisha.khan@example.com', role: 'System Admin', team: 'Admins' },
-    { name: 'Leo Martinez', email: 'leo.martinez@example.com', role: 'System Admin', team: 'Admins' },
+    { name: 'Vignesh', isYou: true, email: 'vignesh@zamp.ai', role: 'System Admin', team: '-' },
+    { name: 'Apoorva', email: 'apoorva@zamp.ai', role: 'System Admin', team: '-' },
+    { name: 'Sujal', email: 'sujal@zamp.ai', role: 'System Admin', team: '-' },
 ];
 
 
@@ -314,7 +314,7 @@ export type Artifact = {
 export const baseArtifacts: Artifact[] = [
     { id: 'art-bos', name: 'Bill of Sale', type: 'image' },
     { id: 'art-dl', name: 'Driver\'s License', type: 'image' },
-    { id: 'art-dash', name: 'Dashboard', type: 'dashboard', href: '#', external: true },
+    { id: 'art-dash', name: 'Dashboard', type: 'dashboard', href: 'https://ben-staging.vercel.app/', external: true },
     { id: 'art-video', name: 'Extraction Video', type: 'video' },
     { id: 'art-bos-dataset', name: 'BOS Dataset', type: 'document', href: '/data/bill-of-sale' },
     { id: 'art-dl-dataset', name: 'DL Dataset', type: 'document', href: '/data/drivers-license' },
@@ -352,4 +352,5 @@ export const activityLog: Activity[] = [
     
 
     
+
 
