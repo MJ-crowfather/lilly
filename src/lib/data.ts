@@ -317,7 +317,7 @@ export const baseArtifacts: Artifact[] = [
     { id: 'art-dash', name: 'Dashboard', type: 'dashboard' },
     { id: 'art-video', name: 'Extraction Video', type: 'video' },
     { id: 'art-bos-dataset', name: 'BOS Dataset', type: 'document', href: '/data/bill-of-sale' },
-    { id: 'art-dl-dataset', name: 'DL Dataset', type: 'document' },
+    { id: 'art-dl-dataset', name: 'DL Dataset', type: 'document', href: '/data/drivers-license' },
     { id: 'art-verification-video', name: 'Verification Video', type: 'video' },
 ];
 
@@ -348,5 +348,7 @@ export const activityLog: Activity[] = [
 
 
 
+
+    
 
     
