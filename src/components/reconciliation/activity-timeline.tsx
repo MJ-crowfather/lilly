@@ -19,7 +19,12 @@ const ArtifactPill = ({ artifact }: { artifact: Artifact }) => {
     }
 
     return (
-        <Link href={artifact.href || '#'} className="flex items-center gap-1.5 bg-muted hover:bg-muted/80 rounded-md px-2 py-1 text-xs">
+        <Link 
+            href={artifact.href || '#'} 
+            className="flex items-center gap-1.5 bg-muted hover:bg-muted/80 rounded-md px-2 py-1 text-xs"
+            target={artifact.external ? '_blank' : undefined}
+            rel={artifact.external ? 'noopener noreferrer' : undefined}
+        >
             {icon}
             <span className="font-medium">{artifact.name}</span>
             {artifact.external && <ChevronRight className="h-3 w-3 text-muted-foreground" />}

@@ -314,7 +314,7 @@ export type Artifact = {
 export const baseArtifacts: Artifact[] = [
     { id: 'art-bos', name: 'Bill of Sale', type: 'image' },
     { id: 'art-dl', name: 'Driver\'s License', type: 'image' },
-    { id: 'art-dash', name: 'Dashboard', type: 'dashboard' },
+    { id: 'art-dash', name: 'Dashboard', type: 'dashboard', href: 'https://ben-staging.vercel.app/', external: true },
     { id: 'art-video', name: 'Extraction Video', type: 'video' },
     { id: 'art-bos-dataset', name: 'BOS Dataset', type: 'document', href: '/data/bill-of-sale' },
     { id: 'art-dl-dataset', name: 'DL Dataset', type: 'document', href: '/data/drivers-license' },

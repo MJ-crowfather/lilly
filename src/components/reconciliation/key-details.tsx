@@ -22,7 +22,12 @@ const ArtifactLink = ({ artifact }: { artifact: Artifact }) => {
     }
 
     return (
-        <Link href={artifact.href || '#'} className="inline-flex items-center gap-2 text-foreground bg-muted hover:bg-muted/80 rounded-md p-2 text-xs">
+        <Link 
+            href={artifact.href || '#'} 
+            className="inline-flex items-center gap-2 text-foreground bg-muted hover:bg-muted/80 rounded-md p-2 text-xs"
+            target={artifact.external ? '_blank' : undefined}
+            rel={artifact.external ? 'noopener noreferrer' : undefined}
+        >
             {icon}
             <span className="text-xs">{artifact.name}</span>
             {artifact.external && <ExternalLink className="h-3 w-3 text-muted-foreground" />}
