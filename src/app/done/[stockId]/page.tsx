@@ -3,6 +3,7 @@
 
 import * as React from 'react';
 import { useRouter, useParams } from 'next/navigation';
+import Image from 'next/image';
 import { AppHeader } from '@/components/layout/app-header';
 import { AppSidebar } from '@/components/layout/app-sidebar';
 import { SidebarProvider, SidebarInset } from '@/components/ui/sidebar';
@@ -11,10 +12,11 @@ import { Badge } from '@/components/ui/badge';
 import { Textarea } from '@/components/ui/textarea';
 import { ActivityTimeline } from '@/components/reconciliation/activity-timeline';
 import { KeyDetails } from '@/components/reconciliation/key-details';
-import { clutchDoneCases, activityLog as baseActivityLog, baseArtifacts, specialArtifacts, type Activity, type Artifact } from '@/lib/data';
+import { clutchDoneCases, activityLog as baseActivityLog, baseArtifacts, specialArtifacts, type Activity, type Artifact, billOfSaleData, driversLicenseData } from '@/lib/data';
 import { ArrowUp, ChevronLeft, ChevronRight, Check } from 'lucide-react';
 import { useCompany } from '@/components/company-provider';
 import { PaceIcon } from '@/components/pace-icon';
+import { DocumentViewer } from '@/components/reconciliation/document-viewer';
 
 
 const dashboardUrlMap: Record<string, string> = {
@@ -32,46 +34,40 @@ export default function ActivityLogPage() {
     const params = useParams();
     const stockId = params.stockId as string;
 
-    const [currentIndex, setCurrentIndex] = React.useState(
-        clutchDoneCases.findIndex(c => c.stock_id === stockId)
+    const [viewerArtifact, setViewerArtifact] = React.useState<Artifact | null>(null);
+
+    const currentIndex = React.useMemo(() => 
+        clutchDoneCases.findIndex(c => c.stock_id === stockId),
+        [stockId]
     );
 
-    // This effect ensures that if the stockId in the URL changes, we update the component's state.
     React.useEffect(() => {
-        const newIndex = clutchDoneCases.findIndex(c => c.stock_id === stockId);
-        if (newIndex !== -1) {
-            setCurrentIndex(newIndex);
-        } else {
-            // If the stockId is not found, maybe redirect to the main done page.
-            if(clutchDoneCases.length > 0) {
-                router.push('/done');
-            }
+        if (currentIndex === -1 && clutchDoneCases.length > 0) {
+            router.push('/done');
         }
-    }, [stockId, router]);
+    }, [currentIndex, router]);
     
-    // This ensures we always have the correct case data for the current stockId.
     const caseData = clutchDoneCases[currentIndex];
+    const billOfSale = billOfSaleData.find(b => b.stock_id === stockId);
+    const driversLicense = driversLicenseData.find(d => d.stock_id === stockId);
 
-    const navigate = (direction: 'next' | 'prev') => {
-        const nextIndex = direction === 'next' 
-            ? (currentIndex + 1) % clutchDoneCases.length 
-            : (currentIndex - 1 + clutchDoneCases.length) % clutchDoneCases.length;
-        const nextStockId = clutchDoneCases[nextIndex].stock_id;
-        router.push(`/done/${nextStockId}`);
-    };
-    
+
     const activityLog = React.useMemo(() => {
         const caseSpecialArtifacts = specialArtifacts[stockId] || [];
-        // Important: Create a deep copy of baseActivityLog to avoid mutations across renders.
         const newLog = JSON.parse(JSON.stringify(baseActivityLog));
         
-        if (caseSpecialArtifacts.length > 0) {
-            const documentsCapturedIndex = newLog.findIndex((act: Activity) => act.id === 'act2');
-            if (documentsCapturedIndex !== -1) {
-                 if (!newLog[documentsCapturedIndex].artifacts) {
+        const documentsCapturedIndex = newLog.findIndex((act: Activity) => act.id === 'act2');
+        if (documentsCapturedIndex !== -1) {
+            const existingArtifactIds = new Set(newLog[documentsCapturedIndex].artifacts?.map((a: any) => a.id) || []);
+            const artifactsToAdd = caseSpecialArtifacts
+                .filter(sa => ['art-passport', 'art-ontario'].includes(sa.id))
+                .filter(sa => !existingArtifactIds.has(sa.id));
+
+            if (artifactsToAdd.length > 0) {
+                if (!newLog[documentsCapturedIndex].artifacts) {
                     newLog[documentsCapturedIndex].artifacts = [];
                 }
-                newLog[documentsCapturedIndex].artifacts.push(...caseSpecialArtifacts);
+                newLog[documentsCapturedIndex].artifacts.push(...artifactsToAdd.map(a => ({ id: a.id })));
             }
         }
         return newLog;
@@ -80,24 +76,34 @@ export default function ActivityLogPage() {
     const getArtifactsForCase = React.useCallback((stockId: string): Artifact[] => {
         const caseSpecialArtifacts = specialArtifacts[stockId] || [];
         
-        // Combine and remove duplicates, creating a deep copy to avoid mutation
-        const allArtifacts = [...baseArtifacts, ...caseSpecialArtifacts].map(a => ({...a}));
+        const allArtifacts = [...baseArtifacts, ...caseSpecialArtifacts];
         
-        const dashboardArtifact = allArtifacts.find(a => a.id === 'art-dash');
+        const uniqueArtifactsMap = new Map<string, Artifact>();
+        allArtifacts.forEach(artifact => {
+            uniqueArtifactsMap.set(artifact.id, {...(uniqueArtifactsMap.get(artifact.id)), ...artifact});
+        });
+
+        const uniqueArtifacts = Array.from(uniqueArtifactsMap.values());
+        
+        const dashboardArtifact = uniqueArtifacts.find(a => a.id === 'art-dash');
         if (dashboardArtifact) {
             dashboardArtifact.href = dashboardUrlMap[stockId] || 'https://ben-staging.vercel.app/';
         }
 
-        const uniqueArtifacts = Array.from(new Map(allArtifacts.map(item => [item.id, item])).values());
-        
         return uniqueArtifacts;
     }, [stockId]);
     
     const artifacts = getArtifactsForCase(stockId);
 
-    // If data is not yet available (e.g., during initial render or if stockId is invalid),
-    // show a loading or fallback state.
-    if (company !== 'Clutch' || !caseData) {
+    const navigate = (direction: 'next' | 'prev') => {
+        const newIndex = direction === 'next' 
+            ? (currentIndex + 1) % clutchDoneCases.length 
+            : (currentIndex - 1 + clutchDoneCases.length) % clutchDoneCases.length;
+        const nextStockId = clutchDoneCases[newIndex].stock_id;
+        router.push(`/done/${nextStockId}`);
+    };
+
+    if (company !== 'Clutch' || !caseData || !billOfSale || !driversLicense) {
         return (
             <SidebarProvider>
                 <AppSidebar />
@@ -109,6 +115,12 @@ export default function ActivityLogPage() {
                 </SidebarInset>
             </SidebarProvider>
         );
+    }
+    
+    const openDocumentViewer = (artifact: Artifact) => {
+        if(artifact.type === 'image'){
+            setViewerArtifact(artifact);
+        }
     }
 
     return (
@@ -131,10 +143,10 @@ export default function ActivityLogPage() {
                                     </div>
                                     <div className="flex items-center gap-2">
                                         <span className="text-sm text-muted-foreground">{currentIndex + 1} / {clutchDoneCases.length}</span>
-                                        <Button variant="outline" size="icon" className="h-7 w-7" onClick={() => navigate('prev')}>
+                                        <Button variant="outline" size="icon" className="h-7 w-7" onClick={() => navigate('prev')} disabled={clutchDoneCases.length <= 1}>
                                             <ChevronLeft className="h-4 w-4" />
                                         </Button>
-                                        <Button variant="outline" size="icon" className="h-7 w-7" onClick={() => navigate('next')}>
+                                        <Button variant="outline" size="icon" className="h-7 w-7" onClick={() => navigate('next')} disabled={clutchDoneCases.length <= 1}>
                                             <ChevronRight className="h-4 w-4" />
                                         </Button>
                                     </div>
@@ -148,7 +160,7 @@ export default function ActivityLogPage() {
                             </div>
 
                             <div className="flex-1 overflow-y-auto px-8 pb-8">
-                                <ActivityTimeline activities={activityLog} artifacts={artifacts} />
+                                <ActivityTimeline activities={activityLog} artifacts={artifacts} onArtifactClick={openDocumentViewer} />
                             </div>
 
                             <div className="bg-background/80 backdrop-blur-sm p-4 border-t">
@@ -168,11 +180,21 @@ export default function ActivityLogPage() {
                             </div>
                         </div>
                         <aside className="w-[350px] border-l bg-background overflow-y-auto">
-                            <KeyDetails caseData={caseData} artifacts={artifacts} />
+                            <KeyDetails caseData={caseData} artifacts={artifacts} onArtifactClick={openDocumentViewer} />
                         </aside>
                     </main>
                 </div>
+                {viewerArtifact && (
+                    <DocumentViewer
+                        artifact={viewerArtifact}
+                        billOfSaleData={billOfSale}
+                        driversLicenseData={driversLicense}
+                        onOpenChange={(open) => !open && setViewerArtifact(null)}
+                    />
+                )}
             </SidebarInset>
         </SidebarProvider>
     );
 }
+
+    

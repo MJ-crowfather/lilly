@@ -322,8 +322,28 @@ export const baseArtifacts: Artifact[] = [
 ];
 
 export const specialArtifacts: Record<string, Artifact[]> = {
-    '94221': [{ id: 'art-passport', name: 'Passport', type: 'image' }],
-    '10538': [{ id: 'art-ontario', name: 'Ontario Photo ID', type: 'image' }]
+    '72590': [
+        { id: 'art-bos', name: 'Bill of Sale', type: 'image', href: '/BOS1.png' },
+        { id: 'art-dl', name: 'Driver\'s License', type: 'image', href: '/DL1.png' },
+    ],
+    '83145': [
+        { id: 'art-bos', name: 'Bill of Sale', type: 'image', href: '/BOS2.png' },
+        { id: 'art-dl', name: 'Driver\'s License', type: 'image', href: '/DL2.png' },
+    ],
+    '94221': [
+        { id: 'art-bos', name: 'Bill of Sale', type: 'image', href: '/BOS3.png' },
+        { id: 'art-dl', name: 'Driver\'s License', type: 'image', href: '/DL3.png' },
+        { id: 'art-passport', name: 'Passport', type: 'image', href: '/Passport.png' }
+    ],
+    '10538': [
+        { id: 'art-bos', name: 'Bill of Sale', type: 'image', href: '/BOS4.png' },
+        { id: 'art-dl', name: 'Driver\'s License', type: 'image', href: '/DL4.png' },
+        { id: 'art-ontario', name: 'Ontario Photo ID', type: 'image', href: '/ontario.png' }
+    ],
+    '11649': [
+        { id: 'art-bos', name: 'Bill of Sale', type: 'image', href: '/BOS5.png' },
+        { id: 'art-dl', name: 'Driver\'s License', type: 'image', href: '/DL5.png' },
+    ]
 };
 
 export type Activity = {
@@ -343,14 +363,4 @@ export const activityLog: Activity[] = [
 ];
     
 
-
-
-
-
-
-
     
-
-    
-
-

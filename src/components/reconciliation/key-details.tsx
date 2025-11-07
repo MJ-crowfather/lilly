@@ -10,7 +10,12 @@ import { Separator } from '@/components/ui/separator';
 import { ExternalLink, Maximize2, FileImage } from 'lucide-react';
 import { DocumentIcon, VideoIcon, DashboardIcon } from '@/components/ui/icons';
 
-const ArtifactLink = ({ artifact }: { artifact: Artifact }) => {
+type ArtifactLinkProps = {
+    artifact: Artifact;
+    onClick?: (artifact: Artifact) => void;
+};
+
+const ArtifactLink = ({ artifact, onClick }: ArtifactLinkProps) => {
     let icon;
     switch(artifact.type) {
         case 'document': icon = <DocumentIcon className="h-4 w-4" />; break;
@@ -21,22 +26,35 @@ const ArtifactLink = ({ artifact }: { artifact: Artifact }) => {
         default: icon = <DocumentIcon className="h-4 w-4" />;
     }
 
+    const commonProps = {
+        className: "inline-flex items-center gap-2 text-foreground bg-muted hover:bg-muted/80 rounded-md p-2 text-xs w-full justify-start",
+    };
+
+    if (artifact.type === 'image') {
+        return (
+            <button onClick={() => onClick?.(artifact)} {...commonProps}>
+                {icon}
+                <span>{artifact.name}</span>
+            </button>
+        )
+    }
+
     return (
         <Link 
             href={artifact.href || '#'} 
-            className="inline-flex items-center gap-2 text-foreground bg-muted hover:bg-muted/80 rounded-md p-2 text-xs"
             target={artifact.external ? '_blank' : undefined}
             rel={artifact.external ? 'noopener noreferrer' : undefined}
+            {...commonProps}
         >
             {icon}
             <span className="text-xs">{artifact.name}</span>
-            {artifact.external && <ExternalLink className="h-3 w-3 text-muted-foreground" />}
+            {artifact.external && <ExternalLink className="h-3 w-3 text-muted-foreground ml-auto" />}
         </Link>
     )
 };
 
 
-export const KeyDetails = ({ caseData, artifacts }: { caseData: ClutchDoneCase, artifacts: Artifact[] }) => {
+export const KeyDetails = ({ caseData, artifacts, onArtifactClick }: { caseData: ClutchDoneCase, artifacts: Artifact[], onArtifactClick: (artifact: Artifact) => void }) => {
     return (
         <div className="p-4">
              <Accordion type="single" collapsible defaultValue="item-1">
@@ -76,7 +94,7 @@ export const KeyDetails = ({ caseData, artifacts }: { caseData: ClutchDoneCase, 
             <div className="space-y-4">
                  <h3 className="text-xs font-semibold">Artifacts</h3>
                  <div className="flex flex-col items-start gap-3">
-                    {artifacts.map(artifact => <ArtifactLink key={artifact.id} artifact={artifact} />)}
+                    {artifacts.map(artifact => <ArtifactLink key={artifact.id} artifact={artifact} onClick={onArtifactClick} />)}
                  </div>
             </div>
         </div>
