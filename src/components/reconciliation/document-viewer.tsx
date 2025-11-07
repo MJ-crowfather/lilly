@@ -3,7 +3,7 @@
 
 import * as React from 'react';
 import Image from 'next/image';
-import { Dialog, DialogContent } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
@@ -84,6 +84,8 @@ export function DocumentViewer({ artifact, billOfSaleData, driversLicenseData, o
   return (
     <Dialog open={true} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-6xl h-[90vh] p-0 gap-0">
+        <DialogTitle className="sr-only">{artifact.name}</DialogTitle>
+        <DialogDescription className="sr-only">A modal with document details and an image viewer.</DialogDescription>
         <div className="grid grid-cols-12 h-full">
             {/* Left Panel: Extracted Data */}
             <div className="col-span-5 border-r flex flex-col">
@@ -138,5 +140,3 @@ export function DocumentViewer({ artifact, billOfSaleData, driversLicenseData, o
     </Dialog>
   );
 }
-
-    
