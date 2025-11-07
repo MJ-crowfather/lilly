@@ -43,7 +43,15 @@ const ActivityLogHeader = () => {
 const formatPath = (path: string, company: 'Eli Lilly' | 'Clutch' | 'skunk works') => {
   if (path.startsWith('/data/')) {
     const isClutch = company === 'Clutch';
-    const dataSetName = isClutch ? 'Bill of Sale Dataset' : 'AE/PC Report Sheet';
+    let dataSetName = 'AE/PC Report Sheet'; // Default for Lilly
+    if (isClutch) {
+        if (path.includes('bill-of-sale')) {
+            dataSetName = 'Bill of Sale Dataset';
+        } else if (path.includes('drivers-license')) {
+            dataSetName = "Driver's License Dataset";
+        }
+    }
+
     return (
       <div className="flex items-center gap-2 text-xs">
         <Link href="/data" className="flex items-center gap-1 text-muted-foreground hover:text-foreground">
