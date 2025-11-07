@@ -17,6 +17,15 @@ import { useCompany } from '@/components/company-provider';
 import { PaceIcon } from '@/components/pace-icon';
 
 
+const dashboardUrlMap: Record<string, string> = {
+    '72590': 'https://ben-staging.vercel.app/dashboard/order/C-YRSRVHD6', // Christopher Merjanian
+    '83145': 'https://ben-staging.vercel.app/dashboard/order/C-R1WCSQH6', // Jessica Miller
+    '94221': 'https://ben-staging.vercel.app/dashboard/order/C-KKZ9X4MH', // Michael Smith
+    '10538': 'https://ben-staging.vercel.app/dashboard/order/C-476OERXH', // Emily Johnson
+    '11649': 'https://ben-staging.vercel.app/dashboard/order/C-SI57QIJG', // David Williams
+};
+
+
 export default function ActivityLogPage() {
     const { company } = useCompany();
     const router = useRouter();
@@ -34,7 +43,9 @@ export default function ActivityLogPage() {
             setCurrentIndex(newIndex);
         } else {
             // If the stockId is not found, maybe redirect to the main done page.
-            router.push('/done');
+            if(clutchDoneCases.length > 0) {
+                router.push('/done');
+            }
         }
     }, [stockId, router]);
     
@@ -66,16 +77,21 @@ export default function ActivityLogPage() {
         return newLog;
     }, [stockId]);
 
-    const getArtifactsForCase = (stockId: string): Artifact[] => {
+    const getArtifactsForCase = React.useCallback((stockId: string): Artifact[] => {
         const caseSpecialArtifacts = specialArtifacts[stockId] || [];
-        const activityArtifacts = activityLog.flatMap(a => a.artifacts || []);
         
-        // Combine and remove duplicates
-        const allArtifacts = [...baseArtifacts, ...caseSpecialArtifacts, ...activityArtifacts];
+        // Combine and remove duplicates, creating a deep copy to avoid mutation
+        const allArtifacts = [...baseArtifacts, ...caseSpecialArtifacts].map(a => ({...a}));
+        
+        const dashboardArtifact = allArtifacts.find(a => a.id === 'art-dash');
+        if (dashboardArtifact) {
+            dashboardArtifact.href = dashboardUrlMap[stockId] || 'https://ben-staging.vercel.app/';
+        }
+
         const uniqueArtifacts = Array.from(new Map(allArtifacts.map(item => [item.id, item])).values());
         
         return uniqueArtifacts;
-    };
+    }, [stockId]);
     
     const artifacts = getArtifactsForCase(stockId);
 
@@ -132,7 +148,7 @@ export default function ActivityLogPage() {
                             </div>
 
                             <div className="flex-1 overflow-y-auto px-8 pb-8">
-                                <ActivityTimeline activities={activityLog} />
+                                <ActivityTimeline activities={activityLog} artifacts={artifacts} />
                             </div>
 
                             <div className="bg-background/80 backdrop-blur-sm p-4 border-t">

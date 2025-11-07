@@ -32,7 +32,12 @@ const ArtifactPill = ({ artifact }: { artifact: Artifact }) => {
     )
 };
 
-export const ActivityTimeline = ({ activities }: { activities: Activity[] }) => {
+export const ActivityTimeline = ({ activities, artifacts: allArtifacts }: { activities: Activity[], artifacts: Artifact[] }) => {
+
+    const getArtifactById = (id: string) => {
+        return allArtifacts.find(a => a.id === id);
+    }
+    
     return (
         <div className="relative">
             {activities.map((activity, index) => {
@@ -41,6 +46,9 @@ export const ActivityTimeline = ({ activities }: { activities: Activity[] }) => 
                     console.error("Invalid timestamp for activity:", activity);
                     return null;
                 }
+
+                // Get full artifact objects for the current activity
+                const activityArtifacts = activity.artifacts?.map(a => getArtifactById(a.id)).filter((a): a is Artifact => !!a) || [];
 
                 return (
                     <div key={activity.id} className="flex items-start gap-4 mb-16">
@@ -56,7 +64,7 @@ export const ActivityTimeline = ({ activities }: { activities: Activity[] }) => 
                         <div className="flex-1 pt-0 ml-2">
                             <p className="text-sm">{activity.description}</p>
                             <div className="mt-2 flex flex-wrap gap-2">
-                                {activity.artifacts?.map(artifact => <ArtifactPill key={artifact.id} artifact={artifact} />)}
+                                {activityArtifacts.map(artifact => <ArtifactPill key={artifact.id} artifact={artifact} />)}
                             </div>
                         </div>
                     </div>
@@ -65,5 +73,3 @@ export const ActivityTimeline = ({ activities }: { activities: Activity[] }) => 
         </div>
     );
 };
-
-    

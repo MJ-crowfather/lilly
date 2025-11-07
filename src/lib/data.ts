@@ -314,7 +314,7 @@ export type Artifact = {
 export const baseArtifacts: Artifact[] = [
     { id: 'art-bos', name: 'Bill of Sale', type: 'image' },
     { id: 'art-dl', name: 'Driver\'s License', type: 'image' },
-    { id: 'art-dash', name: 'Dashboard', type: 'dashboard', href: 'https://ben-staging.vercel.app/', external: true },
+    { id: 'art-dash', name: 'Dashboard', type: 'dashboard', href: '#', external: true },
     { id: 'art-video', name: 'Extraction Video', type: 'video' },
     { id: 'art-bos-dataset', name: 'BOS Dataset', type: 'document', href: '/data/bill-of-sale' },
     { id: 'art-dl-dataset', name: 'DL Dataset', type: 'document', href: '/data/drivers-license' },
@@ -331,15 +331,15 @@ export type Activity = {
     timestamp: string;
     status: 'completed' | 'in-progress';
     description: string;
-    artifacts?: Artifact[];
+    artifacts?: { id: string }[];
 };
 
 export const activityLog: Activity[] = [
-    { id: 'act1', timestamp: '2024-07-22T10:37:00Z', status: 'completed', description: 'Retrieved incomplete verification task from queue', artifacts: [baseArtifacts.find(a => a.id === 'art-dash')!] },
-    { id: 'act2', timestamp: '2024-07-22T10:38:00Z', status: 'completed', description: 'Documents captured successfully', artifacts: [baseArtifacts.find(a => a.id === 'art-bos')!, baseArtifacts.find(a => a.id === 'art-dl')!, baseArtifacts.find(a => a.id === 'art-video')!] },
-    { id: 'act3', timestamp: '2024-07-22T10:39:00Z', status: 'completed', description: 'OCR extraction completed — all key fields identified', artifacts: [baseArtifacts.find(a => a.id === 'art-bos-dataset')!, baseArtifacts.find(a => a.id === 'art-dl-dataset')!]},
-    { id: 'act4', timestamp: '2024-07-22T10:40:00Z', status: 'completed', description: 'Successfully completed Cross-document verification', artifacts: [baseArtifacts.find(a => a.id === 'art-bos-dataset')!, baseArtifacts.find(a => a.id === 'art-dl-dataset')!] },
-    { id: 'act5', timestamp: '2024-07-22T10:41:00Z', status: 'completed', description: 'Verification marked complete on Dashboard', artifacts: [baseArtifacts.find(a => a.id === 'art-verification-video')!] },
+    { id: 'act1', timestamp: '2024-07-22T10:37:00Z', status: 'completed', description: 'Retrieved incomplete verification task from queue', artifacts: [{ id: 'art-dash'}] },
+    { id: 'act2', timestamp: '2024-07-22T10:38:00Z', status: 'completed', description: 'Documents captured successfully', artifacts: [{ id: 'art-bos' }, { id: 'art-dl'}, { id: 'art-video'}] },
+    { id: 'act3', timestamp: '2024-07-22T10:39:00Z', status: 'completed', description: 'OCR extraction completed — all key fields identified', artifacts: [{ id: 'art-bos-dataset'}, { id: 'art-dl-dataset'}]},
+    { id: 'act4', timestamp: '2024-07-22T10:40:00Z', status: 'completed', description: 'Successfully completed Cross-document verification', artifacts: [{ id: 'art-bos-dataset'}, { id: 'art-dl-dataset'}] },
+    { id: 'act5', timestamp: '2024-07-22T10:41:00Z', status: 'completed', description: 'Verification marked complete on Dashboard', artifacts: [{ id: 'art-verification-video'}] },
 ];
     
 
@@ -352,3 +352,4 @@ export const activityLog: Activity[] = [
     
 
     
+
