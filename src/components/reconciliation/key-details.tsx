@@ -27,7 +27,7 @@ const ArtifactLink = ({ artifact, onClick }: ArtifactLinkProps) => {
     }
 
     const commonProps = {
-        className: "inline-flex items-center gap-2 text-foreground bg-muted hover:bg-muted/80 rounded-md p-2 text-xs w-full justify-start",
+        className: "inline-flex items-center gap-2 text-foreground bg-muted hover:bg-muted/80 rounded-md p-2 text-xs",
     };
 
     if (artifact.type === 'image' || artifact.type === 'video') {
