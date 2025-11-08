@@ -121,7 +121,7 @@ export function DocumentViewer({ artifact, billOfSaleData, driversLicenseData, o
                         <X className="h-4 w-4" />
                     </Button>
                 </div>
-                <div className="flex-1 p-4 flex items-center justify-center">
+                <div className="flex-1 p-4 flex items-center justify-center relative">
                     {artifact.href ? (
                         isVideo ? (
                             <video
@@ -134,9 +134,8 @@ export function DocumentViewer({ artifact, billOfSaleData, driversLicenseData, o
                             <Image
                                 src={artifact.href}
                                 alt={artifact.name}
-                                width={800}
-                                height={1000}
-                                className="object-contain max-w-full max-h-full rounded-md shadow-md"
+                                fill
+                                className="object-contain"
                             />
                         )
                     ) : (
