@@ -325,29 +325,34 @@ export const specialArtifacts: Record<string, Artifact[]> = {
     '72590': [
         { id: 'art-bos', href: '/BOS1.png' },
         { id: 'art-dl', href: '/DL1.png' },
-        { id: 'art-video', href: '/Chris1.webm'}
+        { id: 'art-video', href: '/Chris1.webm'},
+        { id: 'art-verification-video', href: '/Chris2.webm'}
     ],
     '83145': [
         { id: 'art-bos', href: '/BOS2.png' },
         { id: 'art-dl', href: '/DL2.png' },
-        { id: 'art-video', href: '/Jessica1.webm'}
+        { id: 'art-video', href: '/Jessica1.webm'},
+        { id: 'art-verification-video', href: '/Jessica2.webm'}
     ],
     '94221': [
         { id: 'art-bos', href: '/BOS3.png' },
         { id: 'art-dl', href: '/DL3.png' },
         { id: 'art-passport', name: 'Passport', type: 'image', href: '/Passport.png' },
-        { id: 'art-video', href: '/Micheal1.webm'}
+        { id: 'art-video', href: '/Micheal1.webm'},
+        { id: 'art-verification-video', href: '/Micheal2.webm'}
     ],
     '10538': [
         { id: 'art-bos', href: '/BOS4.png' },
         { id: 'art-dl', href: '/DL4.png' },
         { id: 'art-ontario', name: 'Ontario Photo ID', type: 'image', href: '/ontario.png' },
-        { id: 'art-video', href: '/Emily1.webm'}
+        { id: 'art-video', href: '/Emily1.webm'},
+        { id: 'art-verification-video', href: '/Emily2.webm'}
     ],
     '11649': [
         { id: 'art-bos', href: '/BOS5.png' },
         { id: 'art-dl', href: '/DL5.png' },
-        { id: 'art-video', href: '/David1.webm'}
+        { id: 'art-video', href: '/David1.webm'},
+        { id: 'art-verification-video', href: '/David2.webm'}
     ]
 };
 
