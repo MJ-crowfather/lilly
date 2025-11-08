@@ -314,7 +314,7 @@ export type Artifact = {
 export const baseArtifacts: Artifact[] = [
     { id: 'art-bos', name: 'Bill of Sale', type: 'image' },
     { id: 'art-dl', name: 'Driver\'s License', type: 'image' },
-    { id: 'art-dash', name: 'Dashboard', type: 'dashboard', href: 'https://ben-staging.vercel.app/', external: true },
+    { id: 'art-dash', name: 'Dashboard', type: 'dashboard', external: true },
     { id: 'art-video', name: 'Extraction Video', type: 'video' },
     { id: 'art-bos-dataset', name: 'BOS Dataset', type: 'document', href: '/data/bill-of-sale' },
     { id: 'art-dl-dataset', name: 'DL Dataset', type: 'document', href: '/data/drivers-license' },
@@ -323,26 +323,31 @@ export const baseArtifacts: Artifact[] = [
 
 export const specialArtifacts: Record<string, Artifact[]> = {
     '72590': [
-        { id: 'art-bos', name: 'Bill of Sale', type: 'image', href: '/BOS1.png' },
-        { id: 'art-dl', name: 'Driver\'s License', type: 'image', href: '/DL1.png' },
+        { id: 'art-bos', href: '/BOS1.png' },
+        { id: 'art-dl', href: '/DL1.png' },
+        { id: 'art-video', href: '/Chris1.webm'}
     ],
     '83145': [
-        { id: 'art-bos', name: 'Bill of Sale', type: 'image', href: '/BOS2.png' },
-        { id: 'art-dl', name: 'Driver\'s License', type: 'image', href: '/DL2.png' },
+        { id: 'art-bos', href: '/BOS2.png' },
+        { id: 'art-dl', href: '/DL2.png' },
+        { id: 'art-video', href: '/Jessica1.webm'}
     ],
     '94221': [
-        { id: 'art-bos', name: 'Bill of Sale', type: 'image', href: '/BOS3.png' },
-        { id: 'art-dl', name: 'Driver\'s License', type: 'image', href: '/DL3.png' },
-        { id: 'art-passport', name: 'Passport', type: 'image', href: '/Passport.png' }
+        { id: 'art-bos', href: '/BOS3.png' },
+        { id: 'art-dl', href: '/DL3.png' },
+        { id: 'art-passport', name: 'Passport', type: 'image', href: '/Passport.png' },
+        { id: 'art-video', href: '/Micheal1.webm'}
     ],
     '10538': [
-        { id: 'art-bos', name: 'Bill of Sale', type: 'image', href: '/BOS4.png' },
-        { id: 'art-dl', name: 'Driver\'s License', type: 'image', href: '/DL4.png' },
-        { id: 'art-ontario', name: 'Ontario Photo ID', type: 'image', href: '/ontario.png' }
+        { id: 'art-bos', href: '/BOS4.png' },
+        { id: 'art-dl', href: '/DL4.png' },
+        { id: 'art-ontario', name: 'Ontario Photo ID', type: 'image', href: '/ontario.png' },
+        { id: 'art-video', href: '/Emily1.webm'}
     ],
     '11649': [
-        { id: 'art-bos', name: 'Bill of Sale', type: 'image', href: '/BOS5.png' },
-        { id: 'art-dl', name: 'Driver\'s License', type: 'image', href: '/DL5.png' },
+        { id: 'art-bos', href: '/BOS5.png' },
+        { id: 'art-dl', href: '/DL5.png' },
+        { id: 'art-video', href: '/David1.webm'}
     ]
 };
 

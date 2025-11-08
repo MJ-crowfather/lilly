@@ -28,7 +28,7 @@ const ArtifactPill = ({ artifact, onClick }: ArtifactPillProps) => {
       className: "flex items-center gap-1.5 bg-muted hover:bg-muted/80 rounded-md px-2 py-1 text-xs cursor-pointer",
     };
 
-    if (artifact.type === 'image') {
+    if (artifact.type === 'image' || artifact.type === 'video') {
         return (
             <button onClick={() => onClick?.(artifact)} {...commonProps}>
                 {icon}

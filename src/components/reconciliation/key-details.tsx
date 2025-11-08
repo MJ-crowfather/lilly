@@ -30,7 +30,7 @@ const ArtifactLink = ({ artifact, onClick }: ArtifactLinkProps) => {
         className: "inline-flex items-center gap-2 text-foreground bg-muted hover:bg-muted/80 rounded-md p-2 text-xs w-full justify-start",
     };
 
-    if (artifact.type === 'image') {
+    if (artifact.type === 'image' || artifact.type === 'video') {
         return (
             <button onClick={() => onClick?.(artifact)} {...commonProps}>
                 {icon}
@@ -100,5 +100,3 @@ export const KeyDetails = ({ caseData, artifacts, onArtifactClick }: { caseData:
         </div>
     )
 }
-
-    

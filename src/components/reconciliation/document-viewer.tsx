@@ -67,6 +67,8 @@ export function DocumentViewer({ artifact, billOfSaleData, driversLicenseData, o
     const isPassport = artifact.id === 'art-passport';
     const isOntarioId = artifact.id === 'art-ontario';
 
+    const isVideo = artifact.type === 'video';
+
     let detailsContent;
     if (isBOS) {
         detailsContent = <BillOfSaleDetails data={billOfSaleData} />;
@@ -76,10 +78,9 @@ export function DocumentViewer({ artifact, billOfSaleData, driversLicenseData, o
         detailsContent = <OtherIdDetails data={driversLicenseData} type="Passport" />;
     } else if (isOntarioId) {
         detailsContent = <OtherIdDetails data={driversLicenseData} type="Ontario Photo ID" />;
-    } else {
+    } else if (!isVideo) {
         detailsContent = <p>No details available for this document type.</p>;
     }
-    
 
   return (
     <Dialog open={true} onOpenChange={onOpenChange}>
@@ -87,32 +88,34 @@ export function DocumentViewer({ artifact, billOfSaleData, driversLicenseData, o
         <DialogTitle className="sr-only">{artifact.name}</DialogTitle>
         <DialogDescription className="sr-only">A modal with document details and an image viewer.</DialogDescription>
         <div className="grid grid-cols-12 h-full">
-            {/* Left Panel: Extracted Data */}
-            <div className="col-span-5 border-r flex flex-col">
-                <div className="p-4 border-b flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                        <Button variant="ghost" size="icon" className="h-8 w-8"><Menu className="h-4 w-4" /></Button>
-                        <h2 className="font-semibold text-sm">{artifact.name}</h2>
+            
+            {!isVideo && (
+                <div className="col-span-5 border-r flex flex-col">
+                    <div className="p-4 border-b flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                            <Button variant="ghost" size="icon" className="h-8 w-8"><Menu className="h-4 w-4" /></Button>
+                            <h2 className="font-semibold text-sm">{artifact.name}</h2>
+                        </div>
+                        <div className="flex items-center gap-1">
+                            <Button variant="ghost" size="icon" className="h-8 w-8"><Download className="h-4 w-4" /></Button>
+                            <Button variant="ghost" size="icon" className="h-8 w-8"><Share className="h-4 w-4" /></Button>
+                            <Button variant="ghost" size="icon" className="h-8 w-8"><Maximize2 className="h-4 w-4" /></Button>
+                        </div>
                     </div>
-                    <div className="flex items-center gap-1">
-                        <Button variant="ghost" size="icon" className="h-8 w-8"><Download className="h-4 w-4" /></Button>
-                        <Button variant="ghost" size="icon" className="h-8 w-8"><Share className="h-4 w-4" /></Button>
-                        <Button variant="ghost" size="icon" className="h-8 w-8"><Maximize2 className="h-4 w-4" /></Button>
+                    <ScrollArea className="flex-1">
+                    <div className="p-6">
+                        {detailsContent}
                     </div>
+                    </ScrollArea>
                 </div>
-                <ScrollArea className="flex-1">
-                   <div className="p-6">
-                       {detailsContent}
-                   </div>
-                </ScrollArea>
-            </div>
+            )}
 
-            {/* Right Panel: Image */}
-            <div className="col-span-7 flex flex-col bg-muted/30">
+            
+            <div className={cn("flex flex-col bg-muted/30", isVideo ? "col-span-12" : "col-span-7")}>
                  <div className="p-4 border-b flex items-center justify-between bg-background">
                     <div className="relative w-full max-w-xs">
                         <Search className="absolute left-2 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                        <Input placeholder="Search PDF" className="pl-8 h-8 text-xs" />
+                        <Input placeholder="Search" className="pl-8 h-8 text-xs" />
                     </div>
                     <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => onOpenChange(false)}>
                         <X className="h-4 w-4" />
@@ -120,19 +123,28 @@ export function DocumentViewer({ artifact, billOfSaleData, driversLicenseData, o
                 </div>
                 <div className="flex-1 p-4 flex items-center justify-center">
                     {artifact.href ? (
-                        <Image
-                            src={artifact.href}
-                            alt={artifact.name}
-                            width={800}
-                            height={1000}
-                            className="object-contain max-w-full max-h-full rounded-md shadow-md"
-                        />
+                        isVideo ? (
+                            <video
+                                src={artifact.href}
+                                controls
+                                autoPlay
+                                className="object-contain max-w-full max-h-full rounded-md shadow-md"
+                            />
+                        ) : (
+                            <Image
+                                src={artifact.href}
+                                alt={artifact.name}
+                                width={800}
+                                height={1000}
+                                className="object-contain max-w-full max-h-full rounded-md shadow-md"
+                            />
+                        )
                     ) : (
-                        <div className="text-muted-foreground">Image not available</div>
+                        <div className="text-muted-foreground">Media not available</div>
                     )}
                 </div>
                  <div className="p-2 border-t flex items-center justify-center bg-background">
-                    <p className="text-xs text-muted-foreground">Page 1 / 1</p>
+                    <p className="text-xs text-muted-foreground">{isVideo ? 'Video Player' : 'Page 1 / 1'}</p>
                 </div>
             </div>
         </div>

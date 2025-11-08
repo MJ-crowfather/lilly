@@ -2,7 +2,7 @@
 'use client';
 
 import * as React from 'react';
-import { useRouter, useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { AppHeader } from '@/components/layout/app-header';
 import { AppSidebar } from '@/components/layout/app-sidebar';
@@ -91,7 +91,7 @@ export default function ActivityLogPage() {
         }
 
         return uniqueArtifacts;
-    }, [stockId]);
+    }, []);
     
     const artifacts = getArtifactsForCase(stockId);
 
@@ -118,7 +118,7 @@ export default function ActivityLogPage() {
     }
     
     const openDocumentViewer = (artifact: Artifact) => {
-        if(artifact.type === 'image'){
+        if(artifact.type === 'image' || artifact.type === 'video'){
             setViewerArtifact(artifact);
         }
     }
@@ -196,5 +196,3 @@ export default function ActivityLogPage() {
         </SidebarProvider>
     );
 }
-
-    
